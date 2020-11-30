@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  prometheus: 
+    image: prom/prometheus:latest
+    ports: 
+      - 9090:9090
+    depends_on: 
+      - node-exporter
+      - mysql-exporter
+    links: 
+      - node-exporter
+      - mysql-exporter
+    volumes: 
+      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data:/prometheus
+    restart: always
+  grafana:
+    image: grafana/grafana:latest
+    ports: 
+      - 3003:3000
+    volumes: 
+      - ./conf/grafana.ini:/etc/grafana/grafana.ini
+      - ./plugins/:/var/lib/grafana/plugins
+      - ./grafanaData:/var/lib/grafana
+    restart: always
+     environment:
+       GF_SECURITY_ADMIN_PASSWORD: admin
+#       GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,raintank-worldping-app,grafana-piechart-panel
+      # GF_INSTALL_PLUGINS: grafana-piechart-panel
+  node-exporter:
+    image: prom/node-exporter
+    ports: 
+      - 9100:9100
+    restart: always
+    volumes: 
+      - ./proc:/host/proc
+      - ./sys:/host/sys
+      - /:/rootfs 
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    ports: 
+      - 9104:9104
+    restart: always
+    environment: 
+      DATA_SOURCE_NAME: ${SQLROUTE}
+      

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: mango-gateway-prod
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.198.189.114:8848
+      config:
+        server-addr: 139.198.189.114:8848
+        file-extension: yml
+        namespace: 6a8508d5-903c-4577-bd35-870220a4f5d7
+        group: PROD_GROUP

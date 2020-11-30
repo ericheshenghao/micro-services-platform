@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  mango-dashboard:
+    build: .
+    ports:
+      - 3002:3002

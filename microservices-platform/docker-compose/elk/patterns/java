@@ -1,0 +1,4 @@
+# user-center
+MYAPPNAME ([0-9a-zA-Z_-]*)
+# RMI TCP Connection(2)-127.0.0.1
+MYTHREADNAME ([0-9a-zA-Z._-]|\(|\)|\s)*

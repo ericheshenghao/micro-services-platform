@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: log-center-dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.198.189.114:8848
+      config:
+        server-addr: 139.198.189.114:8848
+        file-extension: yml
+        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        group: DEV_GROUP

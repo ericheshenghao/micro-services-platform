@@ -1,0 +1,15 @@
+#端口    
+server.port: 5601    
+#主机
+server.host: "0.0.0.0"
+#Kibana服务名
+server.name: "kibana"
+#es的地址
+elasticsearch.hosts: ["http://es7:9200"]
+#kibana在es中的索引
+kibana.index: ".kibana"
+#kibana访问es的用户名和密码
+elasticsearch.username: "kibana"
+elasticsearch.password: "vfACoEwlS5HFM1O78A6e"
+#使用中文
+i18n.locale: "zh-CN"

@@ -1,0 +1,8 @@
+server:
+  port: 7200
+
+spring:
+  application:
+    name: log-center
+  main:
+    allow-bean-definition-overriding: true

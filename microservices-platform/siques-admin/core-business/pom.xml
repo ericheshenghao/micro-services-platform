@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.siques</groupId>
+        <artifactId>siques-admin</artifactId>
+        <version>4.2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>core-business</artifactId>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+<!--        数据库包-->
+        <dependency>
+        <groupId>cn.siques</groupId>
+        <artifactId>siques-db-spring-boot-starter</artifactId>
+    </dependency>
+
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-common-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-ribbon-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-sentinel-spring-boot-starter</artifactId>
+        </dependency>
+
+
+        <!--        验证码，过后研究 TODO-->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+        </dependency>
+
+
+
+        <!--        消息通信-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-amqp</artifactId>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-redis-spring-boot-starter</artifactId>
+        </dependency>
+
+    <!--        服务注册与发现-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--        服务配置-->
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-config</artifactId>
+        </dependency>
+        <!--        服务监控-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+
+<!--        &lt;!&ndash;        服务接口文档&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.spring4all</groupId>-->
+<!--            <artifactId>swagger-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+
+
+
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+
+
+        <!-- rpc调用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+
+
+
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>search-client</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                &lt;!&ndash;加入下面两项配置&ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <includeSystemScope>true</includeSystemScope>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>1.0.0</version>-->
+<!--                <configuration>-->
+
+<!--                    <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
+<!--                    &lt;!&ndash;                    <dockerDirectory>${basedir}/docker</dockerDirectory> &lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash; 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 &ndash;&gt;-->
+<!--                    <baseImage>java</baseImage>-->
+<!--                    <workdir>/ROOT</workdir>-->
+<!--                    <cmd>["java", "-version"]</cmd>-->
+<!--                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar","&#45;&#45;spring.profiles.active=prod"]</entryPoint>-->
+<!--                    <resources>-->
+<!--                        <resource>-->
+<!--                            <targetPath>/ROOT</targetPath>-->
+<!--                            <directory>${project.build.directory}</directory>-->
+<!--                            <include>${project.build.finalName}.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                    <serverId>docker-aliyun</serverId>-->
+
+<!--                    <registryUrl>${docker.repository}</registryUrl>-->
+
+<!--                    <pushImage>true</pushImage>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>build-image</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash;                   <execution>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       <id>tag-image</id>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       <phase>package</phase>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       <goals>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                           <goal>tag</goal>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       </goals>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       <configuration>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                           <image>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}</image>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                           <newName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</newName>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                       </configuration>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                   </execution>&ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>push-image</id>-->
+<!--                        <phase>deploy</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>push</goal>-->
+<!--                        </goals>-->
+
+<!--                        <configuration>-->
+
+<!--                            <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
+<!--        </plugins>-->
+<!--    </build>-->
+
+
+</project>

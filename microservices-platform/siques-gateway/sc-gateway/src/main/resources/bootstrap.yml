@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: siques-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.198.189.114:8848
+      config:
+        server-addr: 139.198.189.114:8848
+        file-extension: yml

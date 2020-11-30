@@ -1,0 +1,54 @@
+# filebeat.config:
+#   modules:
+#     path: ${path.config}/modules.d/*.yml
+#     reload.enabled: true
+
+# filebeat.autodiscover:
+#   providers:
+#     - type: docker
+#       hints.enabled: true
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - D:\web\shenghao-nestjs\server\db\mysql-slow.log
+    fields:
+      docType: mysqlslowlogs
+    exclude_lines: ['^\# Time']
+    multiline:
+      pattern: '^\# Time|^\# User'
+      negate: true
+      match: after
+  - type: log
+    enabled: true
+    paths:
+      - D:\web\mango-platform-practice\logs\application\*\*.log
+    exclude_lines: ['\sDEBUG\s\d']
+    exclude_files: ['sc-admin.*.log$']
+    fields:
+      docType: sys-log
+      project: microservices-platform
+    multiline:
+      pattern: '^\[\S+:\S+:\d{2,}] '
+      negate: true
+      match: after
+  - type: log
+    enabled: true
+    paths:
+      - D:\web\mango-platform-practice\logs\point\*.log
+    fields:
+      docType: point-log
+      project: microservices-platform
+
+output.logstash:
+  hosts: ["localhost:5044"]
+  bulk_max_size: 2048
+
+processors:
+  - add_cloud_metadata: ~
+
+# output.elasticsearch:
+#   hosts: '${ELASTICSEARCH_HOSTS:es7:9200}'
+#   username: '${ELASTICSEARCH_USERNAME:}'
+#   password: '${ELASTICSEARCH_PASSWORD:}'

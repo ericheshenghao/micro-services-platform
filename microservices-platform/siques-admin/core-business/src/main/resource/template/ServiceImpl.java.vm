@@ -1,0 +1,40 @@
+package ${package}.${moduleName}.service.impl;
+
+import cn.central.common.Page.MybatisPageHelper;
+import cn.central.common.Page.PageRequest;
+import cn.central.common.Page.PageResult;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.service.${className}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * ${comments}
+ * </p>
+ *
+ * @package: ${package}.${moduleName}.service.impl
+ * @description: ${comments}
+ * @author: ${author}
+ * @date: Created in ${datetime}
+ * @copyright: Copyright (c) ${year}
+ * @version: V1.0
+ * @modified: ${author}
+ */
+@Service
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
+
+
+    @Autowired
+    ${className}Mapper ${classname}Mapper;
+
+    @Override
+    public PageResult findPage(PageRequest pageRequest) {
+        PageResult page = MybatisPageHelper.findPage(pageRequest, ${classname}Mapper);
+        return page;
+    }
+}

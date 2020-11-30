@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.siques</groupId>
+        <artifactId>search-center</artifactId>
+        <version>4.2.0</version>
+    </parent>
+
+
+    <artifactId>search-server</artifactId>
+    <description>搜索中心服务器端</description>
+
+
+
+<dependencies>
+
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>cn.siques</groupId>
+        <artifactId>siques-common-spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>cn.siques</groupId>
+        <artifactId>search-client</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>cn.siques</groupId>
+        <artifactId>siques-elasticsearch-spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-extension</artifactId>
+    </dependency>
+
+    <!-- swagger -->
+    <dependency>
+        <groupId>com.spring4all</groupId>
+        <artifactId>swagger-spring-boot-starter</artifactId>
+    </dependency>
+
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+</dependencies>
+
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--加入下面两项配置-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+
+                    <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>
+                    <!--                    <dockerDirectory>${basedir}/docker</dockerDirectory> &lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;-->
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 -->
+                    <baseImage>java</baseImage>
+                    <workdir>/ROOT</workdir>
+                    <cmd>["java", "-version"]</cmd>
+                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar","--spring.profiles.active=prod"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/ROOT</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <serverId>docker-aliyun</serverId>
+
+                    <registryUrl>${docker.repository}</registryUrl>
+
+                    <pushImage>true</pushImage>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <!--                   <execution>-->
+                    <!--                       <id>tag-image</id>-->
+                    <!--                       <phase>package</phase>-->
+                    <!--                       <goals>-->
+                    <!--                           <goal>tag</goal>-->
+                    <!--                       </goals>-->
+                    <!--                       <configuration>-->
+                    <!--                           <image>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}</image>-->
+                    <!--                           <newName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</newName>-->
+                    <!--                       </configuration>-->
+                    <!--                   </execution>-->
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+</project>
