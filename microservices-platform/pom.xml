@@ -13,9 +13,6 @@
         <module>siques-oauth</module>
         <module>siques-monitor</module>
         <module>siques-config</module>
-
-
-
     </modules>
     <packaging>pom</packaging>
 

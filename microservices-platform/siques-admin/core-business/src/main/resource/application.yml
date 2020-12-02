@@ -112,7 +112,7 @@ spring:
   application:
     name: core-business
   redis:
-    host: 106.54.247.224
+    host: 139.198.176.14
     port: 6379
     database: 0
     expiration: 1800

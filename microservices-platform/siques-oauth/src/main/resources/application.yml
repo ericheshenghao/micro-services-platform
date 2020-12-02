@@ -10,7 +10,7 @@ spring:
     password: l1itdhjaoiqw32kwqe$5asasd*a21
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 106.54.247.224
+    host: 139.198.176.14
     port: 6379
     database: 1
     expiration: 1800
