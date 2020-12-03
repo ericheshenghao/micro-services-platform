@@ -8,7 +8,7 @@ metadata:
   generation: 1
   labels:
     cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: deployment-default-search-cneter
+    workload.user.cattle.io/workloadselector: deployment-default-search-center
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -78,7 +78,7 @@ metadata:
                 f:workload.user.cattle.io/workloadselector: {}
             f:spec:
               f:containers:
-                k:{"name":"search-cneter"}:
+                k:{"name":"search-center"}:
                   .: {}
                   f:image: {}
                   f:imagePullPolicy: {}
@@ -115,10 +115,10 @@ metadata:
       manager: rancher
       operation: Update
       time: "2020-12-03T09:11:40Z"
-  name: search-cneter
+  name: search-center
   namespace: default
   resourceVersion: "41015"
-  selfLink: /apis/apps/v1/namespaces/default/deployments/search-cneter
+  selfLink: /apis/apps/v1/namespaces/default/deployments/search-center
   uid: a332546e-6bb7-40c8-a2e2-d4657b803f7f
 spec:
   progressDeadlineSeconds: 600
@@ -126,7 +126,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-default-search-cneter
+      workload.user.cattle.io/workloadselector: deployment-default-search-center
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -136,15 +136,15 @@ spec:
     metadata:
       annotations:
         cattle.io/timestamp: "2020-12-03T09:11:40Z"
-        field.cattle.io/ports: '[[{"containerPort":7100,"dnsName":"search-cneter","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
+        field.cattle.io/ports: '[[{"containerPort":7100,"dnsName":"search-center","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
       creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: deployment-default-search-cneter
+        workload.user.cattle.io/workloadselector: deployment-default-search-center
     spec:
       containers:
-        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/search-cneter:v0.1
+        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/search-center:v0.1
           imagePullPolicy: Always
-          name: search-cneter
+          name: search-center
           ports:
             - containerPort: 7100
               name: main
@@ -177,7 +177,7 @@ status:
       type: Available
     - lastTransitionTime: "2020-12-03T09:11:40Z"
       lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: ReplicaSet "search-cneter-97c78b954" is progressing.
+      message: ReplicaSet "search-center-97c78b954" is progressing.
       reason: ReplicaSetUpdated
       status: "True"
       type: Progressing
