@@ -1,6 +1,6 @@
 spring:
   application:
-    name: siques-gateway-prod
+    name: siques-oauth-prod
   cloud:
     nacos:
       discovery:

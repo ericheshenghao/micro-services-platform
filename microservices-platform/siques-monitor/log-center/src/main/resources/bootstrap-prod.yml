@@ -1,6 +1,6 @@
 spring:
   application:
-    name: siques-gateway-prod
+    name: log-center-prod
   cloud:
     nacos:
       discovery:
