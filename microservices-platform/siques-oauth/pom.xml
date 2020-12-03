@@ -48,6 +48,11 @@
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-config</artifactId>
+        </dependency>
+
         <!--        服务接口文档-->
         <dependency>
             <groupId>com.spring4all</groupId>
