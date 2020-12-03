@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/pub/")
-@Api(description = "SysLoginController", tags = {"认证相关结构"})
+@Api(tags = {"认证相关结构"})
 public class SysLoginController {
     @Autowired
     private Producer producer;

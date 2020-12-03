@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/pri/sysClientDetails")
-@Api(description = "SysClientDetailsController", tags = {"客户端接口"})
+@Api(tags = {"客户端接口"})
 public class SysClientDetailsController {
 
     @Autowired

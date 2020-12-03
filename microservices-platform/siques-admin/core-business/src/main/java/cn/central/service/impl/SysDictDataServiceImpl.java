@@ -43,7 +43,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         List<SysDictData> list = sysDictDataMapper.selectList(wrapper);
 
         List<SysDictData> parent = list.stream().filter(sysDictData ->
-                sysDictData.getParentCode().equals("0")).collect(Collectors.toList());
+                "0".equals(sysDictData.getParentCode())).collect(Collectors.toList());
 
         List<SysDictData>  res= findChildren(list,parent);
 

@@ -1,38 +1,23 @@
 package cn.central.controller;
 
 
-
 import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
 import cn.central.common.annotation.LoginUser;
 import cn.central.common.constant.AdminConstants;
-
-import cn.central.common.exception.BusinessException;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
-import cn.central.controller.dto.UserRoleDto;
-
-import cn.central.dao.SysUserRoleMapper;
-import cn.central.entity.SysUserRole;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
-import cn.central.service.SysUserRoleService;
 import cn.central.service.SysUserService;
-
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import net.bytebuddy.implementation.bytecode.Throw;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,16 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pri/user")
-@Api(description = "SysUserController", tags = {"用户接口"})
+@Api(tags = {"用户接口"})
 public class SysUserController {
 
 
@@ -137,7 +117,9 @@ public class SysUserController {
         // 查询是否已有该用户
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",record.getUserCode()));
         // 如果没有，直接新增
-        if(user==null) return Result.succeed(sysUserService.save(record));
+        if(user==null) {
+            return Result.succeed(sysUserService.save(record));
+        }
         // 到这里说明数据库有该用户 判断是否为admin用户
         if( AdminConstants.ADMIN.equalsIgnoreCase(user.getUserCode())){
             return Result.failed("不允许修改超级管理员");

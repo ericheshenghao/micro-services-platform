@@ -24,7 +24,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/pri/codeGen")
-@Api(description = "SysUserController", tags = {"代码生成器接口"})
+@Api(tags = {"代码生成器接口"})
 public class SysCodeGenController {
     private   Logger logger = LoggerFactory.getLogger(this.getClass());
 

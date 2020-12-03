@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pri/menu")
-@Api(description = "SysMenuController", tags = {"菜单接口"})
+@Api(tags = {"菜单接口"})
 public class SysMenuController {
 
     @Autowired
@@ -42,16 +42,18 @@ public class SysMenuController {
     public Result save(@RequestBody SysMenu record) {
 
         List<String> parentArray = record.getParentArray();
-        if(parentArray.size()>0 && !parentArray.get(0).equals(""))   {
+        if(parentArray.size()>0 && !"".equals(parentArray.get(0)))   {
             System.out.println(parentArray.get(0));
 
             record.setParentId(Long.valueOf(parentArray.get(parentArray.size()-1)));
         }
-        else  record.setParentId(0l);
+        else {
+            record.setParentId(0L);
+        }
         
         StringBuilder builder = new StringBuilder();
 
-        parentArray.stream().filter(s -> !s.equals("")).forEach(s -> builder.append(s+","));
+        parentArray.stream().filter(s -> !"".equals(s)).forEach(s -> builder.append(s+","));
 
         record.setParentIds(builder.toString());
 

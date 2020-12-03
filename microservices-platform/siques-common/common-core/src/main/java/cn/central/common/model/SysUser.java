@@ -66,12 +66,24 @@ public class SysUser extends SuperEntity<SysUser> {
 
 	public Map<String,Object> toMap(){
         HashMap<String, Object> map = new HashMap<>();
-        if( ObjectUtil.isNotEmpty(userCode))  map.put("user_code",userCode);
-        if(ObjectUtil.isNotEmpty(loginCode))  map.put("login_code",loginCode);
-        if(ObjectUtil.isNotEmpty(userName))   map.put("user_name",userName);
-        if(ObjectUtil.isNotEmpty(email))   map.put("email",email);
-        if(ObjectUtil.isNotEmpty(mobile))  map.put("mobile",mobile);
-        if(ObjectUtil.isNotEmpty(status))  map.put("status",status);
+        if( ObjectUtil.isNotEmpty(userCode)) {
+            map.put("user_code",userCode);
+        }
+        if(ObjectUtil.isNotEmpty(loginCode)) {
+            map.put("login_code",loginCode);
+        }
+        if(ObjectUtil.isNotEmpty(userName)) {
+            map.put("user_name",userName);
+        }
+        if(ObjectUtil.isNotEmpty(email)) {
+            map.put("email",email);
+        }
+        if(ObjectUtil.isNotEmpty(mobile)) {
+            map.put("mobile",mobile);
+        }
+        if(ObjectUtil.isNotEmpty(status)) {
+            map.put("status",status);
+        }
           return map;
 	}
 }

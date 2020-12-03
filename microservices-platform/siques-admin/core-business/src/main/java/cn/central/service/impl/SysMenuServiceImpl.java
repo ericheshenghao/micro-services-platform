@@ -90,7 +90,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {})
     public int removeIdAndChild(Long id) {
            sysMenuMapper.deleteById(id);
           return sysMenuMapper.deleteChild(id);

@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/pri/sysLogger")
-@Api(description = "SysLoggerController", tags = {"日志接口"})
+@Api(tags = {"日志接口"})
 public class SysLoggerController {
 
     @Autowired
