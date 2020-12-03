@@ -11,6 +11,7 @@ import java.util.Map;
  * @author Louis
  * @date Aug 19, 2018
  */
+@SuppressWarnings("ALL")
 public class ReflectionUtils {
 
 

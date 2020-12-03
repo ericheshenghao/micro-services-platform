@@ -76,7 +76,7 @@ public class AuditLogAspect {
     /**
      * 解析spEL表达式
      */
-    private String getValBySpEL(String spEL, MethodSignature methodSignature, Object[] args) {
+    private String getvalbyspel(String spEL, MethodSignature methodSignature, Object[] args) {
         //获取方法形参名数组
         String[] paramNames = nameDiscoverer.getParameterNames(methodSignature.getMethod());
         if (paramNames != null && paramNames.length > 0) {
@@ -117,7 +117,7 @@ public class AuditLogAspect {
         if (operation.contains("#")) {
             //获取方法参数值
             Object[] args = joinPoint.getArgs();
-            operation = getValBySpEL(operation, methodSignature, args);
+            operation = getvalbyspel(operation, methodSignature, args);
         }
         audit.setOperation(operation);
 

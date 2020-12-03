@@ -49,9 +49,11 @@ public class SysMenu extends SuperEntity<SysMenu>  {
     private List<String> parentArray;
 
     public List<String> getParentArray() {
-        if(ObjectUtil.isNotNull(parentArray)) return parentArray;
+        if(ObjectUtil.isNotNull(parentArray)) {
+            return parentArray;
+        }
         return Arrays.asList(this.parentIds.split(","))
-                .stream().filter(s -> !s.equals("")).collect(Collectors.toList());
+                .stream().filter(s -> !"".equals(s)).collect(Collectors.toList());
     }
 
     private String url;

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pri/dict")
-@Api(description = "SysUserController", tags = {"字典接口"})
+@Api(tags = {"字典接口"})
 public class SysDictController {
     @Autowired
     private SysDictService sysDictService;

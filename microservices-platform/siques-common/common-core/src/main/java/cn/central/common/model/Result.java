@@ -15,8 +15,8 @@ import java.io.Serializable;
 public class Result<T> implements Serializable {
 
     private T datas;
-    private Integer resp_code;
-    private String resp_msg;
+    private Integer respCode;
+    private String respMsg;
 
     public static <T> Result<T> succeed(String msg) {
         return of(null, CodeEnum.SUCCESS.getCode(), msg);

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/pri/sysDictData")
-@Api(description = "SysDictDataController", tags = {"字典数据接口"})
+@Api( tags = {"字典数据接口"})
 public class SysDictDataController {
 
     @Autowired

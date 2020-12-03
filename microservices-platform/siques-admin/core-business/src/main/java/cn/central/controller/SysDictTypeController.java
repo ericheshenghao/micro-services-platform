@@ -38,7 +38,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/pri/sysDictType")
-@Api(description = "SysDictTypeController", tags = {"字典类型接口"})
+@Api(tags = {"字典类型接口"})
 public class SysDictTypeController {
 
     @Autowired

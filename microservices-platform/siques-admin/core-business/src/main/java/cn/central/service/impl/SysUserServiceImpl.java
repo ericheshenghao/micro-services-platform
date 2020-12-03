@@ -50,8 +50,11 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     @Override
     public Set<String> findPermission(String userCode) {
         List<SysMenu> sysMenus;
-        if(userCode.equals(AdminConstants.ADMIN)) sysMenus = sysMenuMapper.selectList(new QueryWrapper<SysMenu>());
-         else sysMenus = sysMenuMapper.findUserMenuByUserCode(userCode);
+        if(userCode.equals(AdminConstants.ADMIN)) {
+            sysMenus = sysMenuMapper.selectList(new QueryWrapper<SysMenu>());
+        } else {
+            sysMenus = sysMenuMapper.findUserMenuByUserCode(userCode);
+        }
 
         Set<String> perms = sysMenus.stream()
                 .filter(sysMenu -> sysMenu.getPerms() != null && !"".equals(sysMenu.getPerms()))

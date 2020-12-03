@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@Api(description = "SysUserController", tags = {"机构管理接口"})
+@Api(tags = {"机构管理接口"})
 @RestController
 @RequestMapping("/pri/office")
 public class SysOfficeController {
