@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mango-admin-prod
+    name: core-business-prod
   cloud:
     nacos:
       discovery:
