@@ -19,7 +19,7 @@ node_modules
 logs/
 server/
 microservice-fontend/
-microservices-fontend/
+mango-frontend/
 
 ### IntelliJ IDEA ###
 .idea

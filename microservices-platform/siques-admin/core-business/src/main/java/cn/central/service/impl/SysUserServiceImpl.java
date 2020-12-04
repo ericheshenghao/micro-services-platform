@@ -28,10 +28,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author heshenghao
+ */
 @Service
 public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
-    @Resource
-    SysUserMapper sysUserMapper;
 
     @Resource
     SysMenuMapper sysMenuMapper;
@@ -63,24 +64,12 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     }
 
 
-    @Override
-    public IPage<SysUser> findUsersByOfficeId(IPage page, Long deptId) {
-        return sysUserMapper.findUsersByOfficeId(page,deptId);
-    }
-
 
     @Override
     public int delUserRoleByUserId(Long id) {
         return sysUserRoleMapper.deleteByUserId(id);
     }
 
-
-    @Override
-    public  SysUser getUserInfo(String userCode) {
-        SysUser user = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("user_code", userCode));
-        user.setPermissions(findPermission(userCode));
-        return user;
-    }
 
 
     public  Result findPage(PageRequest pageRequest,QueryWrapper<SysUser> queryWrapper){

@@ -14,6 +14,7 @@ import java.util.Set;
 
 /**
  * CrudService已经有findpage方法
+ * @author Administrator
  */
 public interface SysUserService extends IService<SysUser> {
 
@@ -24,18 +25,26 @@ public interface SysUserService extends IService<SysUser> {
      */
     Set<String> findPermission(String userCode);
 
-
-
-    IPage<SysUser> findUsersByOfficeId(IPage page, Long deptId);
-
-
+    /**
+     * 根据id 删除用户角色
+     * @param id
+     * @return
+     */
     int delUserRoleByUserId(Long id);
 
-
-    SysUser getUserInfo(String userCode);
-
+    /**
+     * 根据id 删除用户角色
+     * @param pageRequest
+     * @return
+     */
     Result findPage(PageRequest pageRequest);
 
+
+    /**
+     * 保存用户角色
+     * @param record
+     * @return
+     */
     boolean saveUserRoles(SysUser record);
 
 }

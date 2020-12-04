@@ -9,6 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * @author  heshenghao
+ */
 @Data
 @Validated
 @ConfigurationProperties("spring")

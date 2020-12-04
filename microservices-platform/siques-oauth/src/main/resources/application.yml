@@ -1,26 +1,31 @@
-#server:
-#  port: 8984
-#
-#spring:
-#  application:
-#    name: siques-oauth
-#  datasource:
-#    url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
-#    username: root
-#    password: l1itdhjaoiqw32kwqe$5asasd*a21
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  redis:
-#    host: 139.198.176.14
-#    port: 6379
-#    database: 1
-#    expiration: 1800
-#    password: heshenghao
-#
-#logging:
-#  level:
-#    org.springframework.security: debug
-#mybatis-plus:
-#  global-config:
-#    banner: false
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8984
+
+spring:
+  application:
+    name: uaa-server
+  datasource:
+    url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: l1itdhjaoiqw32kwqe$5asasd*a21
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 139.198.176.14
+    port: 6379
+    database: 1
+    expiration: 1800
+    password: heshenghao
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.198.189.114:8848
+        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+
+logging:
+  level:
+    org.springframework.security: debug
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

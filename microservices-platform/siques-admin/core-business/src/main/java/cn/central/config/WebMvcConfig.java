@@ -4,7 +4,7 @@ import cn.central.common.config.DefaultWebMvcConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author zlt
+ * @author heshenghao
  * @date 2019/8/5
  */
 @Configuration

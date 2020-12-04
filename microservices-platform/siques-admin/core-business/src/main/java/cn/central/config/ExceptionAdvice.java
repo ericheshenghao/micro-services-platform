@@ -5,7 +5,7 @@ import cn.central.common.exception.DefaultExceptionAdvice;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
- * @author zlt
+ * @author  heshenghao
  * @date 2018/12/22
  */
 @ControllerAdvice

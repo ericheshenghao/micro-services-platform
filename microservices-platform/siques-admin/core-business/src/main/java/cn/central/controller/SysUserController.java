@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Set;
 
+/**
+ * @author Shenghao.He
+ */
 @RestController
 @RequestMapping("/pri/user")
 @Api(tags = {"用户接口"})
@@ -42,28 +46,6 @@ public class SysUserController {
     @Autowired
     private IQueryService queryService;
 
-//    @PreAuthorize("@el.check('sys:user:edit')")
-//    @PostMapping("/saveRole/{id}")
-//    @ApiOperation(value = "保存用户角色关系", notes = "保存用户角色关系")
-//    @Transactional
-//    public Result saveRole(@RequestBody List<SysUserRole> userRoleList, @PathVariable("id") Long userId){
-//        // 删除所有已指定的角色关系
-//        sysUserService.delUserRoleByUserId(userId);
-//        // 如果size为0，只删除即可
-//        if(userRoleList.size()==0) return Result.succeed("");
-//
-//        SysUser user = sysUserService.getById(userId);
-//
-//        if(AdminConstants.ADMIN.equalsIgnoreCase(user.getUserCode())){
-//            return Result.failed("管理员不允许修改");
-//        }
-//        userRoleList.forEach(sysUserRole -> {
-//            // id必须一致
-//            if(sysUserRole.getUserId()==userId)  sysUserRoleMapper.insert(sysUserRole);
-//            else throw new BusinessException("业务异常");
-//        });
-//        return Result.succeed("");
-//    }
 
     @PreAuthorize("@el.check('sys:user:edit')")
     @PutMapping("/password/{id}")
@@ -94,12 +76,6 @@ public class SysUserController {
     }
 
 
-//    @PreAuthorize("@el.check('sys:user:view')")
-//    @PostMapping("/searchUser")
-//    @ApiOperation(value = "条件搜索用户", notes = "条件搜索用户")
-//    public Result searchUser(@RequestBody PageRequest<SysUser> pageRequest){
-//        return sysUserService.findPage(pageRequest);
-//    }
 
     @PreAuthorize("@el.check('sys:user:view')")
     @PostMapping("/findPage")
@@ -142,42 +118,12 @@ public class SysUserController {
      */
     @ApiOperation(httpMethod="GET", value="根据用户code查询权限")
     @GetMapping("permissions/{userCode}")
+//    @Cacheable(value = "userPermission",key = "#userCode")
     public Set<String> findPermissionsByUserCode(@PathVariable String userCode){
         return sysUserService.findPermission(userCode);
     }
 
 
-    @ApiOperation(value = "获取用户权限及角色信息")
-    @GetMapping("info")
-    public Result getUserInfo(@LoginUser SysUser user){
-       return Result.succeed(sysUserService.getUserInfo(user.getUserCode()));
-    }
-
-//    /**
-//     * 一个用户可能含有多个角色
-//     * @param id
-//     * @return
-//     */
-//    @ApiOperation(httpMethod="GET", value="根据id查询用户角色")
-//    @PreAuthorize("@el.check('sys:role:view')")
-//    @GetMapping(value = "findUserRoles/{id}")
-//    public Result findUserRoles(@PathVariable("id") Long id){
-//        Set<Long> roleIds = sysUserRoleMapper.selectList(new QueryWrapper<SysUserRole>().eq("user_id",id))
-//                .stream().map(sysUserRole -> sysUserRole.getRoleId()).collect(Collectors.toSet());
-//        return Result.succeed(roleIds);
-//    }
-
-
-
-
-    @ApiOperation(httpMethod="POST", value="查询机构用户")
-    @PreAuthorize("@el.check('sys:user:view')")
-    @PostMapping("/findOfficeUser/{id}")
-    public Result findOfficeUser(@PathVariable("id") Long id, @RequestBody PageRequest pageRequest){
-        IPage<SysUser> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-
-        return Result.succeed(sysUserService.findUsersByOfficeId(page,id));
-    }
 
     private static final LogicDelDto SEARCH_LOGIC_DEL_DTO = new LogicDelDto("status", "正常");
 
