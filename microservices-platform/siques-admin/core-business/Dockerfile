@@ -5,5 +5,5 @@ ADD ./target/core-business-4.2.0.jar core-business.jar
 EXPOSE 8083
 # 运行jar包
 #RUN sh -c 'touch /core-business.jar'
-
+RUN apk add --update ttf-dejavu fontconfig
 ENTRYPOINT ["java","-jar","/core-business.jar","--spring.profiles.active=prod"]
