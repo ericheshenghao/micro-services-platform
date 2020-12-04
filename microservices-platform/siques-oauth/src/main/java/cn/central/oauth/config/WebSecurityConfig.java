@@ -17,35 +17,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final ClientLogoutSuccessHandler clientLogoutSuccessHandler;
-    private final ClientLoginFailureHandler clientLoginFailureHandler;
+
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-//                .formLogin()
-//                .loginPage("/oauth/login")
-//                .failureHandler(clientLoginFailureHandler)
-//                .loginProcessingUrl("/authorization/form")
-//                .and()
-//                .logout()
-//                .logoutUrl("/oauth/logout")
-//                .logoutSuccessHandler(clientLogoutSuccessHandler)
-//                .and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .httpBasic().and() //授权码模式必须打开
-                .authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
-                .anyRequest()
-                .authenticated();
     }
 
     /**

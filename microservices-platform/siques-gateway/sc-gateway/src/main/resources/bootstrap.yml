@@ -1,6 +1,6 @@
 spring:
   application:
-    name: siques-gateway
+    name: sc-gateway
   cloud:
     nacos:
       discovery:

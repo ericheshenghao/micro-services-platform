@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+/**
+ * @author Shenghao.He
+ */
 @RestController
 @RequestMapping("/pri/codeGen")
 @Api(tags = {"代码生成器接口"})

@@ -3,6 +3,7 @@ package cn.central.oauth.service;
 
 
 import cn.central.oauth.entity.SysClientDetails;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationService;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author <a href="https://echocow.cn">EchoCow</a>
  * @date 2020/1/6 下午1:39
  */
-public interface SysClientDetailsService extends ClientDetailsService {
+public interface SysClientDetailsService extends IService<SysClientDetails> ,ClientDetailsService {
 
     /**
      * 通过客户端 id 查询

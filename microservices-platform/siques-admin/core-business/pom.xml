@@ -46,11 +46,6 @@
         </dependency>
 
 
-        <!--        验证码，过后研究 TODO-->
-        <dependency>
-            <groupId>com.github.whvcse</groupId>
-            <artifactId>easy-captcha</artifactId>
-        </dependency>
 
 
 
@@ -108,11 +103,7 @@
 
 
 
-        <dependency>
-            <groupId>com.github.penggle</groupId>
-            <artifactId>kaptcha</artifactId>
-            <version>2.3.2</version>
-        </dependency>
+
         <dependency>
             <groupId>cn.siques</groupId>
             <artifactId>search-client</artifactId>

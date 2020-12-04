@@ -53,4 +53,7 @@ public class Oauth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 // 获取 token 信息同样需要 basic 认证客户端信息
                 .checkTokenAccess("isAuthenticated()");
     }
+
+
+
 }

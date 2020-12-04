@@ -1,21 +1,12 @@
 package cn.central.controller;
 
 
-import cn.central.common.constant.AdminConstants;
-
 import cn.central.common.model.Result;
 import cn.central.common.model.SysRole;
-import cn.central.controller.dto.RoleMenuDto;
-import cn.central.dao.SysRoleOfficeMapper;
-import cn.central.dao.SysRoleMapper;
-
-import cn.central.dao.SysRoleMenuMapper;
 import cn.central.entity.SysRoleMenu;
-import cn.central.entity.SysRoleOffice;
 import cn.central.service.SysRoleMenuService;
 import cn.central.service.SysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+/**
+ * @author Shenghao.He
+ */
 @RestController
 @Api(tags = {"角色管理接口"})
 @RequestMapping("/pri/role")
@@ -34,8 +26,7 @@ public class SysRoleController {
     @Resource
     SysRoleService sysRoleService;
 
-    @Resource
-    private SysRoleOfficeMapper sysRoleOfficeMapper;
+
 
     @Resource
     private SysRoleMenuService sysRoleMenuService;
@@ -63,8 +54,6 @@ public class SysRoleController {
     @PreAuthorize("@el.check('sys:role:delete')")
     @Transactional
     public Result delete(@PathVariable("id") Long id){
-        // 删除角色机构关联关系
-        sysRoleOfficeMapper.delete(new QueryWrapper<SysRoleOffice>().eq("role_id",id));
         // 删除角色菜单关联关系
         sysRoleMenuService.remove(new QueryWrapper<SysRoleMenu>().eq("role_id",id));
         // 删除角色

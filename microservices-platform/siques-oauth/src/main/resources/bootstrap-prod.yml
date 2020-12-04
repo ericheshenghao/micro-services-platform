@@ -1,6 +1,6 @@
 spring:
   application:
-    name: siques-oauth-prod
+    name: uaa-server-prod
   cloud:
     nacos:
       discovery:
