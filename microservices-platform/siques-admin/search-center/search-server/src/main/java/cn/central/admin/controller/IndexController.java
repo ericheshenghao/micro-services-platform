@@ -4,7 +4,6 @@ import cn.central.admin.model.IndexDto;
 import cn.central.admin.properties.IndexProperties;
 import cn.central.admin.service.IIndexService;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package cn.central.db;
+package cn.central.auth;
 
 /**
  * Hello world!

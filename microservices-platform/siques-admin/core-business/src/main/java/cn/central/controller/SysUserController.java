@@ -1,8 +1,7 @@
 package cn.central.controller;
 
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.annotation.LoginUser;
+import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
@@ -12,14 +11,11 @@ import cn.central.search.service.IQueryService;
 import cn.central.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;

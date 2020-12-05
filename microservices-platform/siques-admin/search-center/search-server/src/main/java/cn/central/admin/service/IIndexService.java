@@ -1,7 +1,6 @@
 package cn.central.admin.service;
 
 import cn.central.admin.model.IndexDto;
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 
 

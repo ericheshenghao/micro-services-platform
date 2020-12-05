@@ -14,13 +14,15 @@
 
 
     <dependencies>
-
-
         <dependency>
             <groupId>cn.siques</groupId>
             <artifactId>siques-db-spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-auth-client-spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.siques</groupId>

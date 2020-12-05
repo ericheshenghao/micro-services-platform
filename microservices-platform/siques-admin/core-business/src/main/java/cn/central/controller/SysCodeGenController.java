@@ -1,15 +1,14 @@
 package cn.central.controller;
 
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageRequest;
+import cn.central.common.page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.controller.dto.DbConfig;
 import cn.central.entity.gen.GenConfig;
 import cn.central.service.SysCodeGenService;
 import cn.central.utils.DbUtil;
 import cn.hutool.core.io.IoUtil;
-import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

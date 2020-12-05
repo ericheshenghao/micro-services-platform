@@ -1,6 +1,6 @@
 package cn.central.controller;
 
-import cn.central.common.Page.PageRequest;
+import cn.central.common.page.PageRequest;
 import cn.central.common.model.Result;
 import cn.central.entity.SysLogger;
 import cn.central.service.SysLoggerService;

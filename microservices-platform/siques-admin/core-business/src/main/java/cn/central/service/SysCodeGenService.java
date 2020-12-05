@@ -1,7 +1,7 @@
 package cn.central.service;
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageRequest;
+import cn.central.common.page.PageResult;
 import cn.central.controller.dto.DbConfig;
 import cn.central.entity.gen.GenConfig;
 

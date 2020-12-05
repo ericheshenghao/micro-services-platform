@@ -1,9 +1,8 @@
 package ${package}.${moduleName}.service.impl;
 
-import cn.central.common.Page.MybatisPageHelper;
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import cn.central.common.page.MybatisPageHelper;
+import cn.central.common.page.PageRequest;
+import cn.central.common.page.PageResult;
 
 
 import ${package}.${moduleName}.entity.${className};

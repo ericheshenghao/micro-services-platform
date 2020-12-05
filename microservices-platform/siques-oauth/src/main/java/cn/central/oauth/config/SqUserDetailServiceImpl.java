@@ -19,9 +19,10 @@ import java.util.HashSet;
 
 /**
  * 数据库操作
+ * @author Administrator
  */
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class SqUserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
     @Override

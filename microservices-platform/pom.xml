@@ -125,8 +125,8 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.zlt</groupId>
-                <artifactId>zlt-auth-client-spring-boot-starter</artifactId>
+                <groupId>cn.siques</groupId>
+                <artifactId>siques-auth-client-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -1,7 +1,7 @@
 package ${package}.${moduleName}.service;
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageRequest;
+import cn.central.common.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 import ${package}.${moduleName}.entity.${className};
 

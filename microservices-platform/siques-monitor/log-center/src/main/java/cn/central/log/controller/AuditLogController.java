@@ -1,10 +1,8 @@
 package cn.central.log.controller;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
-import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

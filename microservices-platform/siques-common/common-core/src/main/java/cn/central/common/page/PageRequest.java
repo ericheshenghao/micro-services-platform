@@ -1,12 +1,9 @@
-package cn.central.common.Page;
+package cn.central.common.page;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 分页请求
@@ -14,16 +11,19 @@ import java.util.Map;
  */
 @Data
 public class PageRequest<T>  implements Serializable {
-    /*
+    /**
     当前页码
      */
     private int pageNum=1;
 
-    /*
+    /**
     每页数量
      */
     private int pageSize=10;
 
+    /**
+     * {@link cn.central.common.model.SysUser}
+     */
     private T params;
 
 }

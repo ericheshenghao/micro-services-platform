@@ -1,10 +1,11 @@
-package cn.central.common.config;
+package cn.central.auth.config;
 
 import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +43,7 @@ import java.util.Map;
  */
 @Slf4j
 @AllArgsConstructor
-public class OauthResourceTokenConfig {
+public class DefaultResourceTokenConfig {
 
     private final ResourceServerProperties resourceServerProperties;
 

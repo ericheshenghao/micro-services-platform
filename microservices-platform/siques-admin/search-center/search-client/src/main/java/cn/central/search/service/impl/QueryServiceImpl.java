@@ -1,6 +1,5 @@
 package cn.central.search.service.impl;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.search.client.feign.AggregationService;
 import cn.central.search.client.feign.SearchService;
@@ -8,8 +7,6 @@ import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
 import cn.hutool.core.util.StrUtil;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.annotation.Resource;
 

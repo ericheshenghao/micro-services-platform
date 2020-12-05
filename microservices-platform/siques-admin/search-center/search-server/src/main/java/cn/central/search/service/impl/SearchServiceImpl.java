@@ -1,7 +1,7 @@
 package cn.central.search.service.impl;
 
 
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageResult;
 import cn.central.es.utils.SearchBuilder;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.ISearchService;

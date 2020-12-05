@@ -1,10 +1,8 @@
 package cn.central.search.service;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Map;
 

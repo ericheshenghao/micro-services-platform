@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  * @date : 23:26 2020/11/14
  */
 @Configuration
-@AllArgsConstructor
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class OauthResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -37,8 +36,8 @@ public class OauthResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
-                // 允许public下的可访问
-                .antMatchers("/oauth/**").permitAll()
+
+                .antMatchers("/validate/**").permitAll()
                 .anyRequest().authenticated();
 
     }

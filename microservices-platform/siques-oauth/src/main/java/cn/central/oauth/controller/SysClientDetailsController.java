@@ -1,7 +1,6 @@
 package cn.central.oauth.controller;
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageRequest;
 
 
 import cn.central.common.model.Result;
@@ -33,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/oauth/sysClientDetails")
+@RequestMapping("/sysClientDetails")
 @Api(tags = {"客户端接口"})
 public class SysClientDetailsController {
 

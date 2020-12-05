@@ -1,4 +1,4 @@
-package cn.central.common.Page;
+package cn.central.common.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
