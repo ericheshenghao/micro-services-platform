@@ -22,16 +22,18 @@ public class UserServiceFallbackFactory implements FallbackFactory<UserService> 
     @Override
     public UserService create(Throwable throwable) {
         return new UserService() {
+
+
             @Override
-            public SysUser selectByUsername(String username) {
-                log.error("通过用户名查询用户异常:{}", username, throwable);
+            public SysUser selectByUserCode(String userCode) {
+                log.error("通过用户code查询用户异常:{}", userCode, throwable);
                 return new SysUser();
             }
 
             @Override
             public Set<String> findPermissionsByUserCode(String userCode) {
                 log.error("通过code查询用户异常:{}", userCode, throwable);
-                return new HashSet<String>();
+                return new HashSet<>();
             }
 
             @Override

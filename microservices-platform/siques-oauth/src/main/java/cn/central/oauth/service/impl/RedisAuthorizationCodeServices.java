@@ -5,6 +5,7 @@ import cn.central.common.redis.template.RedisRepository;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -12,12 +13,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * JdbcAuthorizationCodeServices替换
  *
- * @author zlt
+ * @author he
  * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
-@Service
+@Component
 public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
     private final RedisRepository redisRepository;
     private final RedisSerializer<Object> valueSerializer;

@@ -10,16 +10,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * @author Administrator
+ */
 @Repository
 public interface SysUserDao extends BaseMapper<SysUser> {
 
     /**
      * 查找用户
-     * @param loginCode
+     * @param username
      * @return
      */
-    @Select({"select * from sys_user where login_code = #{loginCode}"})
-    Optional<SysUser> findUserByLoginCode(@Param("loginCode") String loginCode);
+    @Select({"select * from sys_user where user_name = #{username}"})
+    Optional<SysUser> findUserByUsername(@Param("username") String username);
 
 
 

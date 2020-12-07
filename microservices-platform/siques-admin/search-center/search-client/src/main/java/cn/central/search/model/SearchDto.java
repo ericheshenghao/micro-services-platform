@@ -20,11 +20,11 @@ public class SearchDto implements Serializable {
     /**
      * 当前页数
      */
-    private Integer pageNum;
+    private Integer pageNum=1;
     /**
      * 每页显示数
      */
-    private Integer pageSize;
+    private Integer pageSize=10;
     /**
      * 排序字段
      */

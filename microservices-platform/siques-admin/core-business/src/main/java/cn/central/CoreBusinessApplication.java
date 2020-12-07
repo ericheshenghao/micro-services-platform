@@ -1,6 +1,8 @@
 package cn.central;
 
-
+//
+//import cn.central.common.ribbon.annotation.EnableFeignInterceptor;
+//import cn.central.search.annotation.EnableSearchClient;
 import cn.central.common.ribbon.annotation.EnableFeignInterceptor;
 import cn.central.search.annotation.EnableSearchClient;
 import com.spring4all.swagger.EnableSwagger2Doc;

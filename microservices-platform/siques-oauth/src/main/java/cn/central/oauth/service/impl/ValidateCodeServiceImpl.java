@@ -8,6 +8,7 @@ import cn.central.common.redis.template.RedisRepository;
 import cn.central.oauth.exception.ValidateCodeException;
 import cn.central.oauth.service.SysUserService;
 import cn.central.oauth.service.ValidateCodeService;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +43,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     }
 
     @Override
-    public void validate(String userCode, String deviceId, String validCode) {
+    public void validate(String username, String deviceId, String validCode) {
         if(StringUtils.isBlank(deviceId)){
             throw new ValidateCodeException("请携带deviceId参数");
         }
@@ -59,9 +60,9 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             throw new ValidateCodeException("验证码不正确");
         }
 
-        SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code", userCode));
-        if(user.getStatus()==false){
-            throw  new ValidateCodeException("账号被冻结");
+        SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_name", username));
+        if(ObjectUtil.isNull(user) ||user.getStatus()==false){
+            throw  new ValidateCodeException("账号不存在或被冻结");
         }
         this.remove(deviceId);
     }

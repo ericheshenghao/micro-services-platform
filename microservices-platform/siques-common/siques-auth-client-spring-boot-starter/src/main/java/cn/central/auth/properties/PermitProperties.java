@@ -18,16 +18,16 @@ public class PermitProperties {
      * 监控中心和swagger需要访问的url
      */
     private static final String[] ENDPOINTS = {
+            "/login",
             "/oauth/**",
             "/actuator/**",
-            "/*/v2/api-docs",
-            "/swagger/api-docs",
+            "/v2/api-docs/**",
+            "/webjars/springfox-swagger-ui/**",
             "/swagger-ui.html",
-            "/doc.html",
             "/swagger-resources/**",
             "/webjars/**",
             "/druid/**",
-            "/pub/**"
+            "/validate/**"
     };
 
     /**

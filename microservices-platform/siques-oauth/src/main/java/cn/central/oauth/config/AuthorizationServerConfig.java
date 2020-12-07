@@ -2,6 +2,7 @@ package cn.central.oauth.config;
 
 
 import cn.central.oauth.service.SysClientDetailsService;
+import cn.central.oauth.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -28,13 +30,14 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 
-    private final SqUserDetailServiceImpl userDetailsService;
+    private final SysUserService userDetailsService;
 
     private final TokenStore tokenStore;
     private final AuthenticationManager authenticationManager;
     private final JwtAccessTokenConverter jwtAccessTokenConverter;
     private final SysClientDetailsService sysClientDetailsService;
 
+    private  final AuthorizationCodeServices authorizationCodeServices;
     @Autowired
     private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
@@ -46,10 +49,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .tokenStore(tokenStore)
+                .authorizationCodeServices(authorizationCodeServices)
                 .tokenGranter(tokenGranter)
                 .exceptionTranslator(webResponseExceptionTranslator)
                 .accessTokenConverter(jwtAccessTokenConverter);
@@ -57,12 +61,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security){
         security
                 // 获取 token key 需要进行 basic 认证客户端信息
                 .tokenKeyAccess("isAuthenticated()")
                 // 获取 token 信息同样需要 basic 认证客户端信息
-                .checkTokenAccess("permitAll()");
+                .checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
+
     }
 
 

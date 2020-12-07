@@ -12,7 +12,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OauthTokenConfig extends DefaultResourceTokenConfig {
 
-    public OauthTokenConfig(ResourceServerProperties resourceServerProperties) {
-        super(resourceServerProperties);
-    }
+
 }

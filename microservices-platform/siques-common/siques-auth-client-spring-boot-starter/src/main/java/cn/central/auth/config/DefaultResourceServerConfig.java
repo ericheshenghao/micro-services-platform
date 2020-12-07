@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
@@ -22,9 +22,9 @@ import javax.annotation.Resource;
  * @author he
  */
 
+
 @Import(DefaultSecurityHandlerConfig.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class DefaultResourceServerConf extends ResourceServerConfigurerAdapter {
+public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private TokenStore tokenStore;
 
@@ -56,20 +56,22 @@ public class DefaultResourceServerConf extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl = setHttp(http)
-                .csrf().disable()
+
+        http.csrf().disable().
+                formLogin().and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers(securityProperties.getIgnore().getUrls()).permitAll()
-                .anyRequest();
+                .anyRequest().authenticated();
 
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-//                .and()
-//                    .httpBasic().disable()
-//                    .headers()
-//                    .frameOptions().disable()
-//                .and()
-//                    .csrf().disable();
+        // 基于密码 等模式可以无session,不支持授权码模式
+        if (authenticationEntryPoint != null) {
+            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        } else {
+            // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        }
     }
 
 
@@ -77,7 +79,7 @@ public class DefaultResourceServerConf extends ResourceServerConfigurerAdapter {
      * 留给子类重写扩展功能
      * @param http
      */
-    public HttpSecurity setHttp(HttpSecurity http) {
-        return http;
-    }
+//    public HttpSecurity setHttp(HttpSecurity http) {
+//        return http;
+//    }
 }

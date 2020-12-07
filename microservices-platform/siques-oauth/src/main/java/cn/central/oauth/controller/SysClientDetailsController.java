@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sysClientDetails")
+@RequestMapping("/client")
 @Api(tags = {"客户端接口"})
 public class SysClientDetailsController {
 

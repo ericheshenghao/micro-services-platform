@@ -1,5 +1,6 @@
-package cn.central.oauth.config;
+package cn.central.config;
 
+import cn.central.auth.config.DefaultResourceServerConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Configuration;
@@ -18,29 +19,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  */
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class OauthResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends DefaultResourceServerConfig {
 
-
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-
-        // 前后端分离下，可以关闭 csrf
-        http.csrf().disable().authorizeRequests()
-
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/webjars/springfox-swagger-ui/**").permitAll()
-                .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/v2/api-docs/**").permitAll()
-
-                .antMatchers("/validate/**").permitAll()
-                .anyRequest().authenticated();
-
-    }
 
 
 }

@@ -1,13 +1,18 @@
 package cn.central.oauth.config;
 
+import cn.central.common.redis.template.RedisRepository;
 import cn.central.oauth.gtanter.PwdImgCodeGranter;
+import cn.central.oauth.service.SysUserService;
 import cn.central.oauth.service.ValidateCodeService;
+import cn.central.oauth.service.impl.RedisAuthorizationCodeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
@@ -44,7 +49,6 @@ import java.util.List;
 @Configuration
 public class AuthorizationTokenConfig {
 
-
     @Autowired
     private ValidateCodeService validateCodeService;
 
@@ -62,7 +66,7 @@ public class AuthorizationTokenConfig {
 
 
     @Autowired
-    private SqUserDetailServiceImpl sqUserDetailService;
+    private SysUserService  userDetailService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -74,12 +78,11 @@ public class AuthorizationTokenConfig {
     @Autowired(required = false)
     private List<TokenEnhancer> tokenEnhancer;
 
-
+    private boolean reuseRefreshToken = true;
 
     @Autowired
-    private RandomValueAuthorizationCodeServices authorizationCodeServices;
-
-    private boolean reuseRefreshToken = true;
+    @Qualifier("redisAuthorizationCodeServices")
+    private AuthorizationCodeServices authorizationCodeServices;
 
     @Bean
     @Primary
@@ -131,7 +134,7 @@ public class AuthorizationTokenConfig {
      */
     private List<TokenGranter> getAllTokenGranters() {
         AuthorizationServerTokenServices tokenServices = tokenServices();
-        AuthorizationCodeServices authorizationCodeServices = authorizationCodeServices();
+
         OAuth2RequestFactory requestFactory = requestFactory();
         //获取默认的授权模式
         List<TokenGranter> tokenGranters = getDefaultTokenGranters(tokenServices, authorizationCodeServices, requestFactory);
@@ -164,7 +167,7 @@ public class AuthorizationTokenConfig {
         tokenServices.setReuseRefreshToken(reuseRefreshToken);
         tokenServices.setClientDetailsService(clientDetailsService);
         tokenServices.setTokenEnhancer(tokenEnhancer());
-        addUserDetailsService(tokenServices, this.sqUserDetailService);
+        addUserDetailsService(tokenServices, this.userDetailService);
         return tokenServices;
     }
 
@@ -184,14 +187,6 @@ public class AuthorizationTokenConfig {
             tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
         }
     }
-
-    private AuthorizationCodeServices authorizationCodeServices() {
-        if (authorizationCodeServices == null) {
-            authorizationCodeServices = new InMemoryAuthorizationCodeServices();
-        }
-        return authorizationCodeServices;
-    }
-
 
     /**
      * 默认的授权模式

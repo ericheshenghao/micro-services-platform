@@ -63,26 +63,18 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
                                   WebDataBinderFactory webDataBinderFactory) {
         LoginUser loginUser = methodParameter.getParameterAnnotation(LoginUser.class);
         boolean isFull = loginUser.isFull();
-        SysUser result =null;
+        SysUser result = new SysUser();
         // 已认证过的状态
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication!=null && !(authentication instanceof AnonymousAuthenticationToken))
         {
-            String username;
-            Object principal = authentication.getPrincipal();
-            if(principal instanceof SysUser){
-                SysUser user = (SysUser) principal;
-                username = user.getUserName();
-            }else {
-                username= authentication.getName();
-            }
-
+            String userCode = authentication.getName();
             if (isFull) {
-                result = userService.selectByUsername(username);
+                result = userService.selectByUserCode(userCode);
             } else {
-                result = new SysUser();
-                result.setUserCode(username);
+
+                result.setUserCode(userCode);
             }
 
         }

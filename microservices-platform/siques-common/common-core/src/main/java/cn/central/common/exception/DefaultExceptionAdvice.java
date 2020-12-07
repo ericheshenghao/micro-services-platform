@@ -5,6 +5,7 @@ import cn.central.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,16 @@ public class DefaultExceptionAdvice {
     @ExceptionHandler({IllegalArgumentException.class})
     public Result badRequestException(IllegalArgumentException e) {
         return defHandler("参数解析失败", e);
+    }
+
+    /**
+     * {@link UnauthorizedUserException 异常处理}
+     * 返回状态码:401
+     */
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({UnauthorizedUserException.class})
+    public Result unAuthorizedException(IllegalArgumentException e) {
+        return defHandler("未授权", e);
     }
 
     /**

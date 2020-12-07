@@ -1,27 +1,23 @@
 import vue from 'vue'
+import { getUid } from '@/utils/util'
+import qs from 'qs'
 
 const userApi = {
-  Login: '/core/pub/login',
-  Logout: '/core/pub/logout',
-  captchaUri: 'http://localhost:9001/core/pub/captcha.jpg',
+  Login: 'uaa/oauth/token',
+  Logout: 'uaa/oauth/logout',
+  captchaUri: 'http://localhost:9001/uaa/validate/captcha/',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
   SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',
   // get my info
-  UserInfo: '/core/pri/user/info',
+  userInfo: '/core/pri/user/info',
   UserMenu: '/user/nav',
+  uid: '',
 }
 
 /**
- * login func
- * parameter: {
- *     username: '',
- *     password: '',
- *     remember_me: true,
- *     captcha: '12345'
- * }
  * @param parameter
  * @returns {*}
  */
@@ -29,12 +25,22 @@ export function login(parameter) {
   return vue.prototype.$http({
     url: userApi.Login,
     method: 'post',
-    data: parameter,
+    data: qs.stringify({
+      ...parameter,
+      deviceId: userApi.uid,
+      client_id: 'webApp',
+      client_secret: 123456,
+      grant_type: 'password_code',
+    }),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
   })
 }
 
 export function getCaptchaUri() {
-  return userApi.captchaUri
+  userApi.uid = getUid()
+  return userApi.captchaUri + userApi.uid
 }
 
 export function getSmsCaptcha(parameter) {
@@ -45,13 +51,10 @@ export function getSmsCaptcha(parameter) {
   })
 }
 
-export function getInfo() {
+export function getUserInfo() {
   return vue.prototype.$http({
-    url: userApi.UserInfo,
+    url: userApi.userInfo,
     method: 'get',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-    },
   })
 }
 

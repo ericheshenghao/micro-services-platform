@@ -50,6 +50,7 @@ public class DefaultSecurityHandlerConfig {
 
             @Override
             public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
+                logger.info(authException.getMessage());
                 ResponseUtil.responseFailed(objectMapper, response, authException.getMessage());
             }
         };

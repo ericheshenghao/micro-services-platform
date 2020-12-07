@@ -4,14 +4,12 @@ import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,10 +40,12 @@ import java.util.Map;
  * @date 2020/1/9 下午2:39
  */
 @Slf4j
-@AllArgsConstructor
+@Import(BCryptPasswordEncoder.class)
 public class DefaultResourceTokenConfig {
 
-    private final ResourceServerProperties resourceServerProperties;
+
+    @Autowired
+    private  ResourceServerProperties resourceServerProperties;
 
     /**
      * 这里并不是对令牌的存储,他将访问令牌与身份验证进行转换
@@ -116,8 +116,5 @@ public class DefaultResourceTokenConfig {
             + ":" + resourceServerProperties.getClientSecret()).getBytes());
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 }

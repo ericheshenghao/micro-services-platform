@@ -23,11 +23,11 @@ public interface UserService {
      * feign rpc访问远程/users/{username}接口
      * 查询用户实体对象SysUser
      *
-     * @param username
+     * @param userCode
      * @return
      */
-    @GetMapping(value = "/users/name/{username}")
-    SysUser selectByUsername(@PathVariable("username") String username);
+    @GetMapping(value = "/pri/user/{userCode}")
+    SysUser selectByUserCode(@PathVariable("userCode") String userCode);
 
 
     /**

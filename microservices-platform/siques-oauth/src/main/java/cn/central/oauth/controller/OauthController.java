@@ -25,43 +25,13 @@ import java.io.IOException;
 @RequestMapping("/validate")
 public class OauthController {
 
-//    @RequestMapping("/user")
+
 //    public HashMap<String, Object> user(OAuth2Authentication user){
-//        HashMap<String, Object> userInfo = new HashMap<>();
-//        userInfo.put("user",user.getUserAuthentication().getPrincipal());
-//        userInfo.put("authorities", AuthorityUtils.authorityListToSet(
-//                user.getUserAuthentication().getAuthorities()));
-//        return userInfo;
-//    }
 
 
     @Autowired
     private ValidateCodeService validateCodeService;
 
-
-
-    @GetMapping("/logout")
-    public Result logout(HttpServletRequest request){
-
-        return Result.succeed(1);
-    }
-
-
-
-
-    /**
-     * 获取用户权限信息
-     * @param userCode
-     * @return
-     */
-//    public List  getUserInfo(String userCode){
-//        if(userCode.equals(AdminConstants.ADMIN)){
-//            return sysMenuService.list().stream()
-//                    .filter(sysMenu -> sysMenu.getPerms() != null && !"".equals(sysMenu.getPerms()))
-//                    .map(sysMenu -> sysMenu.getPerms()).collect(Collectors.toList());
-//        }
-//        return sysUserService.findPermission(userCode).stream().collect(Collectors.toList());
-//    }
 
     /**
      * 验证码接口
@@ -82,7 +52,7 @@ public class OauthController {
         validateCodeService.saveImageCode(deviceId, gifCaptcha.text().toLowerCase());
         // 输出图片流
         gifCaptcha.out(response.getOutputStream());
-
     }
+
 
 }
