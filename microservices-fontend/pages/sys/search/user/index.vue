@@ -105,17 +105,29 @@ export default class userIndex extends Vue {
     searchBtn: true,
   }
 
-  loadDataFun = (parameter: any) => {
-    const requestParameters = Object.assign({}, parameter)
-    return userIndices(requestParameters)
+  loadDataFun = async (parameter: any) => {
+    const res = await userIndices(parameter)
+    return {
+      records: res.datas.records,
+      pagination: {
+        total: res.datas.total,
+      },
+    }
   }
 
-  searchFun = (pageInfo: any, parameter: any) => {
-    return userIndices({
-      pageNum: pageInfo.current,
-      pageSize: pageInfo.pageSize,
+  /** pageInfo,包含当前分页信息 */
+  searchFun = async (pageInfo: any, parameter: any) => {
+    const res = await userIndices({
       queryStr: parameter.queryStr,
     })
+
+    return {
+      records: res.datas.records,
+      pagination: {
+        total: res.datas.total,
+        current: res.datas.current,
+      },
+    }
   }
 
   async rowSave(row: any, done: any) {

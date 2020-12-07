@@ -24,13 +24,13 @@ public class SysMenu extends SuperEntity<SysMenu>  {
     private static final long serialVersionUID = -4855350263474682807L;
 
 
-    // 非数据库字段
+
     @TableField(exist = false)
     private String parentName;
-    // 非数据库字段
+
     @TableField(exist = false)
     private Integer level;
-    // 非数据库字段
+
     @TableField(exist = false)
     private List<SysMenu> children;
 

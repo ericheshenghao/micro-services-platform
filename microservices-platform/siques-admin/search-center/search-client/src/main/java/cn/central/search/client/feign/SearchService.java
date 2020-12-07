@@ -1,11 +1,9 @@
 package cn.central.search.client.feign;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.constant.ServiceNameConstants;
 import cn.central.common.model.Result;
 import cn.central.search.client.feign.fallback.SearchServiceFallbackFactory;
 import cn.central.search.model.SearchDto;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

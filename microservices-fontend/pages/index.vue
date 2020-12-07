@@ -7,7 +7,7 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ user.name
+            {{ timeFix }}，{{ userInfo.nickName
             }}<span class="welcome-text">，{{ '欢迎' }}</span>
           </div>
           <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
@@ -510,10 +510,13 @@ dv.transform({
 })
 const pieData = dv.rows
 
+import { mapGetters, mapState } from 'vuex'
+
 @Component({
   components: {
     PageHeaderWrapper: PageHeaderWrapper,
   },
+  computed: mapGetters(['userInfo']),
 })
 export default class Workplace extends Vue {
   timeFix = timeFix()
@@ -525,7 +528,7 @@ export default class Workplace extends Vue {
       'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
   }
 
-  user = {}
+  userInfo
   // 搜索用户数
   searchUserData = searchUserData
   searchUserScale = searchUserScale
@@ -542,6 +545,11 @@ export default class Workplace extends Vue {
     stroke: '#fff',
     lineWidth: 1,
   }
+
+  mounted() {
+    this.$store.dispatch('modules/user/GetInfo')
+  }
+
   created() {
     setTimeout(() => {
       this.loading = !this.loading

@@ -1,4 +1,4 @@
-import { login, getInfo, logout } from '@/api/login'
+import { login, getUserInfo } from '@/api/login'
 import { welcome } from '@/utils/util'
 
 export const state = () => ({
@@ -6,7 +6,7 @@ export const state = () => ({
   name: '',
   welcome: '',
   avatar: '',
-  roles: [],
+  permissions: [],
   info: {},
 })
 
@@ -21,8 +21,8 @@ export const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
   },
   SET_INFO: (state, info) => {
     state.info = info
@@ -30,53 +30,17 @@ export const mutations = {
 }
 
 export const actions = {
-  Login({ commit }, userInfo) {
-    console.log(userInfo)
-    return new Promise((resolve, reject) => {
-      login(userInfo)
-        .then((response) => {
-          console.log(response)
-          const result = response.datas
+  async Login({ commit }, userInfo) {
+    const res = await login(userInfo)
 
-          commit('SET_TOKEN', result.token)
-          resolve()
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
+    commit('SET_TOKEN', res.access_token)
   },
 
   // 获取用户信息
-  GetInfo({ commit }) {
-    return new Promise((resolve, reject) => {
-      getInfo()
-        .then((response) => {
-          const result = response.datas
-
-          // const role = result.role
-          // role.permissions = result.role.permissions
-          // role.permissions.map(per => {
-          //   if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-          //     const action = per.actionEntitySet.map(action => { return action.action })
-          //     per.actionList = action
-          //   }
-          // })
-          // role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-          // commit('SET_ROLES', result.role)
-          commit('SET_INFO', result)
-
-          // reject(new Error('getInfo: roles must be a non-null array !'))
-
-          commit('SET_NAME', { name: result.userName, welcome: welcome() })
-          commit('SET_AVATAR', result.avatar)
-
-          resolve(response)
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
+  async GetInfo({ commit }) {
+    const res = await getUserInfo()
+    commit('SET_INFO', res.datas)
+    commit('SET_PERMISSIONS', res.datas.permissions)
   },
 
   // 登出

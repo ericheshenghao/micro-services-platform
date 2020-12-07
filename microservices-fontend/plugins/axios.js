@@ -14,7 +14,7 @@ export default ({ app, store, route, redirect }) => {
     config.baseURL = configs.API_URL
     //设置token
     if (store.state.modules.user && store.state.modules.user.token) {
-      config.headers.Authorization = store.state.modules.user.token
+      config.headers.Authorization = 'Bearer ' + store.state.modules.user.token
     }
   })
 
@@ -25,6 +25,7 @@ export default ({ app, store, route, redirect }) => {
 
   // 内部错误回调
   axios.onError((error) => {
+    console.log(error)
     if (error.response.status == 401) {
       store.dispatch('modules/user/Logout')
       redirect('/login')

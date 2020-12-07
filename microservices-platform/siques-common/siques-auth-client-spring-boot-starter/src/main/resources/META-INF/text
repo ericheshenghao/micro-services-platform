@@ -1,0 +1,5 @@
+,\
+cn.central.auth.store.AuthDbTokenStore,\
+cn.central.auth.store.AuthRedisTokenStore,\
+cn.central.auth.store.AuthJwtTokenStore,\
+cn.central.auth.store.ResJwtTokenStore

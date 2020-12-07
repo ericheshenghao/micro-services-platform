@@ -1,11 +1,9 @@
 package cn.central.search.controller;
 
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.ISearchService;
-import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

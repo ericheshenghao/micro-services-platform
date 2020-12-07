@@ -26,7 +26,7 @@
               type="text"
               placeholder="账户: admin"
               v-decorator="[
-                'loginCode',
+                'username',
                 {
                   rules: [
                     { required: true, message: '请输入帐户名或邮箱地址' },
@@ -72,7 +72,7 @@
                   type="text"
                   placeholder="验证码"
                   v-decorator="[
-                    'captcha',
+                    'validCode',
                     {
                       rules: [{ required: true, message: '请输入验证码' }],
                       validateTrigger: 'blur',
@@ -134,7 +134,7 @@
                   type="text"
                   placeholder="验证码"
                   v-decorator="[
-                    'captcha',
+                    'validCode',
                     {
                       rules: [{ required: true, message: '请输入验证码' }],
                       validateTrigger: 'blur',
@@ -217,7 +217,6 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 import { getSmsCaptcha, get2step, getCaptchaUri } from '~/api/login.js'
-import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
 @Component({})
 export default class login extends Vue {
@@ -227,7 +226,7 @@ export default class login extends Vue {
 
   customActiveKey = 'tab1'
   loginBtn = false
-  // login type= 0 email, 1 loginCode, 2 telephone
+  // login type= 0 email, 1 username, 2 telephone
   loginType = 0
   isLoginError = false
   requiredTwoStepCaptcha = false
@@ -238,7 +237,7 @@ export default class login extends Vue {
   state = {
     time: 60,
     loginBtn: false,
-    // login type= 0 email, 1 loginCode, 2 telephone
+    // login type= 0 email, 1 username, 2 telephone
     loginType: 0,
     smsSendBtn: false,
   }
@@ -296,23 +295,21 @@ export default class login extends Vue {
 
     const validateFieldsKey =
       customActiveKey === 'tab1'
-        ? ['loginCode', 'password', 'captcha']
-        : ['mobile', 'captcha']
+        ? ['username', 'password', 'validCode']
+        : ['mobile', 'validCode']
 
     validateFields(
       validateFieldsKey,
       { force: true },
       (err: any, values: any) => {
         if (!err) {
-          console.log('login form', values)
           const loginParams = { ...values }
-          delete loginParams.loginCode
-          loginParams[!state.loginType ? 'email' : 'loginCode'] =
-            values.loginCode
+          delete loginParams.username
+          loginParams[!state.loginType ? 'email' : 'username'] = values.username
           // loginParams.password = md5(values.password)
 
           loginParams.password = values.password
-
+          // console.log('login form', loginParams)
           this.$store
             .dispatch('modules/user/Login', loginParams)
 
@@ -345,18 +342,6 @@ export default class login extends Vue {
   }
 
   loginSuccess(res: any) {
-    console.log(res)
-    // check res.homePage define, set $router.push name res.homePage
-    // Why not enter onComplete
-    /*
-      this.$router.push({ name: 'analysis' }, () => {
-        console.log('onComplete')
-        this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
-        })
-      })
-      */
     this.$router.push({ path: '/' })
     // 延迟 1 秒显示欢迎信息
     setTimeout(() => {

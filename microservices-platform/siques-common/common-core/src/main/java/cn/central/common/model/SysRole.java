@@ -1,20 +1,17 @@
 package cn.central.common.model;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-
-import com.sun.istack.NotNull;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.bytebuddy.implementation.bind.annotation.Super;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
+/**
+ * @author Administrator
+ */
 @Data
 @TableName("sys_role")
 @ApiModel(description = "角色表")

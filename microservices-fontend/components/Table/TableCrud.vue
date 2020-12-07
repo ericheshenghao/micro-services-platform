@@ -35,7 +35,7 @@
     <div class="table-operator d-flex jc-between">
       <div>
         <a-button
-          v-if="permission.addBtn"
+          v-if="permissions.addBtn"
           type="primary"
           icon="plus"
           @click="handleAdd"
@@ -56,7 +56,7 @@
         <slot name="TableHeadLeft"></slot>
       </div>
 
-      <div v-if="permission.searchBtn" class="table-right-content">
+      <div v-if="permissions.searchBtn" class="table-right-content">
         <a-button
           @click="searchFormShow = !searchFormShow"
           type="primary"
@@ -97,9 +97,14 @@
       <!-- 默认的action操作，可以再添加 -->
 
       <span slot="action" slot-scope="text, record">
-        <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical" />
-        <a-popconfirm @confirm="handleDel(record)" title="Are you sure？">
+        <span v-if="permissions.editBtn">
+          <a @click="handleEdit(record)">编辑</a> <a-divider type="vertical"
+        /></span>
+        <a-popconfirm
+          v-if="permissions.delBtn"
+          @confirm="handleDel(record)"
+          title="Are you sure？"
+        >
           <a-icon slot="icon" type="question-circle-o" style="color: red" />
           <a href="#">删除</a>
         </a-popconfirm>
@@ -150,13 +155,21 @@ export default class TableCrud extends Vue {
   @Prop({
     type: Object,
     default: () => {
-      return {
-        addBtn: true,
-        searchBtn: true,
-      }
+      return {}
     },
   })
   permission: any
+
+  defaultPerms = {
+    addBtn: true,
+    searchBtn: true,
+    editBtn: true,
+    delBtn: true,
+  }
+
+  get permissions() {
+    return Object.assign(this.defaultPerms, this.permission)
+  }
 
   @Prop({
     type: Function,
@@ -230,29 +243,34 @@ export default class TableCrud extends Vue {
     this.loadData()
   }
 
-  needPagination = true
   async loadData() {
     this.tableLoading = true
 
+    /** 若有查询参数，切换页面始终携带  */
     const res = await this.loadDataFun({
       pageNum: this.pagination.current,
       pageSize: this.pagination.pageSize,
       params: this.queryParam,
     })
 
-    if (!res.datas.records) {
-      this.pagination = false
-
-      this.data = res.datas
-      this.tableLoading = false
-      return
-    }
-
     setTimeout(() => {
       this.tableLoading = false
+      this.data = res.records
 
-      this.data = res.datas.records
-      this.pagination.total = res.datas.total
+      if (res.pagination == false) {
+        this.pagination = false
+      } else this.pagination.total = res.pagination.total
+    }, 100)
+  }
+
+  async handleSearch() {
+    this.tableLoading = true
+    const res = await this.searchFun(this.pagination, this.queryParam)
+    setTimeout(() => {
+      this.tableLoading = false
+      this.data = res.records
+      this.pagination.total = res.pagination.total
+      this.pagination.current = res.pagination.current
     }, 100)
   }
 
@@ -353,15 +371,6 @@ export default class TableCrud extends Vue {
     this.$message.info('操作成功')
   }
 
-  async handleSearch() {
-    this.tableLoading = true
-    const res = await this.searchFun(this.pagination, this.queryParam)
-    setTimeout(() => {
-      this.tableLoading = false
-      this.data = res.datas.records
-      this.pagination.total = res.datas.total
-    }, 100)
-  }
   /** 取消操作 */
   handleCancel() {
     this.visible = false

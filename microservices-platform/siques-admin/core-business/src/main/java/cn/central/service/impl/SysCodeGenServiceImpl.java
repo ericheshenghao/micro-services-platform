@@ -1,7 +1,7 @@
 package cn.central.service.impl;
 
-import cn.central.common.Page.PageRequest;
-import cn.central.common.Page.PageResult;
+import cn.central.common.page.PageRequest;
+import cn.central.common.page.PageResult;
 import cn.central.controller.dto.DbConfig;
 import cn.central.entity.gen.GenConfig;
 import cn.central.service.SysCodeGenService;
@@ -23,6 +23,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * @author he
+ */
 @Service
 public class SysCodeGenServiceImpl implements SysCodeGenService {
     private final String TABLE_SQL_TEMPLATE = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database()) %s order by create_time desc";
@@ -34,12 +37,12 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
     private final String PAGE_SQL_TEMPLATE = " limit ?,?";
 
     @Autowired
-    DbUtil dbUtill;
+    DbUtil dbUtil;
 
    @SneakyThrows
    @Override
    public PageResult findPage(PageRequest page){
-       HikariDataSource dataSource = dbUtill.buildDb();
+       HikariDataSource dataSource = dbUtil.buildDb();
        PageHelper.startPage(page.getPageNum(),page.getPageSize());
 
        Db db = new Db(dataSource);
@@ -61,7 +64,7 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
 
     @Override
     public List<DbConfig> queryDbList() {
-        return   dbUtill.getDbList();
+        return   dbUtil.getDbList();
     }
 
 
@@ -88,7 +91,7 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
 
     @SneakyThrows
     private Entity queryTable(String  tableName) {
-        HikariDataSource dataSource = dbUtill.buildDb();
+        HikariDataSource dataSource = dbUtil.buildDb();
         Db db = new Db(dataSource);
 
         String paramSql = StrUtil.EMPTY;
@@ -104,7 +107,7 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
 
     @SneakyThrows
     private List<Entity> queryColumns(String tableName) {
-        HikariDataSource dataSource = dbUtill.buildDb();
+        HikariDataSource dataSource = dbUtil.buildDb();
         Db db = new Db(dataSource);
 
         List<Entity> query = db.query(COLUMN_SQL_TEMPLATE, tableName);

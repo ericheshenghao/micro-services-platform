@@ -8,8 +8,7 @@
         <version>4.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-
+    <groupId>cn.central</groupId>
     <artifactId>core-business</artifactId>
 
     <dependencies>
@@ -22,6 +21,11 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-auth-client-spring-boot-starter</artifactId>
         </dependency>
 
 <!--        数据库包-->
@@ -70,7 +74,7 @@
             <groupId>cn.siques</groupId>
             <artifactId>siques-config</artifactId>
         </dependency>
-        <!--        服务监控-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -99,7 +103,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
 
 
 

@@ -1,19 +1,20 @@
 package cn.central.controller;
 
 
-import cn.central.common.Page.PageRequest;
 import cn.central.common.annotation.LoginUser;
+import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
+//import cn.central.search.model.LogicDelDto;
+//import cn.central.search.model.SearchDto;
+//import cn.central.search.service.IQueryService;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
 import cn.central.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -46,6 +47,17 @@ public class SysUserController {
     @Autowired
     private IQueryService queryService;
 
+
+    @GetMapping("info")
+    public Result<SysUser> getUserInfo(@LoginUser(isFull = true) SysUser sysUser){
+        sysUser.setPermissions(sysUserService.findPermission(sysUser.getUserCode()));
+       return Result.succeed(sysUser);
+    }
+
+    @GetMapping("/{userCode}")
+    public  SysUser getUserByUserCode(@PathVariable String userCode){
+        return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",userCode));
+    }
 
     @PreAuthorize("@el.check('sys:user:edit')")
     @PutMapping("/password/{id}")
@@ -118,8 +130,8 @@ public class SysUserController {
      */
     @ApiOperation(httpMethod="GET", value="根据用户code查询权限")
     @GetMapping("permissions/{userCode}")
-//    @Cacheable(value = "userPermission",key = "#userCode")
-    public Set<String> findPermissionsByUserCode(@PathVariable String userCode){
+    @Cacheable(value = "userPermission",key = "#userCode")
+    public Set<String> findPermissionsByUserCode(@PathVariable("userCode") String userCode){
         return sysUserService.findPermission(userCode);
     }
 

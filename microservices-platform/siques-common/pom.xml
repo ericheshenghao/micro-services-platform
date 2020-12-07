@@ -24,6 +24,7 @@
         <module>siques-ribbon-spring-boot-starter</module>
         <module>siques-sentinel-spring-boot-starter</module>
         <module>siques-redis-spring-boot-starter</module>
+        <module>siques-auth-client-spring-boot-starter</module>
     </modules>
 
 </project>

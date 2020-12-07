@@ -1,7 +1,7 @@
 package cn.central.service.impl;
 
 
-import cn.central.common.Page.PageRequest;
+import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysMenu;
@@ -83,7 +83,7 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
 
         long total = userPage.getTotal();
 
-        if (total > 0) {
+        if (total > 0 && records.size()>0) {
             List<Long> userIds = records.stream().map(SysUser::getId).collect(Collectors.toList());
             List<SysUserRole> sysUserRoles = sysUserRoleMapper
                     .selectList(new QueryWrapper<SysUserRole>().in("user_id",userIds));
@@ -101,10 +101,11 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     @Override
     public Result findPage(PageRequest pageRequest) {
         SysUser user = (SysUser) pageRequest.getParams();
-        if(ObjectUtil.isNotEmpty(user)){
-            Map<String, Object> stringObjectMap = user.toMap();
+        Map<String, Object> stringObjectMap = user.toMap();
+        if(stringObjectMap.size()!=0){
             return findPage(pageRequest,new QueryWrapper<SysUser>().allEq(stringObjectMap));
         }
+
       return  findPage(pageRequest,new QueryWrapper<>());
     }
 

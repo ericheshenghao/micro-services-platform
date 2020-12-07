@@ -30,6 +30,19 @@
         />
       </template>
 
+      <template v-slot:nameForm="{ record }">
+        <a-select
+          mode="combobox"
+          option-filter-prop="children"
+          v-model="record.name"
+        >
+          <a-select-option value="查看"> 查看 </a-select-option>
+          <a-select-option value="新增"> 新增 </a-select-option>
+          <a-select-option value="修改"> 修改 </a-select-option>
+          <a-select-option value="删除"> 删除 </a-select-option>
+        </a-select>
+      </template>
+
       <template v-slot:urlForm="{ record }">
         <a-input :disabled="record.type != 1" v-model="record.url"></a-input>
       </template>
@@ -81,6 +94,7 @@ export default class SysMenu extends Vue {
       {
         title: '菜单名称',
         dataIndex: 'name',
+        formSlots: true,
         width: '130px',
       },
       {
@@ -224,8 +238,12 @@ export default class SysMenu extends Vue {
     table: HTMLFormElement
   }
 
-  loadDataFun = (parameter: any) => {
-    return findMenuTree()
+  loadDataFun = async (parameter: any) => {
+    const res = await findMenuTree()
+    return {
+      records: res.datas,
+      pagination: false,
+    }
   }
 
   beforeOpen(type: any, form: any) {

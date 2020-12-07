@@ -17,7 +17,7 @@ export function searchUser(parameter) {
   })
 }
 
-export function findPage(parameter) {
+export function getUserList(parameter) {
   return vue.prototype.$http({
     url: userApi.userList,
     method: 'post',

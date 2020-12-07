@@ -28,14 +28,14 @@ public class SysUser extends SuperEntity<SysUser> {
     private String userCode;
 
     @ApiModelProperty(value = "登录账号")
-    private String loginCode;
+    private String userName;
 
     @ApiModelProperty(value = "登录密码")
     @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "用户昵称")
-    private String userName;
+    private String nickName;
 
     @ApiModelProperty(value = "头像路径")
     private String avatar;
@@ -69,11 +69,11 @@ public class SysUser extends SuperEntity<SysUser> {
         if( ObjectUtil.isNotEmpty(userCode)) {
             map.put("user_code",userCode);
         }
-        if(ObjectUtil.isNotEmpty(loginCode)) {
-            map.put("login_code",loginCode);
-        }
         if(ObjectUtil.isNotEmpty(userName)) {
             map.put("user_name",userName);
+        }
+        if(ObjectUtil.isNotEmpty(nickName)) {
+            map.put("nick_name",nickName);
         }
         if(ObjectUtil.isNotEmpty(email)) {
             map.put("email",email);

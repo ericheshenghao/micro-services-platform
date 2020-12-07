@@ -13,11 +13,16 @@ import cn.central.oauth.dao.SysUserDao;
 import cn.central.oauth.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService  {
     @Autowired
     SysUserDao sysUserDao;
 
@@ -25,8 +30,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     SysMenuDao sysMenuDao;
 
     @Override
-    public SysUser findUserByLoginCode(String loginCode) {
-        return  sysUserDao.findUserByLoginCode(loginCode).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-    }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUser user = sysUserDao.findUserByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("User not found!"));
 
+        return new User(user.getUserCode(),user.getPassword(),new ArrayList<>());
+    }
 }

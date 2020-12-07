@@ -190,10 +190,10 @@ public class CodeGenUtil {
                         .toString(), map.get("moduleName").toString()))));
                 IoUtil.write(zip, StandardCharsets.UTF_8, false, sw.toString());
 
-                File file = new File(getFileName(template, tableEntity.getCaseClassName(),genConfig.getPath(),map
-                        .get("package")
-                        .toString(), map.get("moduleName").toString()));
-                FileUtils.writeStringToFile(file,sw.toString());
+//                File file = new File(getFileName(template, tableEntity.getCaseClassName(),genConfig.getPath(),map
+//                        .get("package")
+//                        .toString(), map.get("moduleName").toString()));
+//                FileUtils.writeStringToFile(file,sw.toString());
 
                 IoUtil.close(sw);
                 zip.closeEntry();

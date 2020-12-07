@@ -58,7 +58,7 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 import {
-  findPage,
+  getUserList,
   findUserRole,
   saveUser,
   updateUser,
@@ -89,20 +89,20 @@ export default class SysUser extends Vue {
       },
       {
         title: '登录账号',
-        dataIndex: 'loginCode',
+        dataIndex: 'userName',
         needTotal: true,
         // customRender: (text) => text + ' 次',
         rules: [
           {
             required: true,
-            message: 'Please input Activity loginCode',
+            message: 'Please input Activity userName',
             trigger: 'blur',
           },
         ],
       },
       {
         title: '用户昵称',
-        dataIndex: 'userName',
+        dataIndex: 'nickName',
         search: true,
       },
       {
@@ -161,14 +161,29 @@ export default class SysUser extends Vue {
     this.roleList = res.datas
   }
 
-  loadDataFun = (parameter: any) => {
-    const requestParameters = Object.assign({}, parameter)
-
-    return findPage(requestParameters)
+  loadDataFun = async (parameter: any) => {
+    const res = await getUserList(parameter)
+    return {
+      records: res.datas.records,
+      pagination: {
+        total: res.datas.total,
+      },
+    }
   }
 
-  searchFun = (pageInfo: any, parameter: any) => {
-    return findPage({ params: parameter })
+  searchFun = async (pageInfo: any, parameter: any) => {
+    const res = await getUserList({
+      pageSize: pageInfo.pageSize,
+      params: parameter,
+    })
+
+    return {
+      records: res.datas.records,
+      pagination: {
+        total: res.datas.total,
+        current: res.datas.current,
+      },
+    }
   }
 
   async rowSave(row: any, done: any) {
@@ -190,7 +205,7 @@ export default class SysUser extends Vue {
 
   async delBatch(row: any, done: any) {
     const res = await deleteBatch(row)
-    console.log(res)
+
     done()
   }
 

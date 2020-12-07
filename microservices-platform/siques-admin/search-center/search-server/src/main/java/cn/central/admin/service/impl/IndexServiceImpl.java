@@ -1,6 +1,5 @@
 package cn.central.admin.service.impl;
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.common.utils.JsonUtils;
 import cn.hutool.core.util.StrUtil;

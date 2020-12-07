@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  */
 @SpringBootApplication
 @MapperScan("cn.central.oauth.dao")
-@EnableResourceServer
 @EnableSwagger2Doc
 public class SiquesOauthApplication {
 

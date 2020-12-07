@@ -1,10 +1,8 @@
 package cn.central.search.client.feign.fallback;
 
 
-import cn.central.common.Page.PageResult;
 import cn.central.common.model.Result;
 import cn.central.search.client.feign.SearchService;
-import com.fasterxml.jackson.databind.JsonNode;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 
