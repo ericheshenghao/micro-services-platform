@@ -1,4 +1,4 @@
-FROM fabric8/java-alpine-openjdk8-jdk:1.8.0
+FROM frolvlad/alpine-oraclejdk8:slim
 
 # 将jar包添加到容器中并更名为app.jar
 ADD ./target/siques-oauth-4.2.0.jar siques-oauth.jar
