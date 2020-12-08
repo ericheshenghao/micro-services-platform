@@ -6,7 +6,8 @@
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-blue" alt="Downloads"/>
   <img src="https://img.shields.io/badge/Elasticsearch-7.x-brightgreen" alt="Downloads"/>
 </p>
-
+## 架构图
+![img](https://cdn.siques.cn/post/1/2020-12/275992%E6%9E%B6%E6%9E%84.png)
 ## 项目介绍
 基于SpringBoot2.2、SpringCloud和SpringCloudAlibaba并采用前后端分离的企业级微服务多租户系统架构。并引入组件化的思想实现高内聚低耦合并且高度可配置化。实现了基于RBAC、jwt和oauth2的无状态统一权限认证的解决方案，使用rancher搭建kubernetes集群，支持CI/CD多环境部署，并提供应用管理方便第三方系统接入；同时还集合各种微服务治理功能和监控功能。模块包括:企业级的认证系统、开发平台、应用监控、慢sql监控、统一日志、配置中心、分布式任务调度、接口文档、代码生成等等。
 
