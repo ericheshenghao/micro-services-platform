@@ -146,7 +146,8 @@ spec:
           imagePullPolicy: Always
           name: sq-dashboard
           ports:
-            - containerPort: 7100
+            - containerPort: 3000
+              hostPort: 3000
               name: main
               protocol: TCP
           resources: {}
