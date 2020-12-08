@@ -136,7 +136,7 @@ spec:
     metadata:
       annotations:
         cattle.io/timestamp: "2020-12-03T09:11:40Z"
-        field.cattle.io/ports: '[[{"containerPort":7100,"dnsName":"sq-dashboard","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"sq-dashboard","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
       creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: deployment-default-sq-dashboard
