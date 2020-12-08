@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/badge/Elasticsearch-7.x-brightgreen" alt="Downloads"/>
 </p>
 ## 架构图
+
 ![img](https://cdn.siques.cn/post/1/2020-12/275992%E6%9E%B6%E6%9E%84.png)
 
 ## 项目介绍
