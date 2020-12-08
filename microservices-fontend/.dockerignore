@@ -3,8 +3,7 @@
 /dist
 .env
 /node_modules
-uploads
-db
+
 # Logs
 logs
 *.log

@@ -28,7 +28,7 @@ export default ({ app, store, route, redirect }) => {
     console.log(error)
     if (error.response.status == 401) {
       store.dispatch('modules/user/Logout')
-      redirect('/login')
+      // redirect('/login')
     }
   })
   Vue.prototype.$http = axios

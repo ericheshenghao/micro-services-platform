@@ -2,7 +2,7 @@ export default function ({ route, store, redirect }) {
   route.matched.forEach((item, index) => {
     item.meta.title = route.meta[index].title || ''
   })
-  if (route.path !== '/sys/login' && route.path !== '/') {
+  if (route.path !== '/login' && route.path !== '/') {
     const value = route.fullPath
 
     const meta = route.meta || router.$avueRouter.meta || {}

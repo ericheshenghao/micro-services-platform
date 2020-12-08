@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-blue" alt="Downloads"/>
   <img src="https://img.shields.io/badge/Elasticsearch-7.x-brightgreen" alt="Downloads"/>
 </p>
+
 ## 架构图
 
 ![img](https://cdn.siques.cn/post/1/2020-12/558735%E4%B8%AD%E6%8A%95-%E9%98%BF%E9%87%8C%E4%BA%91-%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84.jpg)

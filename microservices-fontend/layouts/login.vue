@@ -27,11 +27,14 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
+import { mapGetters, mapState } from 'vuex'
 
 @Component({
   components: {},
+  computed: mapGetters(['isMobile']),
 })
 export default class userLayout extends Vue {
+  isMobile: any
   mounted() {
     document.body.classList.add('userLayout')
   }

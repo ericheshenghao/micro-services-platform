@@ -46,7 +46,7 @@ export const actions = {
   // 登出
   Logout({ commit, state }) {
     commit('SET_TOKEN', '')
-    commit('SET_ROLES', [])
+
     // return new Promise((resolve) => {
     //   logout(state.token)
     //     .then(() => {

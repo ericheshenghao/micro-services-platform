@@ -5,7 +5,7 @@ import qs from 'qs'
 const userApi = {
   Login: 'uaa/oauth/token',
   Logout: 'uaa/oauth/logout',
-  captchaUri: 'http://localhost:9001/uaa/validate/captcha/',
+  captchaUri: 'uaa/validate/captcha/',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
@@ -38,9 +38,13 @@ export function login(parameter) {
   })
 }
 
-export function getCaptchaUri() {
+export function getCaptcha() {
   userApi.uid = getUid()
-  return userApi.captchaUri + userApi.uid
+  return vue.prototype.$http({
+    url: userApi.captchaUri + userApi.uid,
+    method: 'get',
+    responseType: 'blob',
+  })
 }
 
 export function getSmsCaptcha(parameter) {

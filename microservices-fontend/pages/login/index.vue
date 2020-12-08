@@ -92,7 +92,7 @@
                 v-if="showCaptch"
                 @click="changeCaptch"
                 style="height: 40px; width: 100%; object-fit: cover"
-                :src="captchUri"
+                :src="captchaUrl"
                 alt=""
               />
             </a-col>
@@ -168,10 +168,7 @@
         <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]"
           >自动登录</a-checkbox
         >
-        <router-link
-          :to="{ name: 'recover', params: { user: 'aaa' } }"
-          class="forge-password"
-          style="float: right"
+        <router-link :to="'/'" class="forge-password" style="float: right"
           >忘记密码</router-link
         >
       </a-form-item>
@@ -199,9 +196,7 @@
         <a>
           <a-icon class="item-icon" type="weibo-circle"></a-icon>
         </a>
-        <router-link class="register" :to="{ name: 'register' }"
-          >注册账户</router-link
-        >
+        <router-link class="register" :to="'/'">注册账户</router-link>
       </div>
     </a-form>
 
@@ -216,12 +211,31 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import { getSmsCaptcha, get2step, getCaptchaUri } from '~/api/login.js'
+import { getSmsCaptcha, get2step, getCaptcha } from '~/api/login.js'
 import { timeFix } from '@/utils/util'
 @Component({})
 export default class login extends Vue {
   layout(context: any) {
     return 'login'
+  }
+
+  captchaUrl: any = ''
+  async mounted() {
+    this.getCaptchaUrl()
+  }
+
+  async getCaptchaUrl() {
+    const res = await getCaptcha()
+
+    this.captchaUrl = window.URL.createObjectURL(res)
+  }
+
+  changeCaptch() {
+    this.showCaptch = false
+    setTimeout(async () => {
+      this.getCaptchaUrl()
+      this.showCaptch = true
+    }, 500)
   }
 
   customActiveKey = 'tab1'
@@ -232,7 +246,6 @@ export default class login extends Vue {
   requiredTwoStepCaptcha = false
   stepCaptchaVisible = false
 
-  captchUri = getCaptchaUri()
   showCaptch = true
   state = {
     time: 60,
@@ -248,16 +261,7 @@ export default class login extends Vue {
     this.form = this.$form.createForm(this)
   }
 
-  created() {
-    get2step({})
-      .then((res: any) => {
-        this.requiredTwoStepCaptcha = res.result.stepCode
-      })
-      .catch(() => {
-        this.requiredTwoStepCaptcha = false
-      })
-    // this.requiredTwoStepCaptcha = true
-  }
+  created() {}
 
   handleLogincodeOrEmail(rule: any, value: any, callback: any) {
     const { state } = this
@@ -268,14 +272,6 @@ export default class login extends Vue {
       state.loginType = 1
     }
     callback()
-  }
-
-  changeCaptch() {
-    this.showCaptch = false
-    setTimeout(() => {
-      this.showCaptch = true
-      this.captchUri = getCaptchaUri()
-    }, 500)
   }
 
   handleTabClick(key: any) {
