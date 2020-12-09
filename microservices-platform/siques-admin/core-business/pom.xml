@@ -50,6 +50,9 @@
         </dependency>
 
 
+
+
+
         <!--        消息通信-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
@@ -100,7 +103,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
 
 
 
