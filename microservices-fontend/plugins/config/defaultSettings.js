@@ -5,11 +5,9 @@
 const BASE_URL =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:'
-    : 'http://139.198.189.114:'
+    : 'http://139.198.187.241:9001/'
 export default {
-  API_URL: BASE_URL + '9001/',
-
-  CAPTCHA_SERVICE: BASE_URL + '9001/core/pub/captcha.jpg',
+  API_URL: BASE_URL,
 
   //配置菜单的属性
   navTheme: 'dark', // theme for nav menu
