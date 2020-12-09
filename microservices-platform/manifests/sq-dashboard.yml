@@ -3,9 +3,10 @@ kind: Deployment
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
-    field.cattle.io/creatorId: user-n7jmg
-  creationTimestamp: "2020-12-03T09:11:40Z"
-  generation: 1
+    field.cattle.io/creatorId: user-ljnqs
+    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.0.5"],"port":30000,"protocol":"TCP","serviceName":"default:sq-dashboard-nodeport","allNodes":true}]'
+  creationTimestamp: "2020-12-09T04:34:45Z"
+  generation: 2
   labels:
     cattle.io/creator: norman
     workload.user.cattle.io/workloadselector: deployment-default-sq-dashboard
@@ -15,40 +16,9 @@ metadata:
       fieldsV1:
         f:metadata:
           f:annotations:
-            f:deployment.kubernetes.io/revision: {}
-        f:status:
-          f:conditions:
-            .: {}
-            k:{"type":"Available"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
-            k:{"type":"Progressing"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
-          f:observedGeneration: {}
-          f:replicas: {}
-          f:unavailableReplicas: {}
-          f:updatedReplicas: {}
-      manager: kube-controller-manager
-      operation: Update
-      time: "2020-12-03T09:11:40Z"
-    - apiVersion: apps/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        f:metadata:
-          f:annotations:
             .: {}
             f:field.cattle.io/creatorId: {}
+            f:field.cattle.io/publicEndpoints: {}
           f:labels:
             .: {}
             f:cattle.io/creator: {}
@@ -85,7 +55,7 @@ metadata:
                   f:name: {}
                   f:ports:
                     .: {}
-                    k:{"containerPort":8083,"protocol":"TCP"}:
+                    k:{"containerPort":3000,"protocol":"TCP"}:
                       .: {}
                       f:containerPort: {}
                       f:name: {}
@@ -114,12 +84,45 @@ metadata:
               f:terminationGracePeriodSeconds: {}
       manager: rancher
       operation: Update
-      time: "2020-12-03T09:11:40Z"
+      time: "2020-12-09T04:34:46Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-12-09T04:36:38Z"
   name: sq-dashboard
   namespace: default
-  resourceVersion: "41015"
+  resourceVersion: "14894"
   selfLink: /apis/apps/v1/namespaces/default/deployments/sq-dashboard
-  uid: a332546e-6bb7-40c8-a2e2-d4657b803f7f
+  uid: 0d09ef30-62d4-478c-848d-4316351e284b
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -135,8 +138,8 @@ spec:
   template:
     metadata:
       annotations:
-        cattle.io/timestamp: "2020-12-03T09:11:40Z"
-        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"sq-dashboard-hostport","hostPort":3000,"kind":"HostPort","name":"main","protocol":"TCP","sourcePort":3000}]]'
+        cattle.io/timestamp: "2020-12-09T04:34:45Z"
+        field.cattle.io/ports: '[[{"containerPort":3000,"dnsName":"sq-dashboard-nodeport","hostPort":0,"kind":"NodePort","name":"main","protocol":"TCP","sourcePort":30000}]]'
       creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: deployment-default-sq-dashboard
@@ -147,7 +150,6 @@ spec:
           name: sq-dashboard
           ports:
             - containerPort: 3000
-              hostPort: 3000
               name: main
               protocol: TCP
           resources: {}
@@ -169,20 +171,21 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
 status:
+  availableReplicas: 1
   conditions:
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
+    - lastTransitionTime: "2020-12-09T04:36:38Z"
+      lastUpdateTime: "2020-12-09T04:36:38Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
       type: Available
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: ReplicaSet "sq-dashboard-97c78b954" is progressing.
-      reason: ReplicaSetUpdated
+    - lastTransitionTime: "2020-12-09T04:34:45Z"
+      lastUpdateTime: "2020-12-09T04:36:38Z"
+      message: ReplicaSet "sq-dashboard-54f4c5497d" has successfully progressed.
+      reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-  observedGeneration: 1
+  observedGeneration: 2
+  readyReplicas: 1
   replicas: 1
-  unavailableReplicas: 1
   updatedReplicas: 1
