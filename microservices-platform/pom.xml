@@ -13,6 +13,7 @@
         <module>siques-oauth</module>
         <module>siques-monitor</module>
         <module>siques-config</module>
+        <module>siques-sso</module>
     </modules>
     <packaging>pom</packaging>
 

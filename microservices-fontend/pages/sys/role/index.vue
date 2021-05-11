@@ -117,7 +117,7 @@ export default class SysRole extends Vue {
   loadDataFun = async (parameter: any) => {
     const res = await getRoleList()
     return {
-      records: res.datas,
+      records: res.data,
       pagination: false,
     }
   }
@@ -136,7 +136,7 @@ export default class SysRole extends Vue {
     const res = await findRoleMenus(row.id)
     let menuSet: any = []
     // 只设置最小节点
-    res.datas.sysMenuList.forEach((e: any) => {
+    res.data.sysMenuList.forEach((e: any) => {
       if (e.type == 2 || e.target == '_blank') {
         menuSet.push(e.id)
       }
@@ -148,7 +148,7 @@ export default class SysRole extends Vue {
 
   async mounted() {
     const res = await findMenuTree()
-    this.menuTree = res.datas
+    this.menuTree = res.data
   }
 
   /** 没有选中所有子节点时也带上父节点 */

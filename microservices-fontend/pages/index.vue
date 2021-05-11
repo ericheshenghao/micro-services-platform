@@ -298,7 +298,7 @@
                   <div>
                     <mini-smooth-area
                       :style="{ height: '45px' }"
-                      :dataSource="searchUserData"
+                      :dataource="searchUserData"
                       :scale="searchUserScale"
                     />
                   </div>
@@ -319,7 +319,7 @@
                   <div>
                     <mini-smooth-area
                       :style="{ height: '45px' }"
-                      :dataSource="searchUserData"
+                      :dataource="searchUserData"
                       :scale="searchUserScale"
                     />
                   </div>
@@ -330,7 +330,7 @@
                   row-key="index"
                   size="small"
                   :columns="searchTableColumns"
-                  :dataSource="searchData"
+                  :dataource="searchData"
                   :pagination="{ pageSize: 5 }"
                 >
                   <span slot="range" slot-scope="text, record">
@@ -482,7 +482,7 @@ for (let i = 0; i < 50; i += 1) {
   })
 }
 
-const DataSet = require('@antv/data-set')
+const dataet = require('@antv/data-set')
 
 const sourceData = [
   { item: '家用电器', count: 32.2 },
@@ -501,7 +501,7 @@ const pieScale = [
   },
 ]
 
-const dv = new DataSet.View().source(sourceData)
+const dv = new dataet.View().source(sourceData)
 dv.transform({
   type: 'percent',
   field: 'count',

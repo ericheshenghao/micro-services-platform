@@ -90,7 +90,7 @@ export default class searchIndex extends Vue {
     const requestParameters = Object.assign({}, parameter)
     const res = await searchIndices()
     return {
-      records: res.datas,
+      records: res.data,
       pagination: false,
     }
   }

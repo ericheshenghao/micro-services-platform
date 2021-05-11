@@ -124,9 +124,9 @@ export default class Client extends Vue {
     const requestParameters = Object.assign({}, parameter)
     const res = await getClientList(requestParameters)
     return {
-      records: res.datas.records,
+      records: res.data.records,
       pagination: {
-        total: res.datas.total,
+        total: res.data.total,
       },
     }
   }

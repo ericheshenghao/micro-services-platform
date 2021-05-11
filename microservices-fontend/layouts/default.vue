@@ -103,7 +103,7 @@ export default class defaultLayout extends Vue {
   async created() {
     const res = await findNavTree()
 
-    this.menus = res.datas
+    this.menus = res.data
 
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
