@@ -5,7 +5,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 /**
  * 租户holder
  *
- * @author zlt
+ * @author he
  * @date 2019/8/5
  */
 public class TenantContextHolder {

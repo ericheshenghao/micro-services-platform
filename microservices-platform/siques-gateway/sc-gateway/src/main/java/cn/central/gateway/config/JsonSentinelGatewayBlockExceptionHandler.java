@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Sentinel 限流后自定义异常
- * @author wunaozai
+ * @author he
  * @Date 2020-03-17
  */
 public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHandler {
@@ -28,11 +28,12 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
 
     public JsonSentinelGatewayBlockExceptionHandler(
             List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
+
         this.viewResolvers = viewResolvers;
         this.messageWriters = serverCodecConfigurer.getWriters();
     }
     /**
-     * 自定义返回
+     * TODO 限系统流，待测试
      * @param response
      * @param exchange
      * @return
@@ -40,7 +41,7 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
     private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange) {
         ServerHttpResponse resp = exchange.getResponse();
         resp.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String json = "{\"code\": -1, \"data\": null, \"msg\": \"系统限流\"}";
+        String json = "{code: 0, data: null, msg: 系统限流}";
         DataBuffer buffer = resp.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
         return resp.writeWith(Mono.just(buffer));
     }

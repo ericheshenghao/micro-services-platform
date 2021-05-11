@@ -13,6 +13,9 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author he
+ */
 @Configuration
 public class GatewayConfig{
 

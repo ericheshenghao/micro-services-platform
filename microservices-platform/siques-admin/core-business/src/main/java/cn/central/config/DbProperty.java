@@ -17,5 +17,5 @@ import java.util.List;
 @ConfigurationProperties("spring")
 public class DbProperty {
     /**多数据源地址**/
-   private List<DbConfig> multiplesource;
+   private List<DbConfig> multipleSource;
 }

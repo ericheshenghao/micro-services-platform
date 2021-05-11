@@ -3,7 +3,6 @@ package cn.central.gateway.filter;
 import cn.central.common.constant.CommonConstant;
 import cn.central.log.properties.TraceProperties;
 import cn.hutool.core.util.IdUtil;
-import org.checkerframework.checker.units.qual.C;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -15,6 +14,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
+ * 分布式链路追踪ID向下游传递
  * @author : heshenghao
  * @date : 17:38 2020/11/22
  */
@@ -27,10 +27,11 @@ public class TraceFilter implements GlobalFilter , Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        // 开启链路追踪id
-        // 最顶层生成追踪id
+        // 初始化追踪id
         if(traceProperties.getEnable()){
+            // 生成UUID
             String traceId = IdUtil.fastSimpleUUID();
+            //通过 MDC进行传递
             MDC.put(CommonConstant.LOG_TRACE_ID,traceId);
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(CommonConstant.TRACE_ID_HEADER, traceId))

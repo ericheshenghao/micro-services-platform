@@ -1,9 +1,10 @@
 server:
   port: 8984
-
 spring:
-
+  main:
+    banner-mode: off
   application:
+#    User Account and Authentication (UAA)
     name: uaa-server
   datasource:
     url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -21,6 +22,7 @@ spring:
       discovery:
         server-addr: 139.198.189.114:8848
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+
 logging:
   level:
     org.springframework.security: debug
@@ -55,3 +57,5 @@ security:
       access-token-uri: http://localhost:8984/oauth/token
       user-info-uri: http://localhost:8984/oauth/user
       scope: READ
+
+

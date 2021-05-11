@@ -3,6 +3,7 @@ server:
 security:
   oauth2:
     resource:
+      ## 分布式情况下，服务分布在不同的机器上，此时该如何处理呢
       token-info-uri: http://localhost:8984/oauth/check_token
       jwt:
         key-alias: webApp
@@ -24,10 +25,12 @@ security:
       client-secret: 123456
       access-token-uri: http://localhost:8984/oauth/token
       user-info-uri: http://localhost:8984/oauth/user
-      scope: READ
+      scope: READ_WRITE
 spring:
   main:
     banner-mode: off
+  application:
+    name: core-business
   #  rabbitmq:
 #    host: 106.54.247.224
 #    username: admin
@@ -103,14 +106,7 @@ spring:
     - url: jdbc:mysql://106.54.247.224:3306/mango?useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: root
       password: l1itdhjaoiqw32kwqe$5asasd*a21
-
-  boot:
-  #    admin:
-  #      client:
-  #        url: "http://localhost:8090"
-
-  application:
-    name: core-business
+#      资源服务器获取 redis 中 加密后的token，使用配置文件中配置的公钥进行解密获取 claim 进行校验，scope的作用？
   redis:
     host: 139.198.176.14
     port: 6379
@@ -153,8 +149,8 @@ siques:
 #      jdbc-url: jdbc:mysql://127.0.0.1:3306/mango?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
 #      username: root
 #      password: l1itdhjaoiqw32kwqe$5asasd*a21
-sq:
-  security:
-    ignore:
-      httpUrls: >
-        /pri/user/permissions
+#sq:
+#  security:
+#    ignore:
+#      httpUrls: >
+#        /pri/user/permissions

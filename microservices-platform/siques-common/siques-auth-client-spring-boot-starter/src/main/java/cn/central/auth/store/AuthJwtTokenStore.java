@@ -16,13 +16,10 @@ import java.util.Map;
 /**
  * 认证服务器使用 JWT RSA 非对称加密令牌
  *
- * @author zlt
  * @date 2018/7/24 16:21
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
+
  */
-@ConditionalOnProperty(prefix = "sq.oauth2.token.store", name = "type", havingValue = "authJwt")
+@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "authJwt")
 public class AuthJwtTokenStore {
 
     @Bean("keyProp")
@@ -57,19 +54,5 @@ public class AuthJwtTokenStore {
      *
      * @return TokenEnhancer
      */
-    @Bean
-    @Order(1)
-    public TokenEnhancer tokenEnhancer() {
-        return (accessToken, authentication) -> {
-            final Map<String, Object> additionalInfo = new HashMap<>(1);
-            Object principal = authentication.getPrincipal();
-            //增加id参数
-            if (principal instanceof SysUser) {
-                SysUser user = (SysUser)principal;
-                additionalInfo.put("id", user.getId());
-            }
-            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-            return accessToken;
-        };
-    }
+
 }

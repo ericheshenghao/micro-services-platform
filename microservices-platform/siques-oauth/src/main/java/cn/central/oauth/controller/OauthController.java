@@ -6,6 +6,7 @@ import cn.central.oauth.service.ValidateCodeService;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +24,13 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/validate")
+@Api(tags = {"验证码接口"})
 public class OauthController {
-
 
 //    public HashMap<String, Object> user(OAuth2Authentication user){
 
-
     @Autowired
     private ValidateCodeService validateCodeService;
-
 
     /**
      * 验证码接口

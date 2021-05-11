@@ -59,6 +59,11 @@ public class SysUserController {
         return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",userCode));
     }
 
+    /**
+     * 鉴权的话每次都会向一个服务发起调用获取
+     * @param userId
+     * @return
+     */
     @PreAuthorize("@el.check('sys:user:edit')")
     @PutMapping("/password/{id}")
     @ApiOperation(value = "重置密码", notes = "重置密码")
@@ -121,7 +126,7 @@ public class SysUserController {
 
 
     /**
-     * 匹配每个需要权限的接口, el表达式查询必用接口
+     * 匹配每个需要权限的接口, 鉴权查询接口
      *  {@link cn.central.common.config.ElPermissionConfig}
      *
      * 必须是登录用户才可以远程调用此接口

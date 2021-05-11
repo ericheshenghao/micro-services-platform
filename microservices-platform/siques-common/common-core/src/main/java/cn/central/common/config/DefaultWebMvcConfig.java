@@ -1,34 +1,27 @@
 package cn.central.common.config;
 
 
-import cn.central.common.feign.UserService;
+import cn.central.common.feign.AuthService;
 import cn.central.common.resolver.ClientArgumentResolver;
 import cn.central.common.resolver.TokenArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
 /**
  * 默认SpringMVC拦截器
- *
- * @author zlt
- * @date 2019/8/5
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
+ * @author
  */
 public class DefaultWebMvcConfig implements WebMvcConfigurer {
 	@Lazy
 	@Autowired
-	private UserService userService;
+	private AuthService userService;
 
 	/**
 	 * Token参数解析
-	 *
 	 * @param argumentResolvers 解析类
 	 */
 	@Override

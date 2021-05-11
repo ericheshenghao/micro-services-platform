@@ -21,6 +21,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
+ * 安全管理框架获取authenticationManagerBean
  * @author : heshenghao
  * @date : 19:10 2020/11/13
  */
@@ -29,15 +30,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-    }
-
     /**
-     * 授权管理.
-     *
+     * 注入授权管理器
      * @return 认证管理对象
      * @throws Exception 认证异常信息
      */

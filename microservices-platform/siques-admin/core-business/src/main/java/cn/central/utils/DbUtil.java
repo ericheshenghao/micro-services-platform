@@ -49,7 +49,7 @@ public class DbUtil {
 
 
     public List<DbConfig> getDbList() {
-        List<DbConfig> multiplesource = dbProperty.getMultiplesource();
+        List<DbConfig> multiplesource = dbProperty.getMultipleSource();
         return  multiplesource;
     }
 

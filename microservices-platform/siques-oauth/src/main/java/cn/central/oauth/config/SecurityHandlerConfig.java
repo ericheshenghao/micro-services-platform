@@ -1,15 +1,13 @@
 package cn.central.oauth.config;
 
 
-import cn.central.oauth.exception.ValidateCodeException;
+import cn.central.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.common.exceptions.*;
-import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -20,44 +18,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 认证错误处理
- *
- * @author zlt
+ * 统一响应返回格式
+ * @author he
  */
 @Slf4j
 @Configuration
 public class SecurityHandlerConfig {
 
-
+    /**
+     * 包装所有错误类型返回
+     * @return
+     */
     @Bean
-    public WebResponseExceptionTranslator webResponseExceptionTranslator() {
-        return new DefaultWebResponseExceptionTranslator() {
-            public static final String BAD_MSG = "坏的凭证";
+    public WebResponseExceptionTranslator WebResponseExceptionTranslator() {
+        return e -> {
 
-            @Override
-            public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
-                OAuth2Exception oAuth2Exception;
-                if (e.getMessage() != null && e.getMessage().equals(BAD_MSG)) {
-                    oAuth2Exception = new InvalidGrantException("用户名或密码错误", e);
-                } else if (e instanceof InternalAuthenticationServiceException) {
-                    oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-                } else if (e instanceof RedirectMismatchException) {
-                    oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-                } else if (e instanceof InvalidScopeException) {
-                    oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-                }else if(e instanceof ValidateCodeException){
-                    oAuth2Exception = new ValidateCodeException(e.getMessage(),e);
-                }
-                else {
-                    oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
-                }
-                ResponseEntity<OAuth2Exception> response = super.translate(oAuth2Exception);
-                ResponseEntity.status(oAuth2Exception.getHttpErrorCode());
-                response.getBody().addAdditionalInformation("resp_code", oAuth2Exception.getHttpErrorCode() + "");
-                response.getBody().addAdditionalInformation("resp_msg", oAuth2Exception.getMessage());
+            ResponseEntity<Result> response = new ResponseEntity<>
+                    (Result.failed(null, e.getMessage()), HttpStatus.OK);
 
-                return response;
-            }
+            return response;
         };
     }
 

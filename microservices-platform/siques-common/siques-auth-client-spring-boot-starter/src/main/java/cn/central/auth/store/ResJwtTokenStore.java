@@ -1,5 +1,6 @@
 package cn.central.auth.store;
 
+import cn.central.auth.converter.CustomUserAuthenticationConverter;
 import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -7,15 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.security.KeyPair;
 import java.util.Base64;
 
 /**
@@ -25,7 +30,7 @@ import java.util.Base64;
  * @date 2018/8/20 9:25
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "sq.oauth2.token.store", name = "type", havingValue = "resJwt")
+@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "jwt")
 public class ResJwtTokenStore {
     @Autowired
     private ResourceServerProperties resourceServerProperties;
@@ -35,17 +40,22 @@ public class ResJwtTokenStore {
         return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
+
+
     /**
      * jwt 令牌转换
      *
      * @return jwt
      */
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setVerifierKey(getPubKey());
-        return converter;
-    }
+//    @Bean
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+////        DefaultAccessTokenConverter c = new DefaultAccessTokenConverter();
+////        c.setUserTokenConverter(new CustomUserAuthenticationConverter());
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+////        converter.setAccessTokenConverter(c);
+//        converter.setVerifierKey(getPubKey());
+//        return converter;
+//    }
 
     /**
      * 非对称密钥加密，获取 public key。

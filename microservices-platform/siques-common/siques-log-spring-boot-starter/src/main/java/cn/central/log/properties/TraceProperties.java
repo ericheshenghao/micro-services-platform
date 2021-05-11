@@ -1,18 +1,14 @@
 package cn.central.log.properties;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * 日志链路追踪配置
- *
- * @author zlt
- * @date 2019/8/13
+ * @author he
  */
-@Setter
-@Getter
+@Data
 @ConfigurationProperties(prefix = "siques.trace")
 @RefreshScope
 public class TraceProperties {

@@ -26,11 +26,8 @@ import java.time.LocalDateTime;
 /**
  * 审计日志切面
  *
- * @author zlt
+ * @author he
  * @date 2020/2/3
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
 @Slf4j
 @Aspect
@@ -40,6 +37,7 @@ public class AuditLogAspect {
     private String applicationName;
 
     private AuditLogProperties auditLogProperties;
+
     private IAuditService auditService;
 
     public AuditLogAspect(AuditLogProperties auditLogProperties, IAuditService auditService) {
@@ -56,6 +54,11 @@ public class AuditLogAspect {
      */
     private DefaultParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
 
+    /**
+     * 对标注有auditLog的方法进行织入
+     * @param joinPoint
+     * @param auditLog
+     */
     @Before("@within(auditLog) || @annotation(auditLog)")
     public void beforeMethod(JoinPoint joinPoint, AuditLog auditLog) {
         //判断功能是否开启
@@ -69,17 +72,23 @@ public class AuditLogAspect {
                 auditLog = joinPoint.getTarget().getClass().getDeclaredAnnotation(AuditLog.class);
             }
             Audit audit = getAudit(auditLog, joinPoint);
+            // 具体实现类根据配置文件实例化,当前只有db或者打印两种方式
             auditService.save(audit);
         }
     }
 
     /**
      * 解析spEL表达式
+     * @param spEL
+     * @param methodSignature 切入方法的签名
+     * @param args 方法的参数
+     * @return
      */
-    private String getvalbyspel(String spEL, MethodSignature methodSignature, Object[] args) {
-        //获取方法形参名数组
+    private String getValByspel(String spEL, MethodSignature methodSignature, Object[] args) {
+        //获取注解方法形参名数组 ["permission"]
         String[] paramNames = nameDiscoverer.getParameterNames(methodSignature.getMethod());
         if (paramNames != null && paramNames.length > 0) {
+            // el表达式
             Expression expression = spelExpressionParser.parseExpression(spEL);
             // spring的表达式上下文对象
             EvaluationContext context = new StandardEvaluationContext();
@@ -87,7 +96,8 @@ public class AuditLogAspect {
             for(int i = 0; i < args.length; i++) {
                 context.setVariable(paramNames[i], args[i]);
             }
-            return expression.getValue(context).toString();
+            Object value = expression.getValue(context);
+            return value == null ? null : value.toString();
         }
         return null;
     }
@@ -106,18 +116,22 @@ public class AuditLogAspect {
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String userId = request.getHeader("x-userid-header");
-        String userName = request.getHeader("x-user-header");
-        String clientId = request.getHeader("x-tenant-header");
+        // 每个微服务中都需要接收该参数
+        String userId = (String) request.getAttribute("x-userid-header");
+//        String userCode = request.getHeader("x-user-header");
+//        String clientId = request.getHeader("x-tenant-header");
+
+        // 去安全上下文中拿是否更安全，思考一下标注了AuditLog的方法一般是什么方法
+        // 用户信息
         audit.setUserId(userId);
-        audit.setUserName(userName);
-        audit.setClientId(clientId);
+//        audit.setUserCode(userCode);
+//        audit.setClientId(clientId);
 
         String operation = auditLog.operation();
         if (operation.contains("#")) {
             //获取方法参数值
             Object[] args = joinPoint.getArgs();
-            operation = getvalbyspel(operation, methodSignature, args);
+            operation = getValByspel(operation, methodSignature, args);
         }
         audit.setOperation(operation);
 

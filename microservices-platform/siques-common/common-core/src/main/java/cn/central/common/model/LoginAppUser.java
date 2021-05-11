@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author zlt
+ * @author he
  * 用户实体绑定spring security
  */
 @Getter

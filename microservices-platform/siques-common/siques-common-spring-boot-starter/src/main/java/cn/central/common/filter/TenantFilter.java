@@ -18,7 +18,6 @@ import java.io.IOException;
 /**
  * 租户过滤器
  *
- * @author zlt
  * @date 2019/9/15
  */
 @ConditionalOnClass(Filter.class)
@@ -32,6 +31,8 @@ public class TenantFilter extends OncePerRequestFilter {
             if (StrUtil.isEmpty(tenantId)) {
                 tenantId = request.getHeader(SecurityConstants.TENANT_HEADER);
             }
+
+            TenantContextHolder.setTenant("123");
             //保存租户id
             if (StrUtil.isNotEmpty(tenantId)) {
                 TenantContextHolder.setTenant(tenantId);

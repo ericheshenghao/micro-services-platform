@@ -13,6 +13,9 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author he
+ */
 @Component
 @Primary
 public class SwaggerResourceProvider  implements SwaggerResourcesProvider {

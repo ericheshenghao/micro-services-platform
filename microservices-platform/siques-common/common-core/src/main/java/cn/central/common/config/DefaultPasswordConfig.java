@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /** 
-* @author zlt
+* @author he
 * 密码工具类
 */
 public class DefaultPasswordConfig {

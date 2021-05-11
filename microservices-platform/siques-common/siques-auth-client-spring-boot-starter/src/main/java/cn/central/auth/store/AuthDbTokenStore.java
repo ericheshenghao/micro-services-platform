@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * @author zlt
  * @date 2018/7/24 16:23
  */
-@ConditionalOnProperty(prefix = "sq.oauth2.token.store", name = "type", havingValue = "db")
+@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "db")
 public class AuthDbTokenStore {
     @Autowired
     private DataSource dataSource;

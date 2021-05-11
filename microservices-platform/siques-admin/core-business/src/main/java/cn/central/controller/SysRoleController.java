@@ -23,10 +23,9 @@ import java.util.Set;
 @Api(tags = {"角色管理接口"})
 @RequestMapping("/pri/role")
 public class SysRoleController {
+
     @Resource
     SysRoleService sysRoleService;
-
-
 
     @Resource
     private SysRoleMenuService sysRoleMenuService;

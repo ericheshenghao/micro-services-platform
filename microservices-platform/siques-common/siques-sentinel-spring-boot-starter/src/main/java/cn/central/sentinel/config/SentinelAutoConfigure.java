@@ -19,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Sentinel配置类
  *
- * @author zlt
+ * @author he
  * @date 2019/1/22
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
 public class SentinelAutoConfigure {
     /**

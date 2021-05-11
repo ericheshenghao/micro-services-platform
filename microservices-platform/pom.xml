@@ -121,7 +121,7 @@
 
             <dependency>
                 <groupId>cn.siques</groupId>
-                <artifactId>siques-ribbon-spring-boot-starter</artifactId>
+                <artifactId>siques-feign-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -1,5 +1,6 @@
 package cn.central.gateway.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +11,15 @@ import springfox.documentation.swagger.web.*;
 
 import java.util.Optional;
 
+/**
+ * @author he
+ */
 @RestController
 public class SwaggerHandler {
 
     @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;
+
     @Autowired(required = false)
     private UiConfiguration uiConfiguration;
     private final SwaggerResourcesProvider swaggerResources;

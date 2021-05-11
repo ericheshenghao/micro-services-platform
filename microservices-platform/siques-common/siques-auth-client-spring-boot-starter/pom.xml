@@ -19,6 +19,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
+
+
         <dependency>
             <groupId>cn.siques</groupId>
             <artifactId>siques-redis-spring-boot-starter</artifactId>
@@ -40,14 +42,13 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
-
-
 
 </project>

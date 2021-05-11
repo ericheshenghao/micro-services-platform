@@ -1,5 +1,8 @@
 server:
   port: 9001
+siques:
+  trace:
+    enable: true
 spring:
   application:
     name: sc-gateway

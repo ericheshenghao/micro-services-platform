@@ -5,7 +5,7 @@ import cn.central.common.constant.SecurityConstants;
 
 import cn.central.common.model.SysUser;
 import cn.central.common.redis.template.RedisRepository;
-import cn.central.oauth.exception.ValidateCodeException;
+import cn.central.common.exception.ValidateCodeException;
 import cn.central.oauth.service.SysUserService;
 import cn.central.oauth.service.ValidateCodeService;
 import cn.hutool.core.util.ObjectUtil;
@@ -14,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.xml.bind.ValidationException;
 
 /**
  * @author : heshenghao
@@ -61,9 +59,10 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         }
 
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_name", username));
-        if(ObjectUtil.isNull(user) ||user.getStatus()==false){
+        if(ObjectUtil.isNull(user) || user.getStatus()==false){
             throw  new ValidateCodeException("账号不存在或被冻结");
         }
+        // 最后从redis中移除该设备号所对应的验证码
         this.remove(deviceId);
     }
 
