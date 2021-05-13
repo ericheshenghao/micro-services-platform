@@ -69,24 +69,24 @@ public class AuthRedisTokenStore {
 
 
     // TODO token 增强如何实现
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-
-        TokenEnhancerChain chain = new TokenEnhancerChain();
-        List<TokenEnhancer> enhancers = new ArrayList<>();
-        enhancers.add((accessToken, authentication) -> {
-            final Map<String, Object> additionalInfo = new HashMap<>(1);
-            Object principal = authentication.getPrincipal();
-            //增加id参数
-            if (principal instanceof SysUser) {
-                SysUser user = (SysUser)principal;
-                additionalInfo.put("id", user.getId());
-            }
-            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-            return accessToken;
-        });
-        log.debug("enhancer added");
-        chain.setTokenEnhancers(enhancers);
-        return chain;
-    }
+//    @Bean
+//    public TokenEnhancer tokenEnhancer() {
+//
+//        TokenEnhancerChain chain = new TokenEnhancerChain();
+//        List<TokenEnhancer> enhancers = new ArrayList<>();
+//        enhancers.add((accessToken, authentication) -> {
+//            final Map<String, Object> additionalInfo = new HashMap<>(1);
+//            Object principal = authentication.getPrincipal();
+//            //增加id参数
+//            if (principal instanceof SysUser) {
+//                SysUser user = (SysUser)principal;
+//                additionalInfo.put("id", user.getId());
+//            }
+//            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+//            return accessToken;
+//        });
+//        log.debug("enhancer added");
+//        chain.setTokenEnhancers(enhancers);
+//        return chain;
+//    }
 }

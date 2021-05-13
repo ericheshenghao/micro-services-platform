@@ -3,6 +3,7 @@ package cn.central.auth.config;
 
 import cn.central.auth.handler.DefaultSecurityHandler;
 import cn.central.auth.properties.SecurityProperties;
+import cn.central.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Import;
@@ -80,6 +81,12 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
                 // 自定义的忽略认证的路径
                 .antMatchers(securityProperties.getIgnore().getUrls()).permitAll()
                 .anyRequest().authenticated();
+
+
+//        http.formLogin()
+//                .loginPage(SecurityConstants.LOGIN_PAGE)
+//                .loginProcessingUrl(SecurityConstants.OAUTH_LOGIN_PRO_URL)
+//                .successHandler(authenticationSuccessHandler);
 
         // 基于密码 等模式可以无session,不支持授权码模式
         if (authenticationEntryPoint != null) {

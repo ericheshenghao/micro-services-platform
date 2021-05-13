@@ -50,7 +50,7 @@ spring:
       datasource: #添加Nacos数据源配置
         flow:
           nacos:
-            namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+            namespace: 2298d310-d84b-49f5-8714-2346876d8457
             server-addr: 139.198.189.114:8848
             dataId: ${spring.application.name}-flow-rules
             groupId: SENTINEL_GROUP  # nacos配置组

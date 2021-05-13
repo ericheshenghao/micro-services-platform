@@ -23,6 +23,7 @@ import java.util.Map;
  * @date 2019/8/5
  */
 public class CustomUserAuthenticationConverter implements UserAuthenticationConverter {
+
     private Collection<? extends GrantedAuthority> defaultAuthorities;
 
     private UserDetailsService userDetailsService;
@@ -66,12 +67,6 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
             if (userDetailsService != null) {
                 UserDetails user = userDetailsService.loadUserByUsername((String) map.get(USERNAME));
                 authorities = user.getAuthorities();
-                principal = user;
-            } else {
-                Integer id = (Integer)map.get("id");
-                LoginAppUser user = new LoginAppUser();
-                user.setUserCode((String)principal);
-                user.setId(Long.valueOf(id));
                 principal = user;
             }
             return new UsernamePasswordAuthenticationToken(principal, "N/A", authorities);

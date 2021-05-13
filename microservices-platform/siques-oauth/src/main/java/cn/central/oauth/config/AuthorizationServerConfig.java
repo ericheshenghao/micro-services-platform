@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -95,10 +96,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security){
         security
-                // 获取 token key 需要进行 basic 认证客户端信息
                 .tokenKeyAccess("isAuthenticated()")
-                // 获取 token 信息同样需要 basic 认证客户端信息
-                .checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
+                .checkTokenAccess("permitAll()")
+
+                //让/oauth/token支持client_id以及client_secret作登录认证
+                .allowFormAuthenticationForClients();
 
     }
 

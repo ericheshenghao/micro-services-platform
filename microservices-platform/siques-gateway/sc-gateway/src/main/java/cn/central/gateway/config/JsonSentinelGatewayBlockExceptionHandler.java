@@ -41,7 +41,11 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
     private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange) {
         ServerHttpResponse resp = exchange.getResponse();
         resp.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String json = "{code: 0, data: null, msg: 系统限流}";
+        String json = "{\n" +
+                "    \"code\": 0, \n" +
+                "    \"data\": null, \n" +
+                "    \"msg\": \"系统限流\"\n" +
+                "}";
         DataBuffer buffer = resp.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
         return resp.writeWith(Mono.just(buffer));
     }

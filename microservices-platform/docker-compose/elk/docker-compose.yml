@@ -6,33 +6,47 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
+    # command: ["elasticsearch-certutil", "cert", "-out","config/elastic-certificates.p12","-pass","''"]
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
       - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+      - ./conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     restart: always
     environment:
       TZ: Asia/Shanghai
       discovery.type: single-node
+      # ES_JAVA_OPTS: -Xms512m -Xmx512m
     ulimits:
       memlock:
         soft: -1
         hard: -1
   oap:
-    image: apache/skywalking-oap-server:latest-es7
+    image: apache/skywalking-oap-server:8.5.0-es7
     ports:
       - 12800:12800
       - 11800:11800
-    restart: always
+    restart: no
     depends_on:
       - es7
     links:
       - es7
+    volumes:
+      - ./skywalking/logs/:/opt/skywalking/logs/
     environment:
       TZ: Asia/Shanghai
       SW_STORAGE: elasticsearch7
       SW_STORAGE_ES_CLUSTER_NODES: es7:9200
+      SW_HEALTH_CHECKER: default
+      SW_TELEMETRY: prometheus
+      SW_ES_USER: elastic
+      SW_ES_PASSWORD: heshenghao
+    healthcheck:
+      test: ["CMD", "./bin/swctl", "ch"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   skywalking-ui:
-    image: apache/skywalking-ui:latest
+    image: apache/skywalking-ui:8.5.0
     ports:
       - 8088:8080
     depends_on:
@@ -43,34 +57,34 @@ services:
     environment:
       TZ: Asia/Shanghai
       SW_OAP_ADDRESS: oap:12800
-  kibana:
-    image: kibana:7.5.1
-    ports:
-      - 5601:5601
-    depends_on:
-      - es7
-    links:
-      - es7
-    volumes:
-      - ./kibana/:/usr/share/kibana/config/
-    environment:
-      SERVER_NAME: kibana.example.org
-      ELASTICSEARCH_HOSTS: http://es7:9200
-      TZ: Asia/Shanghai
-    restart: always
-  logstash:
-    image: logstash:7.5.1
-    ports:
-      - 5044:5044
-    volumes:
-      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./patterns/java:/opt/logstash/patterns/java
-    depends_on:
-      - es7
-    links:
-      - es7
-    restart: always
-    environment:
-      TZ: Asia/Shanghai
+  # kibana:
+  #   image: kibana:7.5.1
+  #   ports:
+  #     - 5601:5601
+  #   depends_on:
+  #     - es7
+  #   links:
+  #     - es7
+  #   volumes:
+  #     - ./kibana/:/usr/share/kibana/config/
+  #   environment:
+  #     SERVER_NAME: kibana.example.org
+  #     ELASTICSEARCH_HOSTS: http://es7:9200
+  #     TZ: Asia/Shanghai
+  #   restart: always
+  # logstash:
+  #   image: logstash:7.5.1
+  #   ports:
+  #     - 5044:5044
+  #   volumes:
+  #     - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+  #     - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+  #     - ./patterns/java:/opt/logstash/patterns/java
+  #   depends_on:
+  #     - es7
+  #   links:
+  #     - es7
+  #   restart: always
+  #   environment:
+  #     TZ: Asia/Shanghai
 ## filebeat不使用docker安装

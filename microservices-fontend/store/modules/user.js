@@ -39,8 +39,8 @@ export const actions = {
   // 获取用户信息
   async GetInfo({ commit }) {
     const res = await getUserInfo()
-    commit('SET_INFO', res.datas)
-    commit('SET_PERMISSIONS', res.datas.permissions)
+    commit('SET_INFO', res.data)
+    commit('SET_PERMISSIONS', res.data.permissions)
   },
 
   // 登出

@@ -30,10 +30,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     SysMenuDao sysMenuDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser user = sysUserDao.findUserByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("User not found!"));
+    public UserDetails loadUserByUsername(String userCodeOrName) throws UsernameNotFoundException {
+        SysUser user = sysUserDao.findUserByUserCodeOrName(userCodeOrName).orElseThrow(
+                () -> new UsernameNotFoundException("找不到该用户!"));
 
+        // 这里储存的是 userCode， 所以之后再进来时会通过 userCode 查找用户
         return new User(user.getUserCode(),user.getPassword(),new ArrayList<>());
     }
 }

@@ -18,11 +18,11 @@ public interface SysUserDao extends BaseMapper<SysUser> {
 
     /**
      * 查找用户
-     * @param username
+     * @param userCodeOrName
      * @return
      */
-    @Select({"select * from sys_user where user_name = #{username}"})
-    Optional<SysUser> findUserByUsername(@Param("username") String username);
+    @Select({"select * from sys_user where user_code = #{userCodeOrName} or user_name = #{userCodeOrName}"})
+    Optional<SysUser> findUserByUserCodeOrName(@Param("userCodeOrName") String userCodeOrName);
 
 
 

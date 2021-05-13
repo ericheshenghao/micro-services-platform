@@ -6,19 +6,10 @@ spring:
   application:
     name: sso-demo
 
-siques:
-  api-uaa:
-    url: http://127.0.0.1:9001/uaa/oauth
-
-security:
-  oauth2:
-    sso:
-      login-path: /singleLogin
-
-    client:
-      client-id: siques
-      client-secret: 123456
-      access-token-uri: ${siques.api-uaa.url}/token
-      user-authorization-uri: ${siques.api-uaa.url}/authorize
-    resource:
-      token-info-uri: ${siques.api-uaa.url}/check_token
+sq:
+  sso:
+    client-id: siques
+    client-secret: 123456
+    redirect-uri: http://127.0.0.1:8091/callback.html
+    access-token-uri: http://127.0.0.1:9001/uaa/oauth/token
+    user-info-uri: http://127.0.0.1:9001/cor-business/users/current

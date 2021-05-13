@@ -1,0 +1,4 @@
+-javaagent:./docker-compose/skywalking/skywalking-agent.jar
+-Dskywalking.trace.ignore_path=/actuator/**
+-Dskywalking.agent.service_name=sq-uaa
+-Dskywalking.collector.backend_service=139.198.189.114:11800

@@ -1,0 +1,51 @@
+version: "3"
+networks:
+  nacos_net:
+    driver: bridge
+services:
+  nacos1:
+    hostname: nacos1
+    container_name: nacos1
+    image: nacos/nacos-server:1.2.0
+    volumes:
+      # 把日志文件映射出来
+      - ./cluster-logs/nacos1:/home/nacos/logs
+      # 把配置文件映射出来
+      - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+    networks:
+      - nacos_net
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    env_file:
+        # 集群配置文件
+      - ./env/nacos-hostname.env
+    restart: on-failure
+  nacos2:
+    hostname: nacos2
+    image: nacos/nacos-server:1.2.0
+    container_name: nacos2
+    volumes:
+      - ./cluster-logs/nacos2:/home/nacos/logs
+      - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+    networks:
+      - nacos_net
+    ports:
+      - "8849:8848"
+    env_file:
+      - ./env/nacos-hostname.env
+    restart: on-failure
+  nacos3:
+    hostname: nacos3
+    image: nacos/nacos-server:1.2.0
+    container_name: nacos3
+    volumes:
+      - ./cluster-logs/nacos3:/home/nacos/logs
+      - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+    networks:
+      - nacos_net
+    ports:
+      - "8850:8848"
+    env_file:
+      - ./env/nacos-hostname.env
+    restart: on-failure
