@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 /**
  * feign拦截器，只包含基础数据
  *
- * @author zlt
  */
 public class FeignInterceptorConfig {
     /**

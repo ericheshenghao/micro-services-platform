@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8"/>
+    <title>siques</title>
+    <script type="text/javascript" src="js/axios.js"></script>
+    <script type="text/javascript" src="js/sso.js"></script>
+</head>
+<body>
+<script>
+    window.onload = function() {
+        //url获取state
+        let state = getQueryVariable('state');
+        let localState = sessionStorage.getItem("state");
+        //判断state防止CSRF攻击
+        if (localState !== state) {
+            alert('state参数无效！');
+            let state = getState();
+            sessionStorage.setItem("state", state);
+            window.location = getAuthorizeUri(state);
+        }
+        console.log(123)
+        //url获取code
+        let code = getQueryVariable('code');
+          axios.defaults.withCredentials = true
+        //获取token和用户信息
+        axios({
+        method: 'post',
+        url:"http://localhost:9001/uaa/oauth/token",
+         params: {
+            code:code,
+            grant_type:"authorization_code",
+            redirect_uri:"http://localhost:8092/callback.html"
+         },
+
+        auth: {
+          username: clientId,
+          password: clientSecret
+        },
+        }
+
+    ).then(function(res) {
+
+            sessionStorage.setItem('access_token', res.data.access_token);
+
+            axios({
+              method: 'get',
+               url: "http://localhost:9001/core/pri/user/info",
+               headers:{
+                    Authorization: "Bearer "+res.data.access_token
+               }
+            }).then(function(res1){
+                res1 =res1.data.data
+                sessionStorage.setItem("userName",res1.userName)
+                sessionStorage.setItem("nickName",res1.nickName)
+                sessionStorage.setItem("roles",res1.nickName)
+                sessionStorage.setItem("userCode",res1.userCode)
+
+                window.location = sessionStorage.getItem('visitUri');
+            })
+
+
+    });
+
+
+    };
+</script>
+</body>
+</html>

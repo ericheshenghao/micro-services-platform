@@ -44,6 +44,9 @@ spring:
       discovery:
         server-addr: 139.198.189.114:8848 #配置Nacos地址
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        username: nacos
+        password: heshenghao
+        group: DEV_GROUP
   datasource:
     name: druidSource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -143,12 +146,14 @@ siques:
     enabled: true
   trace:
     enable: true
+  lock:
+    locker-type: redis
+  rest-template:
+    connect-timeout: 10000
+    ReadTimeout: 35000
+    OkToRetryOnAllOperations: false
+
 #    log-type: db
-#    datasource:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      jdbc-url: jdbc:mysql://127.0.0.1:3306/mango?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
-#      username: root
-#      password: l1itdhjaoiqw32kwqe$5asasd*a21
 #sq:
 #  security:
 #    ignore:

@@ -1,0 +1,19 @@
+
+server:
+  port: 8091
+
+# 假设该应用为 siques 旗下的应用 1
+# 单点登录流程为
+# 先登录demo-1
+# 那么当我们跳转到demo-2 后，会自动登录
+spring:
+  application:
+    name: sso-demo-1
+
+sq:
+  sso:
+    client-id: siques
+    client-secret: 123456
+    redirect-uri: http://localhost:8091/callback.html
+    access-token-uri: http://localhost:9001/uaa/oauth/token
+    user-info-uri: http://localhost:9001/cor-business/users/current

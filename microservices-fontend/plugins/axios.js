@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import configs from './config/defaultSettings.js'
+
 export default ({ app, store, route, redirect }) => {
   const axios = app.$axios
 
@@ -20,10 +21,19 @@ export default ({ app, store, route, redirect }) => {
 
   // code返回回调
   axios.onResponse((res) => {
+    if (res.data.code == 0) {
+      Vue.prototype.$notification['error']({
+        message: '错误',
+        description: res.data.msg,
+        duration: 4,
+      })
+    }
     return res.data
   })
 
   // 内部错误回调
-  axios.onError((error) => {})
+  axios.onError((error) => {
+    console.log(error)
+  })
   Vue.prototype.$http = axios
 }

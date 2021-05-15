@@ -1,12 +1,10 @@
 spring:
-  application:
-    name: uaa-server-prod
   cloud:
     nacos:
-      discovery:
-        server-addr: 139.198.189.114:8848
       config:
-        server-addr: 139.198.189.114:8848
-        file-extension: yml
+        server-addr: http://nacos.siques.cn:8848
         namespace: 6a8508d5-903c-4577-bd35-870220a4f5d7
+        file-extension: yml
         group: PROD_GROUP
+        username: nacos
+        password: heshenghao

@@ -1,11 +1,22 @@
 server:
   port: 8984
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2SESSION
+siques:
+  oauth2:
+    token:
+      store:
+        type: redis
 spring:
   main:
     banner-mode: off
   application:
 #    User Account and Authentication (UAA)
     name: uaa-server
+  session:
+    store-type: redis
   datasource:
     url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
@@ -20,9 +31,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 139.198.189.114:8848
+        server-addr: http://nacos.siques.cn:8848
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
-
+        username: nacos
+        password: heshenghao
+        group: DEV_GROUP
 logging:
   level:
     org.springframework.security: debug

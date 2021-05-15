@@ -6,9 +6,7 @@ import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
-//import cn.central.search.model.LogicDelDto;
-//import cn.central.search.model.SearchDto;
-//import cn.central.search.service.IQueryService;
+
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
@@ -146,8 +144,8 @@ public class SysUserController {
 
     @ApiOperation(value = "用户全文搜索列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "分页起始位置", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "分页结束位置", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", value = "分页数量", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "queryStr", value = "搜索关键字", dataType = "String")
     })
     @PostMapping("/search")

@@ -36,8 +36,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 139.198.189.114:8848 #配置Nacos地址
+        server-addr: http://nacos.siques.cn:8848 #配置Nacos地址
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        username: nacos
+        group: DEV_GROUP
+        password: heshenghao
   datasource:
     url: jdbc:mysql://106.54.247.224:3306/mango?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
@@ -52,9 +55,3 @@ swagger:
 siques:
   indices:
     show: sys-log-*,mysql-slowlog-*,sys_user,point-log-*,audit-log-*
-#  swagger:
-#    enabled: true
-#    title: 搜索中心
-#    description: 搜索中心接口文档
-#    version: 1.0
-#    base-package: com.central.search.controller

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 /**
  * 异常通用处理
  *
- * @author zlt
+ * @author he
  */
 @ResponseBody
 @Slf4j
@@ -112,6 +112,6 @@ public class DefaultExceptionAdvice {
 
     private Result defHandler(String msg, Exception e) {
         log.error(msg, e);
-        return Result.failed(msg);
+        return Result.failed(msg+e.getMessage());
     }
 }

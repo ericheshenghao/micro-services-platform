@@ -13,7 +13,9 @@
         <module>siques-oauth</module>
         <module>siques-monitor</module>
         <module>siques-config</module>
-        <module>siques-sso</module>
+        <module>siques-demo</module>
+        <module>siques-transaction</module>
+
     </modules>
     <packaging>pom</packaging>
 

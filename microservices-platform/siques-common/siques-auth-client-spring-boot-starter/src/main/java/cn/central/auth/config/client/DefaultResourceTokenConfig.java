@@ -55,8 +55,7 @@ public class DefaultResourceTokenConfig {
     @Autowired
     private  ResourceServerProperties resourceServerProperties;
 
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+
 
     /**
      * 这里并不是对令牌的存储,他将访问令牌与身份验证进行转换
@@ -67,7 +66,6 @@ public class DefaultResourceTokenConfig {
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
-//        return new RedisTokenStore(redisConnectionFactory);
     }
 
 

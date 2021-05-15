@@ -102,7 +102,7 @@
     <logger name="cn.central.log.monitor" level="debug" addtivity="false">
         <appender-ref ref="point_log_async" />
     </logger>
-    <logger name="cn.central.log.service.impl.LoggerAuditServiceImpl" level="debug" addtivity="false">
+    <logger name="cn.central.log.cn.central.order.cn.central.storage.service.impl.LoggerAuditServiceImpl" level="debug" addtivity="false">
         <appender-ref ref="audit_log_async" />
     </logger>
 

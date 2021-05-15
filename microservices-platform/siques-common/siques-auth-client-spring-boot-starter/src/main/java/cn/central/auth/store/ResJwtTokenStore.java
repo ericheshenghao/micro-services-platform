@@ -47,15 +47,18 @@ public class ResJwtTokenStore {
      *
      * @return jwt
      */
-//    @Bean
-//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-////        DefaultAccessTokenConverter c = new DefaultAccessTokenConverter();
-////        c.setUserTokenConverter(new CustomUserAuthenticationConverter());
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-////        converter.setAccessTokenConverter(c);
-//        converter.setVerifierKey(getPubKey());
-//        return converter;
-//    }
+
+
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+
+        final  JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        DefaultAccessTokenConverter accessTokenConverter = (DefaultAccessTokenConverter) converter.getAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(new CustomUserAuthenticationConverter());
+        converter.setVerifierKey(getPubKey());
+        return converter;
+    }
 
     /**
      * 非对称密钥加密，获取 public key。
