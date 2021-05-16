@@ -105,42 +105,27 @@
         </dependency>
     </dependencies>
 
-    <build>
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                &lt;!&ndash;加入下面两项配置&ndash;&gt;-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <includeSystemScope>true</includeSystemScope>-->
-<!--                </configuration>-->
 <!--            </plugin>-->
 <!--            &lt;!&ndash; docker &ndash;&gt;-->
-<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;                <groupId>com.spotify</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <artifactId>docker-maven-plugin</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                <version>0.4.13</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;                    &lt;!&ndash; made of '[a-z0-9-_.]' &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                    <imageName>${project.artifactId}:${project.version}</imageName>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <dockerDirectory>${project.basedir}</dockerDirectory>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <resources>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <resource>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <targetPath>/</targetPath>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <directory>${project.build.directory}</directory>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <include>${project.build.finalName}.jar</include>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </resource>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </resources>&ndash;&gt;-->
-<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
-<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>0.4.13</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; made of '[a-z0-9-_.]' &ndash;&gt;-->
+<!--                    <imageName>${project.artifactId}:${project.version}</imageName>-->
+<!--                    <dockerDirectory>${project.basedir}</dockerDirectory>-->
+<!--                    <resources>-->
+<!--                        <resource>-->
+<!--                            <targetPath>/</targetPath>-->
+<!--                            <directory>${project.build.directory}</directory>-->
+<!--                            <include>${project.build.finalName}.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 <!--        </plugins>-->
-        <finalName>${project.artifactId}</finalName>
-    </build>
+<!--        <finalName>${project.artifactId}</finalName>-->
+<!--    </build>-->
+
 </project>
