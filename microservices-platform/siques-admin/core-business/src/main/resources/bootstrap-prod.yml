@@ -1,24 +1,20 @@
----
 spring:
-  cloud:
-    nacos:
-      config:
-        server-addr: http://nacos.siques.cn:8848
-        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
-        file-extension: yaml
-        group: DEV_GROUP
-        username: nacos
-        password: heshenghao
----
-spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: core-business
   cloud:
     nacos:
       discovery:
+        namespace: 6a8508d5-903c-4577-bd35-870220a4f5d7
         server-addr: http://nacos.siques.cn:8848
+        username: nacos
+        password: heshenghao
+        group: PROD_GROUP
       config:
         server-addr: http://nacos.siques.cn:8848
-        file-extension: yml
+        file-extension: yaml
+        username: nacos
+        password: heshenghao
         namespace: 6a8508d5-903c-4577-bd35-870220a4f5d7
         group: PROD_GROUP
-
-

@@ -1,74 +1,74 @@
-server:
-  port: 8984
-  servlet:
-    session:
-      cookie:
-        name: OAUTH2SESSION
-siques:
-  oauth2:
-    token:
-      store:
-        type: authredis
-spring:
-  main:
-    banner-mode: off
-  application:
-#    User Account and Authentication (UAA)
-    name: uaa-server
-  session:
-    store-type: redis
-  datasource:
-    url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: l1itdhjaoiqw32kwqe$5asasd*a21
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    host: 139.198.176.14
-    port: 6379
-    database: 1
-    expiration: 1800
-    password: heshenghao
-  cloud:
-    nacos:
-      discovery:
-        server-addr: http://nacos.siques.cn:8848
-        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
-        username: nacos
-        password: heshenghao
-        group: DEV_GROUP
-logging:
-  level:
-    org.springframework.security: debug
-mybatis-plus:
-  global-config:
-    banner: false
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-security:
-  oauth2:
-    resource:
-      token-info-uri: http://localhost:8984/oauth/check_token
-      jwt:
-        key-alias: webApp
-        # 如果没有此项会去请求授权服务器获取
-        key-value: |
-          -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkF9SyMHeGAsLMwbPsKj/
-          xpEtS0iCe8vTSBnIGBDZKmB3ma20Ry0Uzn3m+f40RwCXlxnUcvTw7ipoz0tMQERQ
-          b3X4DkYCJXPK6pAD+R9/J5odEwrO2eysByWfcbMjsZw2u5pH5hleMS0YqkrGQOxJ
-          pzlEcKxMePU5KYTbKUJkhOYPY+gQr61g6lF97WggSPtuQn1srT+Ptvfw6yRC4bdI
-          0zV5emfXjmoLUwaQTRoGYhOFrm97vpoKiltSNIDFW01J1Lr+l77ddDFC6cdiAC0H
-          5/eENWBBBTFWya8RlBTzHuikfFS1gP49PZ6MYJIVRs8p9YnnKTy7TVcGKY3XZMCA
-          mwIDAQAB
-          -----END PUBLIC KEY-----
-        key-uri: http://localhost:8984/oauth/token_key
-      id: test
-    client:
-      client-id: webApp
-      client-secret: 123456
-      access-token-uri: http://localhost:8984/oauth/token
-      user-info-uri: http://localhost:8984/oauth/user
-      scope: READ
-
-
+#server:
+#  port: 8984
+#  servlet:
+#    session:
+#      cookie:
+#        name: OAUTH2SESSION
+#siques:
+#  oauth2:
+#    token:
+#      store:
+#        type: authredis
+#spring:
+#  main:
+#    banner-mode: off
+#  application:
+##    User Account and Authentication (UAA)
+#    name: uaa-server
+#  session:
+#    store-type: redis
+#  datasource:
+#    url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: l1itdhjaoiqw32kwqe$5asasd*a21
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  redis:
+#    host: 139.198.176.14
+#    port: 6379
+#    database: 1
+#    expiration: 1800
+#    password: heshenghao
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: http://nacos.siques.cn:8848
+#        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+#        username: nacos
+#        password: heshenghao
+#        group: DEV_GROUP
+#logging:
+#  level:
+#    org.springframework.security: debug
+#mybatis-plus:
+#  global-config:
+#    banner: false
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#
+#security:
+#  oauth2:
+#    resource:
+#      token-info-uri: http://localhost:8984/oauth/check_token
+#      jwt:
+#        key-alias: webApp
+#        # 如果没有此项会去请求授权服务器获取
+#        key-value: |
+#          -----BEGIN PUBLIC KEY-----
+#          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkF9SyMHeGAsLMwbPsKj/
+#          xpEtS0iCe8vTSBnIGBDZKmB3ma20Ry0Uzn3m+f40RwCXlxnUcvTw7ipoz0tMQERQ
+#          b3X4DkYCJXPK6pAD+R9/J5odEwrO2eysByWfcbMjsZw2u5pH5hleMS0YqkrGQOxJ
+#          pzlEcKxMePU5KYTbKUJkhOYPY+gQr61g6lF97WggSPtuQn1srT+Ptvfw6yRC4bdI
+#          0zV5emfXjmoLUwaQTRoGYhOFrm97vpoKiltSNIDFW01J1Lr+l77ddDFC6cdiAC0H
+#          5/eENWBBBTFWya8RlBTzHuikfFS1gP49PZ6MYJIVRs8p9YnnKTy7TVcGKY3XZMCA
+#          mwIDAQAB
+#          -----END PUBLIC KEY-----
+#        key-uri: http://localhost:8984/oauth/token_key
+#      id: test
+#    client:
+#      client-id: webApp
+#      client-secret: 123456
+#      access-token-uri: http://localhost:8984/oauth/token
+#      user-info-uri: http://localhost:8984/oauth/user
+#      scope: READ
+#
+#
