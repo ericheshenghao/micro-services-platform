@@ -1,0 +1,10 @@
+FROM fabric8/java-alpine-openjdk8-jdk:1.8.0
+
+# 将jar包添加到容器中并更名为app.jar
+ADD ./siques-admin/search-center/search-server/target/search-server-4.2.0.jar search-server.jar
+ADD ./docker-compose/skywalking skywalking
+EXPOSE 7100
+# 运行jar包
+#RUN sh -c 'touch /core-business.jar'
+
+ENTRYPOINT ["java","-jar","/search-server.jar","--spring.profiles.active=prod","-javaagent:skywalking/skywalking-agent.jar","-Dskywalking.trace.ignore_path=/actuator/**" ,"-Dskywalking.agent.service_name=search-server"," -Dskywalking.collector.backend_service=139.198.189.114:11800"]

@@ -5,7 +5,7 @@ export default ({ app, store, route, redirect }) => {
   const axios = app.$axios
 
   // 基本配置
-  axios.defaults.timeout = 5000
+  axios.defaults.timeout = 15000
   axios.defaults.headers.post['Content-Type'] = 'application/json'
   axios.defaults.withCredentials = true
   axios.defaults.baseURL = configs.API_URL

@@ -1,0 +1,10 @@
+FROM fabric8/java-alpine-openjdk8-jdk:1.8.0
+
+# 将jar包添加到容器中并更名为app.jar
+ADD ./siques-admin/core-business/target/core-business-4.2.0.jar core-business.jar
+ADD ./docker-compose/skywalking skywalking
+EXPOSE 8083
+# 运行jar包
+#RUN sh -c 'touch /core-business.jar'
+RUN apk add --update ttf-dejavu fontconfig
+ENTRYPOINT ["java","-jar","/core-business.jar","--spring.profiles.active=prod","-javaagent:skywalking/skywalking-agent.jar","-Dskywalking.trace.ignore_path=/actuator/**" ,"-Dskywalking.agent.service_name=core-business"," -Dskywalking.collector.backend_service=139.198.189.114:11800"]
