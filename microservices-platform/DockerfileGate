@@ -7,4 +7,4 @@ EXPOSE 9001
 # 运行jar包
 #RUN sh -c 'touch /core-business.jar'
 
-ENTRYPOINT ["java","-jar","/sc-gateway.jar","--spring.profiles.active=prod","-javaagent:skywalking/skywalking-agent.jar","-Dskywalking.trace.ignore_path=/actuator/**" ,"-Dskywalking.agent.service_name=sc-gateway"," -Dskywalking.collector.backend_service=139.198.189.114:11800"]
+ENTRYPOINT ["java","-javaagent:skywalking/skywalking-agent.jar","-Dskywalking.trace.ignore_path=/actuator/**" ,"-Dskywalking.agent.service_name=sc-gateway","-Dskywalking.collector.backend_service=139.198.189.114:11800","-jar","/sc-gateway.jar","--spring.profiles.active=prod"]
