@@ -28,6 +28,12 @@ public class PointUtil {
         log.info(MSG_PATTERN, id, type, message);
     }
 
+    /**
+     * debug方式的日志会持久化到目录，注解方式日志会持久化到db或者直接打印
+     * @param id
+     * @param type
+     * @param message
+     */
     public static void debug(String id, String type, String message) {
         log.debug(MSG_PATTERN, id, type, message);
     }

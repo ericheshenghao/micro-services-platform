@@ -13,6 +13,9 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author he
+ */
 @Configuration
 public class GatewayConfig{
 
@@ -36,6 +39,7 @@ public class GatewayConfig{
         return new JsonSentinelGatewayBlockExceptionHandler(views, configurer);
     }
 
+
     /**
      * Sentinel 过滤器
      * @return
@@ -45,5 +49,8 @@ public class GatewayConfig{
     public GlobalFilter sentinelGatewayFilter() {
         return new SentinelGatewayFilter();
     }
+
+
+
 
 }

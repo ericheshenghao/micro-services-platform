@@ -69,7 +69,7 @@ export default class Client extends Vue {
   async getDbList() {
     const res = await getDbList()
 
-    this.dbList = res.datas
+    this.dbList = res.data
   }
 
   option: any = {
@@ -176,9 +176,9 @@ export default class Client extends Vue {
   loadDataFun = async (parameter: any) => {
     const res = await getTableList(parameter)
     return {
-      records: res.datas.records,
+      records: res.data.records,
       pagination: {
-        total: res.datas.total,
+        total: res.data.total,
       },
     }
   }

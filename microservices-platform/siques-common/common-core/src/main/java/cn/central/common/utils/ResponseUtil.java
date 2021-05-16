@@ -8,15 +8,14 @@ import org.springframework.http.MediaType;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 /**
  * @author he
  * @date 2018/12/20
  */
 public class ResponseUtil {
-    private ResponseUtil() {
-        throw new IllegalStateException("Utility class");
-    }
+
     /**
      * 通过流写到前端
      *
@@ -49,16 +48,18 @@ public class ResponseUtil {
      * @param msg
      * @throws IOException
      */
-    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg) throws IOException {
-        Result result = Result.failed(msg);
+    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg,Integer code) throws IOException {
+        Result result = Result.failed(msg,code);
         responseWrite(objectMapper, response, result);
     }
 
     private static void responseWrite(ObjectMapper objectMapper, HttpServletResponse response, Result result) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
         try (
                 Writer writer = response.getWriter()
         ) {
+
             writer.write(objectMapper.writeValueAsString(result));
             writer.flush();
         }

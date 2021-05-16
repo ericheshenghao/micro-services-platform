@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenu>  findTree(String userCode, int menuType);

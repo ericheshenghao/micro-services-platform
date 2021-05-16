@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  canal: 
+    image: canal/canal-server:latest
+    ports: 
+      - 11111:11111
+    volumes: 
+      - ./conf/canal.properties:/home/admin/canal-server/conf/canal.properties
+      - ./conf/instance.properties:/home/admin/canal-server/conf/example/instance.properties
+      - ./logs/:/home/admin/canal-server/logs/
+    restart: always
+ 

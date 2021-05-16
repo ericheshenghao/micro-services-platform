@@ -1,13 +1,10 @@
 package cn.central.common.resolver;
 
 import cn.central.common.annotation.LoginUser;
-import cn.central.common.constant.SecurityConstants;
-import cn.central.common.feign.UserService;
-import cn.central.common.model.SysRole;
+import cn.central.common.feign.AuthService;
 
 
 import cn.central.common.model.SysUser;
-import cn.hutool.core.util.StrUtil;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -19,22 +16,17 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * 上下文中获取用户信息
  *
- * @author zlt
- * @date 2018/12/21
+ * @author he
+ * @date
  */
 @Slf4j
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
-    private UserService userService;
+    private AuthService userService;
 
-    public TokenArgumentResolver(UserService userService) {
+    public TokenArgumentResolver(AuthService userService) {
         this.userService = userService;
     }
 

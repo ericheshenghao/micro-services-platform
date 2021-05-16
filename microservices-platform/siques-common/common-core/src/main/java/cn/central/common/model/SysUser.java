@@ -2,13 +2,12 @@ package cn.central.common.model;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.*;
 
@@ -20,7 +19,7 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
 @ApiModel(description = "用户表")
-public class SysUser extends SuperEntity<SysUser> {
+public class SysUser extends SuperEntity<SysUser>   {
 	private static final long serialVersionUID = -5886012896705137070L;
 
 

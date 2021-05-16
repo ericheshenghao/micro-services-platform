@@ -130,8 +130,19 @@
         :slot="column.formSlots ? column.dataIndex + 'Form' : ''"
         slot-scope="record"
       >
+        <!-- 转化为数组 -->
         <template v-if="column.formSlots">
-          <slot :name="column.dataIndex + `Form`" :record="record.record">
+          <slot
+            v-if="column.toSet"
+            :name="column.dataIndex + `Form`"
+            :record="columnToSet(record, column)"
+          >
+          </slot>
+          <slot
+            v-else
+            :name="column.dataIndex + `Form`"
+            :record="record.record"
+          >
           </slot>
         </template>
       </template>
@@ -339,6 +350,27 @@ export default class TableCrud extends Vue {
     createModal: HTMLFormElement
   }
 
+  columnToSet({ record }: any, column: any) {
+    const val = record[column.dataIndex]
+    if (val != null) {
+      if (typeof val == 'string') {
+        record[column.dataIndex] = record[column.dataIndex].split(column.toSet)
+      }
+    }
+    return record
+  }
+
+  setToString(val: Array<String>, splitType: any) {
+    let res = ''
+
+    for (let index = 0; index < val.length; index++) {
+      if (index == val.length - 1) res += val[index]
+      else res += val[index] + splitType
+    }
+
+    return res
+  }
+
   /** 表单验证并提交 */
   handleOk(type: any) {
     console.log(this.mdl)
@@ -346,10 +378,21 @@ export default class TableCrud extends Vue {
     this.confirmLoading = true
 
     this.tableLoading = true
+    // 表单验证
     rule.validate((valid: any) => {
       if (valid) {
         this.visible = false
+
+        this.option.columns.forEach((e: any) => {
+          if (e.saveType) {
+            this.mdl[e.dataIndex] = this.setToString(
+              this.mdl[e.dataIndex],
+              e.toSet
+            )
+          }
+        })
         if (type == 'add') {
+          // 属性还原
           this.$emit('row-save', this.mdl, this.successCallBack)
         } else {
           this.$emit('row-update', this.mdl, this.successCallBack)
@@ -367,7 +410,9 @@ export default class TableCrud extends Vue {
   }
 
   successCallBack() {
-    this.loadData()
+    setTimeout(() => {
+      this.loadData()
+    }, 500)
     this.$message.info('操作成功')
   }
 

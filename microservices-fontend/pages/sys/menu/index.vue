@@ -23,7 +23,7 @@
         <a-cascader
           :disabled="record.type == 0"
           expand-trigger="hover"
-          :options="datas"
+          :options="data"
           :fieldNames="fieldNames"
           v-model="record.parentArray"
           change-on-select
@@ -172,7 +172,7 @@ export default class SysMenu extends Vue {
   fieldNames = { label: 'name', value: 'id', children: 'children' }
 
   //菜单数据
-  datas = []
+  data = []
 
   visible = false
   // 目录：0 菜单: 1 权限: 2
@@ -241,13 +241,13 @@ export default class SysMenu extends Vue {
   loadDataFun = async (parameter: any) => {
     const res = await findMenuTree()
     return {
-      records: res.datas,
+      records: res.data,
       pagination: false,
     }
   }
 
   beforeOpen(type: any, form: any) {
-    this.datas = this.$refs.table.data
+    this.data = this.$refs.table.data
     if (type == 'edit') {
       this.onChange(form)
     }

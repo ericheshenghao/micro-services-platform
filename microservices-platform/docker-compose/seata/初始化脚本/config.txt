@@ -1,0 +1,15 @@
+service.vgroupMapping.test_tx_service_group=default
+store.mode=db
+store.db.datasource=druid
+store.db.dbType=mysql
+store.db.url=jdbc:mysql://106.54.247.224:3306/seata?rewriteBatchedStatements=true
+store.db.driverClassName=com.mysql.jdbc.Driver
+store.db.user=root
+store.db.password=l1itdhjaoiqw32kwqe$5asasd*a21
+store.db.minConn=5
+store.db.maxConn=30
+store.db.globalTable=global_table
+store.db.branchTable=branch_table
+store.db.queryLimit=100
+store.db.lockTable=lock_table
+store.db.maxWait=5000

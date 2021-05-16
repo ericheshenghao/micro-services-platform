@@ -11,7 +11,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  */
 @Setter
 @Getter
-@ConfigurationProperties(prefix = "sq.security")
+@ConfigurationProperties(prefix = "siques.security")
 @RefreshScope
 public class SecurityProperties {
     private AuthProperties auth = new AuthProperties();

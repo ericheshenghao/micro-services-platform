@@ -6,7 +6,6 @@ import lombok.Setter;
 /**
  * 聚合Item
  *
- * @author zlt
  */
 @Setter
 @Getter

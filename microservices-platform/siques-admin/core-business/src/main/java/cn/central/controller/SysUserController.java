@@ -6,9 +6,7 @@ import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
-//import cn.central.search.model.LogicDelDto;
-//import cn.central.search.model.SearchDto;
-//import cn.central.search.service.IQueryService;
+
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
@@ -59,6 +57,11 @@ public class SysUserController {
         return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",userCode));
     }
 
+    /**
+     * 鉴权的话每次都会向一个服务发起调用获取
+     * @param userId
+     * @return
+     */
     @PreAuthorize("@el.check('sys:user:edit')")
     @PutMapping("/password/{id}")
     @ApiOperation(value = "重置密码", notes = "重置密码")
@@ -121,7 +124,7 @@ public class SysUserController {
 
 
     /**
-     * 匹配每个需要权限的接口, el表达式查询必用接口
+     * 匹配每个需要权限的接口, 鉴权查询接口
      *  {@link cn.central.common.config.ElPermissionConfig}
      *
      * 必须是登录用户才可以远程调用此接口
@@ -141,8 +144,8 @@ public class SysUserController {
 
     @ApiOperation(value = "用户全文搜索列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "分页起始位置", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "分页结束位置", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", value = "分页数量", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "queryStr", value = "搜索关键字", dataType = "String")
     })
     @PostMapping("/search")

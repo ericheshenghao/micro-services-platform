@@ -17,8 +17,9 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 /**
- * 审计日志实现类-数据库
+ * 审计日志实现类-数据库持久化
  *
+ * @author Administrator
  */
 @Slf4j
 @ConditionalOnProperty(name = "siques.audit-log.log-type", havingValue = "db")
@@ -60,7 +61,7 @@ public class DbAuditServiceImpl implements IAuditService {
     public void save(Audit audit) {
         this.jdbcTemplate.update(INSERT_SQL
                 , audit.getApplicationName(), audit.getClassName(), audit.getMethodName()
-                , audit.getUserId(), audit.getUserName(), audit.getClientId()
+                , audit.getUserId(), audit.getUserCode(), audit.getClientId()
                 , audit.getOperation(), audit.getTimestamp());
     }
 }

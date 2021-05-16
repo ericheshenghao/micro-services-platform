@@ -39,7 +39,6 @@ public class SysClientDetailsController {
     @Autowired
     SysClientDetailsService sysClientDetailsService;
 
-
     /**
    * 分页查询
    * @param page
@@ -52,9 +51,8 @@ public class SysClientDetailsController {
         return Result.succeed(sysClientDetailsService.page(detailsPage));
     }
 
-
     /**
-     * 通过id查询
+     * 通过id查询,post请求会跑到这里，怎么解决？
      * @param id id
      * @return JsonData
      */
@@ -64,7 +62,7 @@ public class SysClientDetailsController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     public Result getSysClientDetails(@PathVariable("id") Long id){
-      return  Result.succeed(sysClientDetailsService.getById(id));
+      return Result.succeed(sysClientDetailsService.getById(id));
     }
 
     /**

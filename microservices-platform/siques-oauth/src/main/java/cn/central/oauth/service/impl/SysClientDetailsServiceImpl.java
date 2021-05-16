@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.provider.ClientAlreadyExistsException
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +34,20 @@ public class SysClientDetailsServiceImpl extends ServiceImpl<SysClientDetailsDao
 
     @Override
     public ClientDetails loadClientByClientId(String id) throws ClientRegistrationException {
-        return SysClientDetailsDao.findFirstByClientId(id)
-            .orElseThrow(() -> new ClientRegistrationException("Loading client exception."));
+        SysClientDetails clientDetails = SysClientDetailsDao.findFirstByClientId(id)
+                .orElseThrow(() -> new ClientRegistrationException("Loading client exception."));
+        // 转换为需要的类型
+        return translateClient(clientDetails);
+    }
+
+    private ClientDetails translateClient(SysClientDetails cd) {
+
+        BaseClientDetails bcd = new BaseClientDetails(cd.getClientId(), cd.getResourceIds(), cd.getScopes(), cd.getGrantTypes(), "", cd.getRedirectUrl());
+        bcd.setAccessTokenValiditySeconds(cd.getAccessTokenValiditySeconds());
+        bcd.setClientSecret(cd.getClientSecret());
+        bcd.setRefreshTokenValiditySeconds(cd.getRefreshTokenValiditySeconds());
+
+        return bcd;
     }
 
     @Override

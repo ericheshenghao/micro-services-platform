@@ -7,10 +7,10 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ userInfo.nickName
+            {{ timeFix }}，{{ userInfo ? userInfo.nickName : ''
             }}<span class="welcome-text">，{{ '欢迎' }}</span>
           </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+          <div>后端工程师 | 某某某事业群 - 微服务开发平台</div>
         </div>
       </div>
     </template>
@@ -298,7 +298,7 @@
                   <div>
                     <mini-smooth-area
                       :style="{ height: '45px' }"
-                      :dataSource="searchUserData"
+                      :dataource="searchUserData"
                       :scale="searchUserScale"
                     />
                   </div>
@@ -319,7 +319,7 @@
                   <div>
                     <mini-smooth-area
                       :style="{ height: '45px' }"
-                      :dataSource="searchUserData"
+                      :dataource="searchUserData"
                       :scale="searchUserScale"
                     />
                   </div>
@@ -330,7 +330,7 @@
                   row-key="index"
                   size="small"
                   :columns="searchTableColumns"
-                  :dataSource="searchData"
+                  :dataource="searchData"
                   :pagination="{ pageSize: 5 }"
                 >
                   <span slot="range" slot-scope="text, record">
@@ -482,7 +482,7 @@ for (let i = 0; i < 50; i += 1) {
   })
 }
 
-const DataSet = require('@antv/data-set')
+const dataet = require('@antv/data-set')
 
 const sourceData = [
   { item: '家用电器', count: 32.2 },
@@ -501,7 +501,7 @@ const pieScale = [
   },
 ]
 
-const dv = new DataSet.View().source(sourceData)
+const dv = new dataet.View().source(sourceData)
 dv.transform({
   type: 'percent',
   field: 'count',

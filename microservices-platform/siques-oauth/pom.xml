@@ -40,6 +40,7 @@
         </dependency>
 
         <dependency>
+        <!-- 包含一些认证需要用到的pojo -->
             <groupId>cn.siques</groupId>
             <artifactId>siques-common-spring-boot-starter</artifactId>
         </dependency>

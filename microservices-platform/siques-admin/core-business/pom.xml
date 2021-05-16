@@ -33,7 +33,7 @@
         <groupId>cn.siques</groupId>
         <artifactId>siques-db-spring-boot-starter</artifactId>
     </dependency>
-
+    <!--   常用配置   -->
         <dependency>
             <groupId>cn.siques</groupId>
             <artifactId>siques-common-spring-boot-starter</artifactId>
@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>cn.siques</groupId>
-            <artifactId>siques-ribbon-spring-boot-starter</artifactId>
+            <artifactId>siques-feign-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -49,15 +49,6 @@
             <artifactId>siques-sentinel-spring-boot-starter</artifactId>
         </dependency>
 
-
-
-
-
-        <!--        消息通信-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-amqp</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>cn.siques</groupId>
@@ -103,7 +94,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
 
 
 

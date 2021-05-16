@@ -13,7 +13,7 @@
 
     <packaging>jar</packaging>
     <artifactId>siques-config</artifactId>
-    <description>配置中心</description>
+    <description>Nacos 配置中心</description>
     <dependencies>
 
         <dependency>

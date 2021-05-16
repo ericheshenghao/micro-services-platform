@@ -74,7 +74,7 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
 
     public  Result findPage(PageRequest pageRequest,QueryWrapper<SysUser> queryWrapper){
         IPage<SysUser> userPage = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        // 忽略超级管理员
+        // 超级管理员不加入该集合
         List<SysUser> records = baseMapper
                 .selectPage(userPage, queryWrapper
                         .not(true, sysUserQueryWrapper ->

@@ -1,0 +1,1 @@
+sh ./nacos-config.sh -h 139.198.189.114 -p 8848 -g SEATA_GROUP -t 8e7d4a74-8465-4c16-a8df-75c7a5fdb834 -u nacos -w heshenghao

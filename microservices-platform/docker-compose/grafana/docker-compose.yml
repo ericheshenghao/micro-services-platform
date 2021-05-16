@@ -1,47 +1,58 @@
 version: "3"
 
 services:
-  prometheus: 
+  prometheus:
     image: prom/prometheus:latest
-    ports: 
+    ports:
       - 9090:9090
-    depends_on: 
+    depends_on:
       - node-exporter
       - mysql-exporter
-    links: 
+      - redis-exporter
+    links:
       - node-exporter
       - mysql-exporter
-    volumes: 
+      - redis-exporter
+    volumes:
       - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./data:/prometheus
     restart: always
   grafana:
     image: grafana/grafana:latest
-    ports: 
+    ports:
       - 3003:3000
-    volumes: 
+    volumes:
       - ./conf/grafana.ini:/etc/grafana/grafana.ini
       - ./plugins/:/var/lib/grafana/plugins
       - ./grafanaData:/var/lib/grafana
     restart: always
-     environment:
-       GF_SECURITY_ADMIN_PASSWORD: admin
-#       GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,raintank-worldping-app,grafana-piechart-panel
-      # GF_INSTALL_PLUGINS: grafana-piechart-panel
+      #    environment:
+      # GF_SECURITY_ADMIN_PASSWORD: admin
+      # GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,raintank-worldping-app,grafana-piechart-panel
+    # GF_INSTALL_PLUGINS: grafana-piechart-panel
   node-exporter:
     image: prom/node-exporter
-    ports: 
+    ports:
       - 9100:9100
     restart: always
-    volumes: 
+    volumes:
       - ./proc:/host/proc
       - ./sys:/host/sys
-      - /:/rootfs 
+      - /:/rootfs
   mysql-exporter:
     image: prom/mysqld-exporter
-    ports: 
+    ports:
       - 9104:9104
     restart: always
-    environment: 
-      DATA_SOURCE_NAME: ${SQLROUTE}
+    environment:
+      DATA_SOURCE_NAME: "root:l1itdhjaoiqw32kwqe$$5asasd*a21@(106.54.247.224:3306)/"
+  redis-exporter:
+    image: oliver006/redis_exporter
+    ports:
+      - 9121:9121
+    restart: always
+    command:
+      - '--redis.addr=redis://139.198.176.14:6379'
+      - '--redis.password=heshenghao'
+      - '--web.listen-address=139.198.189.114:9121'
       

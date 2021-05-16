@@ -13,6 +13,10 @@
         <module>siques-oauth</module>
         <module>siques-monitor</module>
         <module>siques-config</module>
+        <module>siques-demo</module>
+        <module>siques-transaction</module>
+        <module>siques-job</module>
+
     </modules>
     <packaging>pom</packaging>
 
@@ -121,7 +125,7 @@
 
             <dependency>
                 <groupId>cn.siques</groupId>
-                <artifactId>siques-ribbon-spring-boot-starter</artifactId>
+                <artifactId>siques-feign-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -2,10 +2,10 @@
   <div :class="wrpCls">
     <avatar-dropdown
       :menu="showMenu"
-      :current-user="currentUser"
+      :current-user="userInfo"
       :class="prefixCls"
     />
-    <select-lang :class="prefixCls" />
+    <!-- <select-lang :class="prefixCls" /> -->
   </div>
 </template>
 
@@ -13,10 +13,13 @@
 import SelectLang from '@/components/SelectLang'
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
+import { mapGetters, mapState } from 'vuex'
+
 @Component({
   components: {
     'select-lang': SelectLang,
   },
+  computed: mapGetters(['userInfo']),
 })
 export default class RightContent extends Vue {
   @Prop({
@@ -44,7 +47,7 @@ export default class RightContent extends Vue {
   theme
 
   showMenu = true
-  currentUser = {}
+  userInfo
 
   get wrpCls() {
     return {
@@ -55,12 +58,6 @@ export default class RightContent extends Vue {
     }
   }
 
-  mounted() {
-    setTimeout(() => {
-      this.currentUser = {
-        name: 'Serati Ma',
-      }
-    }, 1500)
-  }
+  mounted() {}
 }
 </script>

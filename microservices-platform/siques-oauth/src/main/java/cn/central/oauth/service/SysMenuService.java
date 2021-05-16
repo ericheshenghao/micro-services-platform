@@ -8,4 +8,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @date : 11:24 2020/12/4
  */
 public interface SysMenuService extends IService<SysMenu> {
+
 }

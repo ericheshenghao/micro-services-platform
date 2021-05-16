@@ -1,4 +1,4 @@
-import { login, getUserInfo } from '@/api/login'
+import { login, getUserInfo, logout } from '@/api/login'
 import { welcome } from '@/utils/util'
 
 export const state = () => ({
@@ -39,24 +39,22 @@ export const actions = {
   // 获取用户信息
   async GetInfo({ commit }) {
     const res = await getUserInfo()
-    commit('SET_INFO', res.datas)
-    commit('SET_PERMISSIONS', res.datas.permissions)
+    commit('SET_INFO', res.data)
+    commit('SET_PERMISSIONS', res.data.permissions)
   },
 
   // 登出
   Logout({ commit, state }) {
-    commit('SET_TOKEN', '')
-
-    // return new Promise((resolve) => {
-    //   logout(state.token)
-    //     .then(() => {
-
-    //       resolve()
-    //     })
-    //     .catch(() => {
-    //       resolve()
-    //     })
-    //     .finally(() => {})
-    // })
+    return new Promise((resolve) => {
+      logout()
+        .then(() => {
+          commit('SET_TOKEN', '')
+          resolve()
+        })
+        .catch(() => {
+          resolve()
+        })
+        .finally(() => {})
+    })
   },
 }

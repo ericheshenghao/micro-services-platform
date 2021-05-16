@@ -2,4 +2,4 @@ org.springframework.context.ApplicationContextInitializer=\
 cn.central.common.config.BannerInitializer
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.central.common.feign.fallback.UserServiceFallbackFactory
+cn.central.common.feign.fallback.AuthServiceFallbackFactory

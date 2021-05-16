@@ -1,15 +1,15 @@
 package cn.central.common.config;
 
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.feign.UserService;
+import cn.central.common.feign.AuthService;
 import cn.central.common.utils.SecurityUtils;
+import cn.central.log.annotation.AuditLog;
 import cn.central.log.monitor.PointUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.Arrays;
-import java.util.Set;
 
 /**
  *  自定义url级别el表达式鉴权
@@ -22,21 +22,26 @@ public class ElPermissionConfig {
 
     @Autowired
     @Lazy
-    UserService userService;
+    AuthService authService;
+
+
+
 
     /**
-     * 发起远程调用鉴权 如果是admin直接返回true
+     * 发起远程调用鉴权
      * @param permission
      * @return
      */
+    @AuditLog(operation = "")
     public Boolean check(String ...permission){
-        String userCode = SecurityUtils.getUsername();
+        String userCode = SecurityUtils.getUserCode();
         /**
-         * 唯一用户代码核对
+         * 判断是否有权限，判断userCode是否为管理员元，查询权限
          */
-        boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || userService.findPermissionsByUserCode(userCode).contains(permission);
-
-        PointUtil.info("用户代码"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+"&status="+hasPermit);
+        boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || authService.findPermissionsByUserCode(userCode).contains(permission);
+        // 埋点日志
+        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+
+                "&status="+( hasPermit==true?"鉴权成功":"鉴权失败"));
 
         return hasPermit;
     }

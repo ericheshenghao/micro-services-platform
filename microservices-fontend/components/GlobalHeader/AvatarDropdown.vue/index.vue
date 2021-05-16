@@ -1,12 +1,15 @@
 <template>
-  <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight">
+  <a-dropdown
+    v-if="currentUser && currentUser.nickName"
+    placement="bottomRight"
+  >
     <span class="ant-pro-account-avatar">
       <a-avatar
         size="small"
         src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
         class="antd-pro-global-header-index-avatar"
       />
-      <span>{{ currentUser.name }}</span>
+      <span>{{ currentUser.nickName }}</span>
     </span>
     <template v-slot:overlay>
       <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
@@ -48,21 +51,30 @@ export default {
   },
   methods: {
     handleToCenter() {
-      this.$router.push({ path: '/account/center' })
+      this.$router.push({
+        path: '/account/center',
+        query: { label: '个人中心' },
+      })
     },
     handleToSettings() {
-      this.$router.push({ path: '/account/settings' })
+      this.$router.push({
+        path: '/account/settings',
+        query: { label: '个人设置' },
+      })
     },
     handleLogout(e) {
       Modal.confirm({
-        title: this.$t('layouts.usermenu.dialog.title'),
-        content: this.$t('layouts.usermenu.dialog.content'),
+        // title: this.$t('layouts.usermenu.dialog.title'),
+        // content: this.$t('layouts.usermenu.dialog.content'),
+        title: '温馨提示',
+        content: '是否要退出登录',
         onOk: () => {
           // return new Promise((resolve, reject) => {
           //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1500)
           // }).catch(() => console.log('Oops errors!'))
-          return this.$store.dispatch('Logout').then(() => {
+          return this.$store.dispatch('modules/user/Logout').then(() => {
             this.$router.push({ name: 'login' })
+            this.$store.commit('modules/menu/DEL_ALL_TAG')
           })
         },
         onCancel() {},

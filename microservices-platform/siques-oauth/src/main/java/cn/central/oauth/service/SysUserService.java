@@ -13,5 +13,4 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface SysUserService  extends IService<SysUser>, UserDetailsService {
 
-
 }

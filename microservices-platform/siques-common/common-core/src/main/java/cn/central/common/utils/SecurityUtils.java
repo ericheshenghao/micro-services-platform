@@ -7,6 +7,9 @@ import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 
+/**
+ * @author Administrator
+ */
 public class SecurityUtils {
 
 
@@ -26,22 +29,21 @@ public class SecurityUtils {
 
 
     /**
-     * 获取当前用户名
+     * 获取代表当前用户身份的唯一代码，数据区唯一索引
      * @return
      */
-    public static String getUsername() {
-        String username = null;
+    public static String getUserCode() {
+        String usercode = null;
         Authentication authentication = getAuthentication();
         if(authentication != null) {
             Object principal = authentication.getPrincipal();
-            System.out.println(principal.toString());
             if(principal instanceof UserDetails){
-                username = ((UserDetails) principal).getUsername();
+                usercode = ((UserDetails) principal).getUsername();
             }else if(principal != null){
-                username = principal.toString();
+                usercode = principal.toString();
             }
         }
-        return username;
+        return usercode;
     }
 
 

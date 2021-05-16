@@ -14,12 +14,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * Banner初始化
  *
- * @author zlt
+ * @author
  * @date 2019/8/28
  */
 public class BannerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
+
         if (!(applicationContext instanceof AnnotationConfigApplicationContext)) {
             LogoBanner logoBanner = new LogoBanner(BannerInitializer.class, "/siques/logo.txt", "Welcome to siques", 1, 6, new Color[5], true);
             CustomBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", CommonConstant.PROJECT_VERSION, 0, 1)

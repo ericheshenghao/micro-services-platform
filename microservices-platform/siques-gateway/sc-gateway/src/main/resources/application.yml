@@ -1,5 +1,9 @@
 server:
   port: 9001
+siques:
+  trace:
+    enable: true
+
 spring:
   application:
     name: sc-gateway
@@ -38,8 +42,11 @@ spring:
             - StripPrefix=1
     nacos:
       discovery:
-        server-addr: 139.198.189.114:8848
+        server-addr: http://nacos.siques.cn:8848
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        username: nacos
+        password: heshenghao
+        group: DEV_GROUP
     sentinel:
       transport:
         dashboard: 139.198.189.114:8858 # sentinel面板的启动端口
@@ -47,8 +54,10 @@ spring:
       datasource: #添加Nacos数据源配置
         flow:
           nacos:
-            namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
-            server-addr: 139.198.189.114:8848
+            namespace: 2298d310-d84b-49f5-8714-2346876d8457
+            username: nacos
+            password: heshenghao
+            server-addr: http://nacos.siques.cn:8848
             dataId: ${spring.application.name}-flow-rules
             groupId: SENTINEL_GROUP  # nacos配置组
             # 规则类型，取值见：

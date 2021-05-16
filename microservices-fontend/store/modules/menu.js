@@ -9,8 +9,6 @@ const tagWel = {
   meta: {
     i18n: 'dashboard',
   },
-  group: [],
-  close: false,
 }
 const tagObj = {
   label: '', //标题名称
@@ -49,6 +47,15 @@ export const state = () => ({
       close: false,
     },
   ],
+  tagWel: {
+    label: '首页',
+    value: '/',
+    params: {},
+    query: { label: '首页' },
+    meta: {
+      i18n: 'dashboard',
+    },
+  },
   tag: tagObj,
 
   // Auth: { token: '' },

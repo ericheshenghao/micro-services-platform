@@ -16,12 +16,11 @@
         </span>
       </template>
 
-      <template v-slot:authorizedGrantTypesForm="{ record }">
+      <template v-slot:grantTypesForm="{ record }">
         <a-select
-          v-model="record.authorizedGrantTypes"
+          v-model="record.grantTypes"
           :show-arrow="true"
           mode="multiple"
-          :defaultValue="record.authorizedGrantTypes"
           style="width: 100%"
           placeholder="请选择"
         >
@@ -31,16 +30,20 @@
         </a-select>
       </template>
 
-      <template v-slot:scopeForm="{ record }">
+      <template v-slot:scopesForm="{ record }">
         <a-select
-          v-model="record.scope"
+          v-model="record.scopes"
           :show-arrow="true"
           mode="multiple"
-          :defaultValue="record.scope"
+          :defaultValue="record.scopes"
           style="width: 100%"
           placeholder="请选择"
         >
-          <a-select-option v-for="scope in scopes" :key="scope" :value="scope">
+          <a-select-option
+            v-for="scope in DefaultScopes"
+            :key="scope"
+            :value="scope"
+          >
             {{ scope }}
           </a-select-option>
         </a-select>
@@ -52,7 +55,7 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 
-import { getClientList } from '@/api/client'
+import { getClientList, saveClient, delClient, putClient } from '@/api/client'
 @Component({})
 export default class Client extends Vue {
   grantTypes = [
@@ -64,7 +67,7 @@ export default class Client extends Vue {
     'password_code',
   ]
 
-  scopes = ['read', 'write']
+  DefaultScopes = ['READ', 'WRITE']
 
   /** 配置分页参数 */
 
@@ -90,7 +93,9 @@ export default class Client extends Vue {
       },
       {
         title: '授权类型',
-        dataIndex: 'authorizedGrantTypes',
+        dataIndex: 'grantTypes',
+        toSet: ',',
+        saveType: String,
         formSlots: true,
         ellipsis: true,
       },
@@ -99,12 +104,18 @@ export default class Client extends Vue {
         dataIndex: 'redirectUrl',
       },
       {
+        title: 'token有效时间',
+        dataIndex: 'accessTokenValiditySeconds',
+      },
+      {
         title: '续签有效时间',
         dataIndex: 'refreshTokenValiditySeconds',
       },
       {
         title: '授权域',
-        dataIndex: 'scope',
+        toSet: ',',
+        saveType: String,
+        dataIndex: 'scopes',
         formSlots: true,
       },
 
@@ -118,15 +129,13 @@ export default class Client extends Vue {
     ],
   }
 
-  async mounted() {}
-
   loadDataFun = async (parameter: any) => {
     const requestParameters = Object.assign({}, parameter)
     const res = await getClientList(requestParameters)
     return {
-      records: res.datas.records,
+      records: res.data.records,
       pagination: {
-        total: res.datas.total,
+        total: res.data.total,
       },
     }
   }
@@ -134,14 +143,17 @@ export default class Client extends Vue {
   searchFun = (pageInfo: any, parameter: any) => {}
 
   async rowSave(row: any, done: any) {
+    saveClient(row)
     done()
   }
 
   async rowUpdate(row: any, done: any) {
+    putClient(row)
     done()
   }
 
   async rowDel(row: any, done: any) {
+    delClient(row.id)
     done()
   }
 

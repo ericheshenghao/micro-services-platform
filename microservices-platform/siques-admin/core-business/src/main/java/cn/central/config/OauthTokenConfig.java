@@ -1,8 +1,7 @@
 package cn.central.config;
 
 
-import cn.central.auth.config.DefaultResourceTokenConfig;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import cn.central.auth.config.client.DefaultResourceTokenConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**

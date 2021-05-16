@@ -2,6 +2,7 @@ package cn.central.common.redis;
 
 
 import cn.central.common.redis.properties.CacheManagerProperties;
+import cn.central.common.redis.properties.RedissonLockProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,13 +25,10 @@ import java.util.Map;
 /**
  * redis 配置类
  *
- * @author zlt
  * @date 2018/11/6 11:02
  * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
-@EnableConfigurationProperties({RedisProperties.class, CacheManagerProperties.class})
+@EnableConfigurationProperties({RedisProperties.class, RedissonLockProperties.class, CacheManagerProperties.class})
 @EnableCaching
 public class RedisAutoConfigure {
     @Autowired

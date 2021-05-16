@@ -7,14 +7,14 @@ global:
 # Alertmanager configuration
 alerting:
   alertmanagers:
-  - static_configs:
-    - targets:
-      # - alertmanager:9093
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
+# - "first_rules.yml"
+# - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -26,20 +26,59 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-    - targets: ['localhost:9090']
-      labels:
-        instance: prometheus
+      - targets: ['localhost:9090']
+        labels:
+          instance: prometheus
   - job_name: 'node'
     static_configs:
-    - targets: ['node-exporter:9100']
-      labels:
-        env: test
-        name: node1
-        instance: node-exporter
+      #    青云2C4G-1
+      - targets: ['139.198.189.114:9100']
+        labels:
+          env: prod
+          name: qc-2c4g-1
+          instance: 139.198.189.114
+      #    腾讯云
+      - targets: ['106.54.247.224:9100']
+        labels:
+          env: prod
+          name: txc-1c2g-1
+          instance: 106.54.247.224
+      - targets: ['139.198.187.241:9100']
+        labels:
+          env: prod
+          name: qc-2c4g-2
+          instance: 139.198.187.241
+      - targets: ['139.198.176.14:9100']
+        labels:
+          env: prod
+          name: qc-1c2g-1
+          instance: 139.198.176.14
   - job_name: 'mysqld'
     static_configs:
-    - targets: ['mysql-exporter:9104']
-      labels:
-        env: test
-        name: mysql-5.7
-        instance: 106.54.247.224:3306
+      - targets: ['mysql-exporter:9104']
+        labels:
+          env: prod
+          name: mysql-5.7
+          instance: 106.54.247.224:3306
+  - job_name: redis
+    static_configs:
+      - targets:
+          - redis://139.198.176.14:6379
+          - redis://139.198.176.14:6380
+          - redis://139.198.176.14:6381
+    metrics_path: /scrape
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 139.198.189.114:9121
+#  - job_name: nacos
+#      metrics_path: "/nacos/actuator/prometheus"
+#      static_configs:
+#        - targets: [ '139.198.189.114:8848' ]
+#          labels:
+#            env: prod
+#            name: nacos
+#            instance: 139.198.189.114:8848

@@ -1,0 +1,23 @@
+---
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: http://nacos.siques.cn:8848
+        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        file-extension: yaml
+        group: DEV_GROUP
+        username: nacos
+        password: heshenghao
+---
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: http://nacos.siques.cn:8848
+        namespace: 6a8508d5-903c-4577-bd35-870220a4f5d7
+        file-extension: yml
+        group: PROD_GROUP
+        username: nacos
+        password: heshenghao
+

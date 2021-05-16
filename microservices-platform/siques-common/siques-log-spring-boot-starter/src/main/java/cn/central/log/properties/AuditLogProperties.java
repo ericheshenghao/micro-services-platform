@@ -6,8 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * 审计日志配置
- *
+ * 审计日志配置类
  */
 @Setter
 @Getter
