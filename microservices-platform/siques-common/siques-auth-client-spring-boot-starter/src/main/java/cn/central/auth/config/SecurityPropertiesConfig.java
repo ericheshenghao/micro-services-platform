@@ -10,6 +10,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @author he
  * @date 2019/10/7
  */
-@EnableConfigurationProperties({SecurityProperties.class})
+@EnableConfigurationProperties({SecurityProperties.class,Oauth2Properties.class})
 public class SecurityPropertiesConfig {
 }

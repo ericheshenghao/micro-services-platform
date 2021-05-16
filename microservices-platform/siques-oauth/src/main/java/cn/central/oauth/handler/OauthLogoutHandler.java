@@ -26,6 +26,12 @@ public class OauthLogoutHandler  implements LogoutHandler {
     @Resource
     TokenStore tokenStore;
 
+    /**
+     * security 提供的退出登录方式
+     * @param request
+     * @param response
+     * @param authentication
+     */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Assert.notNull(tokenStore, "tokenStore must be set");

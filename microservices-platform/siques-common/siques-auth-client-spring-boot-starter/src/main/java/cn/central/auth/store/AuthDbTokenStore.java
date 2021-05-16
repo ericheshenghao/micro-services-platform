@@ -19,8 +19,8 @@ public class AuthDbTokenStore {
     @Autowired
     private DataSource dataSource;
 
-//    @Bean
-//    public TokenStore tokenStore(){
-//        return new JdbcTokenStore(dataSource);
-//    }
+    @Bean
+    public TokenStore tokenStore(){
+        return new JdbcTokenStore(dataSource);
+    }
 }

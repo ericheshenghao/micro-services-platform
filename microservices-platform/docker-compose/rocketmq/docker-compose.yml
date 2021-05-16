@@ -1,45 +1,46 @@
+# 新版本出现问题，尝试使用旧版本
 version: '3.5'
-
 services:
   rmqnamesrv:
-    image: foxiswho/rocketmq:4.8.0
+    image: foxiswho/rocketmq:server
     container_name: rmqnamesrv
     ports:
       - 9876:9876
     volumes:
-      - ./rmqs/logs:/home/rocketmq/logs
-      - ./rmqs/store:/home/rocketmq/store
-    environment:
-      JAVA_OPT_EXT: "-Duser.home=/home/rocketmq -Xms512M -Xmx512M -Xmn128m"
-    command: ["sh","mqnamesrv"]
+      - ./rmqs/logs:/opt/logs
+      - ./rmqs/store:/opt/store
     networks:
       rmq:
         aliases:
           - rmqnamesrv
+
   rmqbroker:
-    image: foxiswho/rocketmq:4.8.0
+    image: foxiswho/rocketmq:broker
     container_name: rmqbroker
     ports:
       - 10909:10909
       - 10911:10911
     volumes:
-      - ./rmq/logs:/home/rocketmq/logs
-      - ./rmq/store:/home/rocketmq/store
+      - ./rmq/logs:/opt/logs
+      - ./rmq/store:/opt/store
       - ./rmq/brokerconf/broker.conf:/etc/rocketmq/broker.conf
     environment:
-      JAVA_OPT_EXT: "-Duser.home=/home/rocketmq -Xms512M -Xmx512M -Xmn128m"
-    command: ["sh","mqbroker","-c","/etc/rocketmq/broker.conf","-n","rmqnamesrv:9876","autoCreateTopicEnable=true"]
+      NAMESRV_ADDR: "rmqnamesrv:9876"
+      JAVA_OPTS: " -Duser.home=/opt"
+      JAVA_OPT_EXT: "-server -Xms128m -Xmx128m -Xmn128m"
+    command: mqbroker -c /etc/rocketmq/broker.conf
     depends_on:
       - rmqnamesrv
     networks:
       rmq:
         aliases:
           - rmqbroker
+
   rmqconsole:
     image: styletang/rocketmq-console-ng
     container_name: rmqconsole
     ports:
-      - 8180:8080
+      - 8080:8080
     environment:
       JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
@@ -48,6 +49,7 @@ services:
       rmq:
         aliases:
           - rmqconsole
+
 networks:
   rmq:
     name: rmq

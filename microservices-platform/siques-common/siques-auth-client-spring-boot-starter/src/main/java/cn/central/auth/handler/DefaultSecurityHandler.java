@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
@@ -33,7 +34,8 @@ public class DefaultSecurityHandler {
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         // 通过流写回前端
-        return (request, response, authException) -> ResponseUtil.responseFailed(objectMapper, response, "未授权");
+        return (request, response, authException) ->
+                ResponseUtil.responseFailed(objectMapper, response, "未授权", HttpStatus.UNAUTHORIZED.value());
     }
 
 
@@ -58,7 +60,7 @@ public class DefaultSecurityHandler {
             @Override
             public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) {
                 try {
-                    ResponseUtil.responseFailed(objectMapper, response, authException.getMessage());
+                    ResponseUtil.responseFailed(objectMapper, response, authException.getMessage(), HttpStatus.UNAUTHORIZED.value());
                 } catch (IOException e) {
 //                    logger.debug(e.getMessage());
                 }

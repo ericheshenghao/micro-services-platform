@@ -44,7 +44,7 @@ import java.security.KeyPair;
 import java.util.*;
 
 /**
- * 资源服务器 token 相关配置，jwt 相关.
+ * 资源服务器 token 相关配置，jwt 相关，资源服务器也通过redis进行鉴权
  * @author he
  */
 @Slf4j
@@ -58,18 +58,6 @@ public class DefaultResourceTokenConfig {
 
 
     /**
-     * 这里并不是对令牌的存储,他将访问令牌与身份验证进行转换
-     * 在需要 {@link TokenStore} 的任何地方可以使用此方法
-     * AbstractTokenGranter.getAccessToken()
-     * @return TokenStore
-     */
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-
-
-    /**
      * jwt 令牌转换
      *
      * @return jwt
@@ -80,7 +68,6 @@ public class DefaultResourceTokenConfig {
         converter.setVerifierKey(getPubKey());
         return converter;
     }
-
 
 
     /**

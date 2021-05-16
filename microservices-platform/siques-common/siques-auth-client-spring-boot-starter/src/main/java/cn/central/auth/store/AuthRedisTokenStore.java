@@ -33,7 +33,7 @@ import java.util.Map;
  * @date 2018/7/25 9:36
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "redis")
+@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "authRedis")
 public class AuthRedisTokenStore {
 
 

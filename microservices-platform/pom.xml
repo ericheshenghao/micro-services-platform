@@ -15,6 +15,7 @@
         <module>siques-config</module>
         <module>siques-demo</module>
         <module>siques-transaction</module>
+        <module>siques-job</module>
 
     </modules>
     <packaging>pom</packaging>

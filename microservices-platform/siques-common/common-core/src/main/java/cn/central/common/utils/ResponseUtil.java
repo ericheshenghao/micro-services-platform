@@ -48,8 +48,8 @@ public class ResponseUtil {
      * @param msg
      * @throws IOException
      */
-    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg) throws IOException {
-        Result result = Result.failed(msg);
+    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg,Integer code) throws IOException {
+        Result result = Result.failed(msg,code);
         responseWrite(objectMapper, response, result);
     }
 

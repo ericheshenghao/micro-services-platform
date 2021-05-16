@@ -31,14 +31,6 @@ spring:
     banner-mode: off
   application:
     name: core-business
-  #  rabbitmq:
-#    host: 106.54.247.224
-#    username: admin
-#    password: heshenghao
-#    port: 5672
-#    virtual-host: my_vhost
-#    #    解决消息到达中心之前出现问题的情况
-#    publisher-confirm-type: simple
   cloud:
     nacos:
       discovery:
@@ -113,7 +105,7 @@ spring:
   redis:
     host: 139.198.176.14
     port: 6379
-    database: 0
+    database: 1
     expiration: 1800
     password: heshenghao
 #开启控制台打印sql
@@ -152,7 +144,10 @@ siques:
     connect-timeout: 10000
     ReadTimeout: 35000
     OkToRetryOnAllOperations: false
-
+  oauth2:
+    token:
+      store:
+        type: redis
 #    log-type: db
 #sq:
 #  security:

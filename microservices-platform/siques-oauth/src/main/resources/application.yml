@@ -8,7 +8,7 @@ siques:
   oauth2:
     token:
       store:
-        type: redis
+        type: authredis
 spring:
   main:
     banner-mode: off

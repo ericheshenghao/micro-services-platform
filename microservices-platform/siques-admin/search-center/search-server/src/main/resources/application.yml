@@ -35,6 +35,8 @@ spring:
       password: heshenghao
   cloud:
     nacos:
+      config:
+        timeout: 35000
       discovery:
         server-addr: http://nacos.siques.cn:8848 #配置Nacos地址
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
@@ -55,3 +57,7 @@ swagger:
 siques:
   indices:
     show: sys-log-*,mysql-slowlog-*,sys_user,point-log-*,audit-log-*
+  oauth2:
+    token:
+      store:
+        type: jwt

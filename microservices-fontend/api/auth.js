@@ -4,8 +4,8 @@ import qs from 'qs'
 
 const userApi = {
   Login: 'uaa/oauth/token',
-  Logout: 'uaa/oauth/logout',
-  captchaUri: 'uaa/validate/captcha/',
+  Logout: 'uaa/oauth/removeToken',
+  captchaUri: 'uaa/oauth/captcha/',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',

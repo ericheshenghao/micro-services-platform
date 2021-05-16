@@ -1,0 +1,112 @@
+server:
+  port: 8089
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+canal.conf:
+  mode: rocketMQ #tcp kafka rocketMQ rabbitMQ
+  flatMessage: true
+  zookeeperHosts:
+  syncBatchSize: 1000
+  retries: 0
+  timeout:
+  accessKey:
+  secretKey:
+  srcDataSources:
+    defaultDS:
+      url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: l1itdhjaoiqw32kwqe$5asasd*a21
+    DS2:
+      url: jdbc:mysql://106.54.247.224:3306/nest?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: l1itdhjaoiqw32kwqe$5asasd*a21
+  consumerProperties:
+    # canal tcp consumer
+    canal.tcp.server.host: 127.0.0.1:11111
+    canal.tcp.zookeeper.hosts:
+    canal.tcp.batch.size: 500
+    canal.tcp.username:
+    canal.tcp.password:
+    # kafka consumer
+    kafka.bootstrap.servers: 127.0.0.1:9092
+    kafka.enable.auto.commit: false
+    kafka.auto.commit.interval.ms: 1000
+    kafka.auto.offset.reset: latest
+    kafka.request.timeout.ms: 40000
+    kafka.session.timeout.ms: 30000
+    kafka.isolation.level: read_committed
+    kafka.max.poll.records: 1000
+    # rocketMQ consumer
+    rocketmq.namespace:
+    rocketmq.namesrv.addr: 106.54.247.224:9876
+    rocketmq.batch.size: 1000
+    rocketmq.enable.message.trace: false
+    rocketmq.customized.trace.topic:
+    rocketmq.access.channel:
+    rocketmq.subscribe.filter:
+    # rabbitMQ consumer
+    rabbitmq.host: 106.54.247.224
+    rabbitmq.virtual.host: my_vhost
+    rabbitmq.username: admin
+    rabbitmq.password: heshenghao
+    rabbitmq.resource.ownerId:
+  canalAdapters:
+    - instance: canal-test # canal instance Name or mq topic name
+      groups:
+        - groupId: g1
+          outerAdapters:
+            - name: logger
+            - name: es7
+              hosts: 139.198.189.114:9200 # 127.0.0.1:9200 for rest mode
+              properties:
+                mode: rest # or rest
+                security.auth: elastic:heshenghao #  only used for rest mode
+                cluster.name: docker-cluster
+    - instance: route2 # canal instance Name or mq topic name
+      groups:
+        - groupId: g1
+          outerAdapters:
+            - name: logger
+            - name: es7
+              hosts: 139.198.189.114:9200 # 127.0.0.1:9200 for rest mode
+              properties:
+                mode: rest # or rest
+                security.auth: elastic:heshenghao #  only used for rest mode
+                cluster.name: docker-cluster
+#      - name: rdb
+#        key: mysql1
+#        properties:
+#          jdbc.driverClassName: com.mysql.jdbc.Driver
+#          jdbc.url: jdbc:mysql://127.0.0.1:3306/mytest2?useUnicode=true
+#          jdbc.username: root
+#          jdbc.password: 121212
+#      - name: rdb
+#        key: oracle1
+#        properties:
+#          jdbc.driverClassName: oracle.jdbc.OracleDriver
+#          jdbc.url: jdbc:oracle:thin:@localhost:49161:XE
+#          jdbc.username: mytest
+#          jdbc.password: m121212
+#      - name: rdb
+#        key: postgres1
+#        properties:
+#          jdbc.driverClassName: org.postgresql.Driver
+#          jdbc.url: jdbc:postgresql://localhost:5432/postgres
+#          jdbc.username: postgres
+#          jdbc.password: 121212
+#          threads: 1
+#          commitSize: 3000
+#      - name: hbase
+#        properties:
+#          hbase.zookeeper.quorum: 127.0.0.1
+#          hbase.zookeeper.property.clientPort: 2181
+#          zookeeper.znode.parent: /hbase
+
+#        - name: kudu
+#          key: kudu
+#          properties:
+#            kudu.master.address: 127.0.0.1 # ',' split multi address

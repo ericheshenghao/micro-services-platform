@@ -50,15 +50,6 @@
         </dependency>
 
 
-
-
-
-        <!--        消息通信-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-amqp</artifactId>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>cn.siques</groupId>
             <artifactId>siques-redis-spring-boot-starter</artifactId>

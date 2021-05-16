@@ -9,7 +9,7 @@
     <!-- 日志最大储存大小 -->
     <springProperty name="LOG_MAXFILESIZE" scope="context" source="logback.filesize" defaultValue="50MB"/>
     <!-- 日志最长留存时间 -->
-    <springProperty name="LOG_FILEMAXDAY" scope="context" source="logback.filemaxday" defaultValue="7"/>
+    <springProperty name="LOG_FILEMAXDAY" scope="context" source="logback.filemaxday" defaultValue="2"/>
     <springProperty name="ServerIP" scope="context" source="spring.cloud.client.ip-address" defaultValue="0.0.0.0"/>
     <springProperty name="ServerPort" scope="context" source="server.port" defaultValue="0000"/>
 

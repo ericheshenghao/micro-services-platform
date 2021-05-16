@@ -7,10 +7,10 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ userInfo.nickName
+            {{ timeFix }}，{{ userInfo ? userInfo.nickName : ''
             }}<span class="welcome-text">，{{ '欢迎' }}</span>
           </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+          <div>后端工程师 | 某某某事业群 - 微服务开发平台</div>
         </div>
       </div>
     </template>

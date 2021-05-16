@@ -68,15 +68,15 @@ export default class userIndex extends Vue {
       },
       {
         title: '登录账号',
-        dataIndex: 'loginCode',
-        width: '80px',
-        scopedSlots: { customRender: 'loginCode' },
-      },
-      {
-        title: '用户昵称',
         dataIndex: 'userName',
         width: '80px',
         scopedSlots: { customRender: 'userName' },
+      },
+      {
+        title: '用户昵称',
+        dataIndex: 'nickName',
+        width: '80px',
+        // scopedSlots: { customRender: 'nickName' },
       },
       {
         title: '用户状态',

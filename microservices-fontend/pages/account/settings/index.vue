@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>个人设置</div>
 </template>
 
 <script lang="ts">
