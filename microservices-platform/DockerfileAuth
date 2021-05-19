@@ -7,4 +7,5 @@ EXPOSE 8984
 # 运行jar包
 #RUN sh -c 'touch /core-business.jar'
 RUN apk add --update ttf-dejavu fontconfig
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 ENTRYPOINT ["java","-javaagent:skywalking/skywalking-agent.jar","-Dskywalking.trace.ignore_path=/actuator/**" ,"-Dskywalking.agent.service_name=uaa-server","-Dskywalking.collector.backend_service=139.198.189.114:11800","-jar","/siques-oauth.jar","--spring.profiles.active=prod" ]
