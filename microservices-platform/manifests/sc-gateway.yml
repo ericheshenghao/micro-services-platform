@@ -145,8 +145,8 @@ spec:
           imagePullPolicy: Always
           name: sc-gateway
           ports:
-            - containerPort: 9001
-              hostPort: 9001
+            - containerPort: 30001
+              hostPort: 30001
               name: main
               protocol: TCP
           resources: {}
