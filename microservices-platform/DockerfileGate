@@ -1,4 +1,4 @@
-FROM fabric8/java-alpine-openjdk8-jdk:1.8.0
+FROM registry.cn-hangzhou.aliyuncs.com/siques-public/openjdk:8-jdk-alphine
 
 # 将jar包添加到容器中并更名为app.jar
 ADD ./siques-gateway/sc-gateway/target/sc-gateway-4.2.0.jar sc-gateway.jar
