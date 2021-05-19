@@ -41,7 +41,6 @@ metadata:
           f:updatedReplicas: {}
       manager: kube-controller-manager
       operation: Update
-      time: "2020-12-03T09:11:40Z"
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -85,7 +84,7 @@ metadata:
                   f:name: {}
                   f:ports:
                     .: {}
-                    k:{"containerPort":8083,"protocol":"TCP"}:
+                    k:{"containerPort":30001,"protocol":"TCP"}:
                       .: {}
                       f:containerPort: {}
                       f:name: {}
@@ -136,7 +135,7 @@ spec:
     metadata:
       annotations:
         cattle.io/timestamp: "2020-12-03T09:11:40Z"
-        field.cattle.io/ports: '[[{"containerPort":9001,"dnsName":"sc-gateway","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
+        field.cattle.io/ports: '[[{"containerPort":30001,"dnsName":"sc-gateway","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
       creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: deployment-default-sc-gateway
