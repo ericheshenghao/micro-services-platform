@@ -168,7 +168,7 @@ spec:
         workload.user.cattle.io/workloadselector: deployment-default-sc-gateway
     spec:
       containers:
-        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/sc-gateway:2021-05-20-12-12-20
+        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/sc-gateway:v0.1
           imagePullPolicy: Always
           name: sc-gateway
           ports:
@@ -197,22 +197,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-    - lastTransitionTime: "2021-05-19T18:20:50Z"
-      lastUpdateTime: "2021-05-19T18:20:50Z"
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: "True"
-      type: Available
-    - lastTransitionTime: "2021-05-19T18:20:47Z"
-      lastUpdateTime: "2021-05-20T07:02:56Z"
-      message: ReplicaSet "sc-gateway-6c75dc4b49" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: "True"
-      type: Progressing
-  observedGeneration: 19
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1

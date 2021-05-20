@@ -170,22 +170,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-    - lastTransitionTime: "2020-12-09T04:36:38Z"
-      lastUpdateTime: "2020-12-09T04:36:38Z"
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: "True"
-      type: Available
-    - lastTransitionTime: "2020-12-09T04:34:45Z"
-      lastUpdateTime: "2020-12-09T04:36:38Z"
-      message: ReplicaSet "sq-dashboard-54f4c5497d" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: "True"
-      type: Progressing
-  observedGeneration: 2
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1

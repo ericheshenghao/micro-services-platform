@@ -167,21 +167,4 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  conditions:
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
-      type: Available
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: ReplicaSet "core-business-97c78b954" is progressing.
-      reason: ReplicaSetUpdated
-      status: "True"
-      type: Progressing
-  observedGeneration: 1
-  replicas: 1
-  unavailableReplicas: 1
-  updatedReplicas: 1
+
