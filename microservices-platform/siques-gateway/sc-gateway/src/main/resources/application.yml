@@ -44,6 +44,7 @@
 #      transport:
 #        dashboard: 139.198.189.114:8858 # sentinel面板的启动端口
 #        port: 8719  #默认8719，假如被占用了会自动从8719开始依次+1扫描。直至找到未被占用的端口
+#        clientIp:
 #      datasource: #添加Nacos数据源配置
 #        flow:
 #          nacos:
