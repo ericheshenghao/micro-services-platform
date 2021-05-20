@@ -163,6 +163,7 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
         - name: aliyun
+      hostNetwork: true
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}

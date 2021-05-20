@@ -164,6 +164,7 @@ spec:
           terminationMessagePolicy: File
           tty: true
       dnsPolicy: ClusterFirst
+      hostNetwork: true
       imagePullSecrets:
         - name: aliyun
       restartPolicy: Always
