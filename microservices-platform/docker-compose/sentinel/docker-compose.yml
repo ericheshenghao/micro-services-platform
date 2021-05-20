@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  sentinek:
+    image: bladex/sentinel-dashboard:latest
+    ports:
+      - 8858:8858
+    environment:
+      TZ: Asia/Shanghai
