@@ -5,11 +5,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * 分布式锁顶级接口
  *
- * @author zlt
+
  * @date 2018/5/29 14:12
  * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
 public interface DistributedLock {
     /**
@@ -21,15 +19,15 @@ public interface DistributedLock {
      * @param isFair 是否公平锁
      * @return 锁对象
      */
-    ZLock lock(String key, long leaseTime, TimeUnit unit, boolean isFair) throws Exception;
+    HLock lock(String key, long leaseTime, TimeUnit unit, boolean isFair) throws Exception;
 
-    default ZLock lock(String key, long leaseTime, TimeUnit unit) throws Exception {
+    default HLock lock(String key, long leaseTime, TimeUnit unit) throws Exception {
         return this.lock(key, leaseTime, unit, false);
     }
-    default ZLock lock(String key, boolean isFair) throws Exception {
+    default HLock lock(String key, boolean isFair) throws Exception {
         return this.lock(key, -1, null, isFair);
     }
-    default ZLock lock(String key) throws Exception {
+    default HLock lock(String key) throws Exception {
         return this.lock(key, -1, null, false);
     }
 
@@ -42,15 +40,15 @@ public interface DistributedLock {
      * @param unit {@code waitTime} 和 {@code leaseTime} 参数的时间单位
      * @return 锁对象，如果获取锁失败则为null
      */
-    ZLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit, boolean isFair) throws Exception;
+    HLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit, boolean isFair) throws Exception;
 
-    default ZLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit) throws Exception {
+    default HLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit) throws Exception {
         return this.tryLock(key, waitTime, leaseTime, unit, false);
     }
-    default ZLock tryLock(String key, long waitTime, TimeUnit unit, boolean isFair) throws Exception {
+    default HLock tryLock(String key, long waitTime, TimeUnit unit, boolean isFair) throws Exception {
         return this.tryLock(key, waitTime, -1, unit, isFair);
     }
-    default ZLock tryLock(String key, long waitTime, TimeUnit unit) throws Exception {
+    default HLock tryLock(String key, long waitTime, TimeUnit unit) throws Exception {
         return this.tryLock(key, waitTime, -1, unit, false);
     }
 
@@ -62,11 +60,11 @@ public interface DistributedLock {
 
     /**
      * 释放锁
-     * @param zLock 锁抽象对象
+     * @param hlock 锁抽象对象
      */
-    default void unlock(ZLock zLock) throws Exception {
-        if (zLock != null) {
-            this.unlock(zLock.getLock());
+    default void unlock(HLock hlock) throws Exception {
+        if (hlock != null) {
+            this.unlock(hlock.getLock());
         }
     }
 }

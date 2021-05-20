@@ -21,14 +21,26 @@ export default ({ app, store, route, redirect }) => {
 
   // code返回回调
   axios.onResponse((res) => {
-    if (res.data.code == 0) {
-      Vue.prototype.$notification['error']({
-        message: '错误',
-        description: res.data.msg,
-        duration: 4,
-      })
+    switch (res.data.respCode) {
+      case 0:
+        Vue.prototype.$notification['error']({
+          message: '错误',
+          description: res.data.msg,
+          duration: 4,
+        })
+        break
+      case 401:
+        Vue.prototype.$notification['info']({
+          message: '提示',
+          description: 'token失效，请重新登录',
+          duration: 4,
+        })
+
+        redirect('/login')
+        break
+      default:
+        return res.data
     }
-    return res.data
   })
 
   // 内部错误回调

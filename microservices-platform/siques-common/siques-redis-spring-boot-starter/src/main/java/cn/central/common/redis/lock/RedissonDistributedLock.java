@@ -4,7 +4,7 @@ package cn.central.common.redis.lock;
 import cn.central.common.constant.CommonConstant;
 import cn.central.common.exception.LockException;
 import cn.central.common.lock.DistributedLock;
-import cn.central.common.lock.ZLock;
+import cn.central.common.lock.HLock;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @date 2020/5/5
  * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
+
  */
 @ConditionalOnClass(RedissonClient.class)
 @ConditionalOnProperty(prefix = "siques.lock", name = "lockerType", havingValue = "REDIS", matchIfMissing = true)
@@ -29,30 +28,30 @@ public class RedissonDistributedLock implements DistributedLock {
     @Autowired
     private RedissonClient redisson;
 
-    private ZLock getLock(String key, boolean isFair) {
+    private HLock getLock(String key, boolean isFair) {
         RLock lock;
         if (isFair) {
             lock = redisson.getFairLock(CommonConstant.LOCK_KEY_PREFIX + key);
         } else {
             lock =  redisson.getLock(CommonConstant.LOCK_KEY_PREFIX + key);
         }
-        return new ZLock(lock, this);
+        return new HLock(lock, this);
     }
 
     @Override
-    public ZLock lock(String key, long leaseTime, TimeUnit unit, boolean isFair) {
-        ZLock zLock = getLock(key, isFair);
-        RLock lock = (RLock)zLock.getLock();
+    public HLock lock(String key, long leaseTime, TimeUnit unit, boolean isFair) {
+        HLock hlock = getLock(key, isFair);
+        RLock lock = (RLock)hlock.getLock();
         lock.lock(leaseTime, unit);
-        return zLock;
+        return hlock;
     }
 
     @Override
-    public ZLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit, boolean isFair) throws InterruptedException {
-        ZLock zLock = getLock(key, isFair);
-        RLock lock = (RLock)zLock.getLock();
+    public HLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit, boolean isFair) throws InterruptedException {
+        HLock hlock = getLock(key, isFair);
+        RLock lock = (RLock)hlock.getLock();
         if (lock.tryLock(waitTime, leaseTime, unit)) {
-            return zLock;
+            return hlock;
         }
         return null;
     }
