@@ -2,45 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
+    deployment.kubernetes.io/revision: "13"
     field.cattle.io/creatorId: user-ljnqs
-  creationTimestamp: "2020-12-03T09:11:40Z"
-  generation: 1
+    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.0.6"],"port":30001,"protocol":"TCP","serviceName":"default:sc-gateway-nodeport","allNodes":true},{"nodeName":"c-jr8tl:m-fb0923ee705a","addresses":["192.168.0.6"],"port":8719,"protocol":"TCP","podName":"default:sc-gateway-6c75dc4b49-kchdb","allNodes":false}]'
+  creationTimestamp: "2021-05-19T18:20:47Z"
+  generation: 19
   labels:
     cattle.io/creator: norman
     workload.user.cattle.io/workloadselector: deployment-default-sc-gateway
   managedFields:
-    - apiVersion: apps/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        f:metadata:
-          f:annotations:
-            f:deployment.kubernetes.io/revision: {}
-        f:status:
-          f:conditions:
-            .: {}
-            k:{"type":"Available"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
-            k:{"type":"Progressing"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
-          f:observedGeneration: {}
-          f:replicas: {}
-          f:unavailableReplicas: {}
-          f:updatedReplicas: {}
-      manager: kube-controller-manager
-      operation: Update
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -68,10 +38,7 @@ metadata:
             f:type: {}
           f:template:
             f:metadata:
-              f:annotations:
-                .: {}
-                f:cattle.io/timestamp: {}
-                f:field.cattle.io/ports: {}
+              f:annotations: {}
               f:labels:
                 .: {}
                 f:workload.user.cattle.io/workloadselector: {}
@@ -93,7 +60,6 @@ metadata:
                   f:securityContext:
                     .: {}
                     f:allowPrivilegeEscalation: {}
-                    f:capabilities: {}
                     f:privileged: {}
                     f:readOnlyRootFilesystem: {}
                     f:runAsNonRoot: {}
@@ -111,14 +77,75 @@ metadata:
               f:schedulerName: {}
               f:securityContext: {}
               f:terminationGracePeriodSeconds: {}
+      manager: kubectl-v1.16.4
+      operation: Update
+      time: "2021-05-20T04:13:50Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2021-05-20T07:02:56Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:field.cattle.io/publicEndpoints: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:spec:
+          f:template:
+            f:metadata:
+              f:annotations:
+                f:cattle.io/timestamp: {}
+                f:field.cattle.io/ports: {}
+            f:spec:
+              f:containers:
+                k:{"name":"sc-gateway"}:
+                  f:ports:
+                    k:{"containerPort":8719,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:hostPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:securityContext:
+                    f:capabilities: {}
       manager: rancher
       operation: Update
-      time: "2020-12-03T09:11:40Z"
+      time: "2021-05-20T07:02:56Z"
   name: sc-gateway
   namespace: default
-  resourceVersion: "41015"
+  resourceVersion: "34052410"
   selfLink: /apis/apps/v1/namespaces/default/deployments/sc-gateway
-  uid: 0d09ef30-62d4-478c-848d-4316351e284b
+  uid: dcd2f658-b276-498a-b916-eaecde8c2e76
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -134,20 +161,23 @@ spec:
   template:
     metadata:
       annotations:
-        cattle.io/timestamp: "2020-12-03T09:11:40Z"
-        field.cattle.io/ports: '[[{"containerPort":30001,"dnsName":"sc-gateway","hostPort":0,"kind":"ClusterIP","name":"main","protocol":"TCP","sourcePort":0}]]'
+        cattle.io/timestamp: "2021-05-20T07:02:54Z"
+        field.cattle.io/ports: '[[{"containerPort":30001,"dnsName":"sc-gateway-nodeport","hostPort":0,"kind":"NodePort","name":"main","protocol":"TCP","sourcePort":30001},{"containerPort":8719,"dnsName":"sc-gateway-hostport","hostPort":8719,"kind":"HostPort","name":"sentinel","protocol":"TCP","sourcePort":8719}]]'
       creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: deployment-default-sc-gateway
     spec:
       containers:
-        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/sc-gateway:v0.1
+        - image: registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/sc-gateway:2021-05-20-12-12-20
           imagePullPolicy: Always
           name: sc-gateway
           ports:
             - containerPort: 30001
-              hostPort: 30001
               name: main
+              protocol: TCP
+            - containerPort: 8719
+              hostPort: 8719
+              name: sentinel
               protocol: TCP
           resources: {}
           securityContext:
@@ -168,20 +198,21 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
 status:
+  availableReplicas: 1
   conditions:
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
+    - lastTransitionTime: "2021-05-19T18:20:50Z"
+      lastUpdateTime: "2021-05-19T18:20:50Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
       type: Available
-    - lastTransitionTime: "2020-12-03T09:11:40Z"
-      lastUpdateTime: "2020-12-03T09:11:40Z"
-      message: ReplicaSet "sc-gateway-97c78b954" is progressing.
-      reason: ReplicaSetUpdated
+    - lastTransitionTime: "2021-05-19T18:20:47Z"
+      lastUpdateTime: "2021-05-20T07:02:56Z"
+      message: ReplicaSet "sc-gateway-6c75dc4b49" has successfully progressed.
+      reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-  observedGeneration: 1
+  observedGeneration: 19
+  readyReplicas: 1
   replicas: 1
-  unavailableReplicas: 1
   updatedReplicas: 1
