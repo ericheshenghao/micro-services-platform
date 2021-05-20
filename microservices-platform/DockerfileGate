@@ -4,6 +4,7 @@ FROM registry.cn-hangzhou.aliyuncs.com/siques-public/openjdk:8-jdk-alphine
 ADD ./siques-gateway/sc-gateway/target/sc-gateway-4.2.0.jar sc-gateway.jar
 ADD ./docker-compose/skywalking skywalking
 EXPOSE 30001
+EXPOSE 8719
 # 运行jar包
 #RUN sh -c 'touch /core-business.jar'
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

@@ -2,8 +2,7 @@ version: "3"
 
 services:
   sentinek:
-    image: bladex/sentinel-dashboard:latest
+    image: registry.cn-hangzhou.aliyuncs.com/siques-public/sentinel:1.8.1
     ports:
-      - 8858:8858
-    environment:
-      TZ: Asia/Shanghai
+      - 8858:8080
+
