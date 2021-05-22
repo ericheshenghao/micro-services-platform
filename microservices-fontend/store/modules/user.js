@@ -30,10 +30,18 @@ export const mutations = {
 }
 
 export const actions = {
-  async Login({ commit }, userInfo) {
-    const res = await login(userInfo)
-
-    commit('SET_TOKEN', res.access_token)
+  Login({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      login(userInfo)
+        .then((res) => {
+          commit('SET_TOKEN', res.access_token)
+          resolve()
+        })
+        .catch((e) => {
+          reject(e)
+        })
+        .finally(() => {})
+    })
   },
 
   // 获取用户信息

@@ -4,7 +4,8 @@
 
 const BASE_URL =
   process.env.NODE_ENV !== 'production'
-    ? 'http://gateway-dev.siques.cn'
+    ? // 生产模式用域名访问
+      'http://localhost:9001'
     : 'http://gateway.siques.cn'
 //  将我们的网关改为域名访问
 export default {

@@ -312,9 +312,7 @@ export default class login extends Vue {
             .then((res: any) => {
               this.loginSuccess(res)
             })
-            .catch((err: Error) => {
-              this.requestFailed(err)
-            })
+
             .finally(() => {
               state.loginBtn = false
             })
@@ -325,16 +323,6 @@ export default class login extends Vue {
         }
       }
     )
-  }
-
-  requestFailed(err: any) {
-    this.isLoginError = true
-    this.$notification['error']({
-      message: '错误',
-      description:
-        ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
-      duration: 4,
-    })
   }
 
   loginSuccess(res: any) {

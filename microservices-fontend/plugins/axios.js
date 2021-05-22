@@ -28,7 +28,7 @@ export default ({ app, store, route, redirect }) => {
           description: res.data.respMsg,
           duration: 4,
         })
-        break
+        throw new Error(res.data.respMsg)
       case 401:
         Vue.prototype.$notification['info']({
           message: '提示',
@@ -37,15 +37,13 @@ export default ({ app, store, route, redirect }) => {
         })
 
         redirect('/login')
-        break
+        throw new Error(res.data.respMsg)
       default:
         return res.data
     }
   })
 
   // 内部错误回调
-  axios.onError((error) => {
-    console.log(error)
-  })
+  axios.onError((error) => {})
   Vue.prototype.$http = axios
 }

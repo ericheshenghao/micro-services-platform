@@ -1,5 +1,5 @@
 #server:
-#  port: 30001
+#  port: 9001
 #siques:
 #  trace:
 #    enable: true
