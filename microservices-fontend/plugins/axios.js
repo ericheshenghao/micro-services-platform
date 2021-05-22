@@ -24,8 +24,8 @@ export default ({ app, store, route, redirect }) => {
     switch (res.data.respCode) {
       case 0:
         Vue.prototype.$notification['error']({
-          message: '错误',
-          description: res.data.msg,
+          message: '提示',
+          description: res.data.respMsg,
           duration: 4,
         })
         break
