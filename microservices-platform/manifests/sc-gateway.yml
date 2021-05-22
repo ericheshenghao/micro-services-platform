@@ -162,8 +162,7 @@ spec:
     metadata:
       annotations:
         cattle.io/timestamp: "2021-05-20T07:02:54Z"
-        field.cattle.io/ports: '[[{"containerPort":30001,"dnsName":"sc-gateway-nodeport","hostPort":0,"kind":"NodePort","name":"main","protocol":"TCP","sourcePort":30001},{"containerPort":8719,"dnsName":"sc-gateway-hostport","hostPort":8719,"kind":"HostPort","name":"sentinel","protocol":"TCP","sourcePort":8719}]]'
-      creationTimestamp: null
+        field.cattle.io/ports: '[[{"containerPort":9001,"dnsName":"sc-gateway-nodeport","hostPort":0,"kind":"NodePort","name":"main","protocol":"TCP","sourcePort":30002},{"containerPort":8719,"dnsName":"sc-gateway-hostport","hostPort":8719,"kind":"HostPort","name":"sentinel","protocol":"TCP","sourcePort":8719}]]'
       labels:
         workload.user.cattle.io/workloadselector: deployment-default-sc-gateway
     spec:

@@ -4,8 +4,8 @@
 
 const BASE_URL =
   process.env.NODE_ENV !== 'production'
-    ? 'http://localhost:30001'
-    : 'http://139.198.187.241:30001/'
+    ? 'http://gateway-dev.siques.cn'
+    : 'http://gateway.siques.cn'
 //  将我们的网关改为域名访问
 export default {
   API_URL: BASE_URL,
