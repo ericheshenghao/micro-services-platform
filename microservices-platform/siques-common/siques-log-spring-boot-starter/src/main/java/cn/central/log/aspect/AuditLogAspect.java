@@ -7,6 +7,7 @@ import cn.central.log.properties.AuditLogProperties;
 import cn.central.log.service.IAuditService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -61,9 +62,10 @@ public class AuditLogAspect {
      */
     @Before("@within(auditLog) || @annotation(auditLog)")
     public void beforeMethod(JoinPoint joinPoint, AuditLog auditLog) {
+
         //判断功能是否开启
         if (auditLogProperties.getEnabled()) {
-            if (auditService == null) {
+            if (auditService == null ) {
                 log.warn("AuditLogAspect - auditService is null");
                 return;
             }

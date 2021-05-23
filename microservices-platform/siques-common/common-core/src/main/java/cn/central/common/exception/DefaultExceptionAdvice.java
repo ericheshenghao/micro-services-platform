@@ -111,7 +111,7 @@ public class DefaultExceptionAdvice {
     }
 
     private Result defHandler(String msg, Exception e,Integer code) {
-//        log.error(msg, e);
+        log.error(msg, e);
         return Result.failed(msg,code);
     }
 }

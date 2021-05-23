@@ -53,6 +53,7 @@ public class OauthController {
      */
     @GetMapping("removeToken")
     public void logOut(HttpServletRequest request){
+
        Assert.notNull(tokenStore, "tokenStore must be set");
         String token = request.getParameter("token");
         if (StrUtil.isEmpty(token)) {

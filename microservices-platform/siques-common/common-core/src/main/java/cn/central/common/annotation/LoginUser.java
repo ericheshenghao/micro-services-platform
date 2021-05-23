@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * 例1：public void test(@LoginUser SysUser user) //只有username 和 roles
  * 例2：public void test(@LoginUser(isFull = true) SysUser user) //能获取SysUser对象的所有信息
  *
- * @author zlt
+ * @author he
  * @date 2018/7/24 16:44
  */
 @Target(ElementType.PARAMETER)

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zlt
+ * @author he
  * @date 2019/8/28
  */
 public class CustomBanner {

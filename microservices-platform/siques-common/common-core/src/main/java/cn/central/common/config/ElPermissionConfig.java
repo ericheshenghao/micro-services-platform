@@ -24,15 +24,12 @@ public class ElPermissionConfig {
     @Lazy
     AuthService authService;
 
-
-
-
     /**
      * 发起远程调用鉴权
      * @param permission
      * @return
      */
-    @AuditLog(operation = "")
+//    @AuditLog(operation = "")
     public Boolean check(String ...permission){
         String userCode = SecurityUtils.getUserCode();
         /**
@@ -40,8 +37,8 @@ public class ElPermissionConfig {
          */
         boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || authService.findPermissionsByUserCode(userCode).contains(permission);
         // 埋点日志
-        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+
-                "&status="+( hasPermit==true?"鉴权成功":"鉴权失败"));
+//        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+
+//                "&status="+( hasPermit==true?"鉴权成功":"鉴权失败"));
 
         return hasPermit;
     }

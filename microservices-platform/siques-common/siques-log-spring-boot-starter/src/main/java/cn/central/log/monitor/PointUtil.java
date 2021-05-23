@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 日志埋点工具类
  *
- * @author zlt
+ * @author he
  */
 @Slf4j
 public class PointUtil {

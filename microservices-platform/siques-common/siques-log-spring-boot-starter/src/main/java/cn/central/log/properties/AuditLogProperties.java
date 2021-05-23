@@ -3,6 +3,7 @@ package cn.central.log.properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
@@ -20,5 +21,12 @@ public class AuditLogProperties {
     /**
      * 日志记录类型(logger/redis/db/es)
      */
-    private String logType;
+    private LogType logType = LogType.logger;
+
+    private enum LogType {
+        logger,
+        redis,
+        db,
+        es
+    }
 }

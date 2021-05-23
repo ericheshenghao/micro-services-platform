@@ -1,12 +1,13 @@
 package cn.central.controller;
 
 
+import cn.central.common.annotation.CheckRequestBody;
 import cn.central.common.annotation.LoginUser;
-import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
-
+import cn.central.common.page.PageRequest;
+import cn.central.log.annotation.AuditLog;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
@@ -22,9 +23,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Set;
 
 /**
@@ -100,11 +104,22 @@ public class SysUserController {
     }
 
 
+    /**
+     *   CheckRequestBody 检查requestBody字段是否缺失，如果缺失不再执行后续的日志记录以及业务逻辑
+     *   需提供 BindingResult bindingResult, HttpServletResponse response，校验字段添加 @Valid
+     * @param record
+     * @param bindingResult
+     * @param response
+     * @return
+     */
     @PreAuthorize("@el.check('sys:user:add') AND @el.check('sys:user:edit')")
     @PostMapping()
     @Transactional
     @ApiOperation(value = "保存或更新用户", notes = "保存或更新用户")
-    public Result saveOrUpdate(@RequestBody SysUser record){
+    @CheckRequestBody()
+    @AuditLog(operation = "'新增或更新用户:' + #record.userCode")
+    public Result saveOrUpdate(@Valid @RequestBody  SysUser record , BindingResult bindingResult, HttpServletResponse response){
+
         // 查询是否已有该用户
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",record.getUserCode()));
         // 如果没有，直接新增

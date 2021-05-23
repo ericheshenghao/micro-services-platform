@@ -7,8 +7,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.security.core.userdetails.User;
 
+
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -24,14 +25,16 @@ public class SysUser extends SuperEntity<SysUser>   {
 
 
     @ApiModelProperty(value = "用户编码")
+    @NotNull(message = "用户编码不能为空！")
     private String userCode;
 
     @ApiModelProperty(value = "登录账号")
+    @NotNull(message = "登录账号不能为空！")
     private String userName;
 
     @ApiModelProperty(value = "登录密码")
     @JsonIgnore
-    private String password;
+    private String password = "123456";
 
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
