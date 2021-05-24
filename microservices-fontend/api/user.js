@@ -41,19 +41,10 @@ export function saveUser(parameter) {
   })
 }
 
-export function updateUser(parameter) {
-  return vue.prototype.$http({
-    url: userApi.updateUser,
-    method: 'get',
-    data: parameter,
-  })
-}
-
 export function deleteById(id) {
   return vue.prototype.$http({
     url: userApi.deleteById + `/${id}`,
     method: 'delete',
-    data: parameter,
   })
 }
 

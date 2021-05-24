@@ -1,6 +1,9 @@
 package cn.central.common.utils;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 密码加密
@@ -9,8 +12,10 @@ import java.security.MessageDigest;
  */
 public class PasswordEncoder {
 
-    private final static String[] HEX_DIGITS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",
+    private final static String[] HEX_DIGITS = {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d",
             "e", "f" };
+
 
     private final static String MD5 = "MD5";
     private final static String SHA = "SHA";
@@ -42,6 +47,7 @@ public class PasswordEncoder {
         }
         return result;
     }
+
 
     /**
      * 密码匹配验证
@@ -82,6 +88,8 @@ public class PasswordEncoder {
         }
         return resultSb.toString();
     }
+
+
 
     /**
      * 将字节转换为16进制

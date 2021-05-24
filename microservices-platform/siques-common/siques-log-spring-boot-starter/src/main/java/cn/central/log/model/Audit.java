@@ -33,7 +33,7 @@ public class Audit {
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
     /**
      * 用户编码
      */

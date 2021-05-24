@@ -1,4 +1,6 @@
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.central.auth.config.SecurityPropertiesConfig,\
 cn.central.auth.store.AuthRedisTokenStore,\
 cn.central.auth.store.ResJwtTokenStore
+

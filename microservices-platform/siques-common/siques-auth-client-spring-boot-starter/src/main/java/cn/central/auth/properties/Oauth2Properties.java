@@ -2,6 +2,8 @@ package cn.central.auth.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

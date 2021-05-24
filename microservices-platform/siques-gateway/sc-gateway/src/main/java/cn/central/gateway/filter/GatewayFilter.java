@@ -18,6 +18,9 @@ public class GatewayFilter implements GlobalFilter, Ordered {
     
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+
+
 //       String authorization = String.valueOf(exchange.getRequest().getHeaders().get("authorization"));
 
         return chain.filter(exchange);

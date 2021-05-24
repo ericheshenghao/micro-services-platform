@@ -404,3 +404,19 @@ export const openWindow = (url, title, w, h) => {
     newWindow.focus()
   }
 }
+
+export function generateUserCode() {
+  const str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+  let text = ''
+
+  for (let i = 0; i < 20; i++) {
+    const number = Math.floor(Math.random() * str.length)
+
+    const t = str.charAt(number)
+
+    text += t
+  }
+
+  return text
+}

@@ -1,47 +1,24 @@
 package cn.central.auth.config.client;
 
-import cn.central.auth.converter.CustomUserAuthenticationConverter;
-import cn.central.common.model.SysUser;
 import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.context.annotation.*;
-
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2RestOperations;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.security.oauth2.client.token.AccessTokenRequest;
-import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
-import javax.inject.Qualifier;
-
 import java.io.IOException;
-import java.security.KeyPair;
-import java.util.*;
+import java.util.Base64;
 
 /**
  * 资源服务器 token 相关配置，jwt 相关，资源服务器也通过redis进行鉴权
@@ -50,6 +27,12 @@ import java.util.*;
 @Slf4j
 @Import(BCryptPasswordEncoder.class)
 public class DefaultResourceTokenConfig {
+
+    @Bean
+    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
+        RedisTokenStore redisTokenStore = new RedisTokenStore(connectionFactory);
+        return redisTokenStore;
+    }
 
 
     @Autowired

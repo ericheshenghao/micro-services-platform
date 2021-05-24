@@ -2,13 +2,11 @@ package cn.central.oauth.granter;
 
 import cn.central.oauth.service.ValidateCodeService;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,7 +16,9 @@ import java.util.Map;
  * @date : 20:27 2020/12/4
  */
 public class PwdImgCodeGranter extends ResourceOwnerPasswordTokenGranter {
-    // 与客户端传来的一致
+    /**
+     * 与客户端传来的一致
+     */
     private static final String GRANT_TYPE = "password_code";
 
     private final ValidateCodeService validateCodeService;
@@ -31,6 +31,10 @@ public class PwdImgCodeGranter extends ResourceOwnerPasswordTokenGranter {
     }
 
 
+    @Override
+    public OAuth2AccessToken grant(String grantType, TokenRequest tokenRequest) {
+        return super.grant(grantType, tokenRequest);
+    }
 
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {

@@ -1,5 +1,8 @@
 package cn.central.oauth.config;
 
+import cn.central.common.constant.CommonConstant;
+import cn.central.common.utils.AESUtil;
+import cn.central.common.utils.PasswordEncoder;
 import cn.central.oauth.granter.PwdImgCodeGranter;
 import cn.central.oauth.service.SysClientDetailsService;
 import cn.central.oauth.service.SysUserService;
@@ -8,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
@@ -28,16 +31,10 @@ import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswo
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.*;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 
 import javax.annotation.Resource;
-import java.security.KeyPair;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 鉴权服务器Token相关配置
@@ -72,6 +69,8 @@ public class AuthorizationTokenConfig {
     @Autowired
     private SysUserService  userDetailService;
 
+    @Autowired
+    private List<TokenEnhancer> enhancers;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -86,11 +85,6 @@ public class AuthorizationTokenConfig {
      */
     private TokenGranter tokenGranter;
 
-    /**
-     * token增强
-     */
-    @Autowired
-    private List<TokenEnhancer> tokenEnhancer;
 
 
     private boolean reuseRefreshToken = true;
@@ -102,6 +96,37 @@ public class AuthorizationTokenConfig {
     // TODO 如何自动查找实现类并注入,通过配置文件启动不同的储存方式，默认为redis储存
     @Resource
     TokenStore tokenStore;
+
+
+    /**
+     *  约定一个请求头，携带加密的后端服务的客户端Id与客户端密钥,前后端分离的前端与后端依然还是要看成一个整体
+     *     如果未查询到该请求头，可以旁定未非法访问，直接拒绝
+     */
+
+
+
+    public TokenEnhancer tokenEnhancer() {
+        TokenEnhancerChain chain = new TokenEnhancerChain();
+
+        enhancers.add((accessToken, authentication) -> {
+            final Map<String, Object> additionalInfo = new HashMap<>(2);
+            //设置tenantID
+            additionalInfo.putAll(accessToken.getAdditionalInformation());
+            try {
+                // 设置tenant提供给前端，前端发起请求时携带该id访问服务，
+                // 服务通过 tenantFilter过滤并解密该ID来对资源进行隔离
+                additionalInfo.put("x_tenant_id", AESUtil.aesCbcPkcs5PaddingEncrypt(authentication.getOAuth2Request().getClientId(),CommonConstant.AESKEY,CommonConstant.AESIV));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+            return accessToken;
+        });
+
+        chain.setTokenEnhancers(enhancers);
+        return chain;
+    }
 
     /**
      * 校验授权模式
@@ -163,18 +188,6 @@ public class AuthorizationTokenConfig {
         return tokenServices;
     }
 
-    /**
-     * token增强
-     * @return
-     */
-    private TokenEnhancer tokenEnhancer() {
-        if (tokenEnhancer != null) {
-            TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-            tokenEnhancerChain.setTokenEnhancers(tokenEnhancer);
-            return tokenEnhancerChain;
-        }
-        return null;
-    }
 
     private void addUserDetailsService(DefaultTokenServices tokenServices, UserDetailsService userDetailsService) {
         if (userDetailsService != null) {

@@ -7,6 +7,15 @@ package cn.central.common.constant;
  * @date 2018/10/29
  */
 public interface CommonConstant {
+
+
+
+    String AESIV = "1234567890987654";
+    /**
+     * 盐
+     */
+    String AESKEY = "1234567890987654";
+
     /**
      * 项目版本号(banner使用)
      */

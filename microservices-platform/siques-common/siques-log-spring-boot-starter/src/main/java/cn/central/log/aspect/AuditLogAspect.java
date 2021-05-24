@@ -118,16 +118,14 @@ public class AuditLogAspect {
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        // 每个微服务中都需要接收该参数
-        String userId = (String) request.getAttribute("x-userid-header");
-//        String userCode = request.getHeader("x-user-header");
-//        String clientId = request.getHeader("x-tenant-header");
 
-        // 去安全上下文中拿是否更安全，思考一下标注了AuditLog的方法一般是什么方法
+        // 每个微服务中都需要接收该参数
+        String userCode = (String) request.getAttribute("x-userCode-header");
+        String clientId = (String) request.getAttribute("x-tenant-header");
+
         // 用户信息
-        audit.setUserId(userId);
-//        audit.setUserCode(userCode);
-//        audit.setClientId(clientId);
+        audit.setUserCode(userCode);
+        audit.setClientId(clientId);
 
         String operation = auditLog.operation();
         if (operation.contains("#")) {

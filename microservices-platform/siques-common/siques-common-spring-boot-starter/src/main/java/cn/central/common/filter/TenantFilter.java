@@ -3,6 +3,8 @@ package cn.central.common.filter;
 import cn.central.common.constant.CommonConstant;
 import cn.central.common.constant.SecurityConstants;
 import cn.central.common.context.TenantContextHolder;
+import cn.central.common.utils.AESUtil;
+import cn.central.common.utils.PasswordEncoder;
 import cn.hutool.core.util.StrUtil;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -22,6 +24,8 @@ import java.io.IOException;
  */
 @ConditionalOnClass(Filter.class)
 public class TenantFilter extends OncePerRequestFilter {
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
@@ -32,14 +36,19 @@ public class TenantFilter extends OncePerRequestFilter {
                 tenantId = request.getHeader(SecurityConstants.TENANT_HEADER);
             }
 
-            TenantContextHolder.setTenant("123");
+
             //保存租户id
             if (StrUtil.isNotEmpty(tenantId)) {
+                tenantId = AESUtil.aesCbcPkcs5PaddingDecrypt(tenantId,CommonConstant.AESKEY,CommonConstant.AESIV);
                 TenantContextHolder.setTenant(tenantId);
             }
 
             filterChain.doFilter(request, response);
+        } catch (Exception e) {
+
+            filterChain.doFilter(request, response);
         } finally {
+            // 执行完请求后清空
             TenantContextHolder.clear();
         }
     }

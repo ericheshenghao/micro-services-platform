@@ -57,15 +57,9 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import {
-  getUserList,
-  findUserRole,
-  saveUser,
-  updateUser,
-  deleteById,
-  deleteBatch,
-} from '@/api/user'
+import { getUserList, saveUser, deleteById, deleteBatch } from '@/api/user'
 import { getRoleList } from '@/api/role'
+import { generateUserCode } from '@/utils/util'
 @Component({})
 export default class SysUser extends Vue {
   roleList = []
@@ -187,6 +181,7 @@ export default class SysUser extends Vue {
   }
 
   async rowSave(row: any, done: any) {
+    row.userCode = generateUserCode()
     const res = await saveUser(row)
 
     done()

@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.central.common.filter.TenantFilter,\
-cn.central.common.filter.TraceFilter, \
-  cn.central.common.filter.UserInfoFilter
+cn.central.common.filter.TraceFilter

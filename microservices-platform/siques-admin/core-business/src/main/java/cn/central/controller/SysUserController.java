@@ -81,6 +81,7 @@ public class SysUserController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @Transactional
+    @AuditLog(operation = "'删除用户:' + #id")
     public Result delete(@PathVariable("id") String id){
        return Result.succeed(sysUserService.removeById(id));
     }
@@ -115,15 +116,20 @@ public class SysUserController {
     @PreAuthorize("@el.check('sys:user:add') AND @el.check('sys:user:edit')")
     @PostMapping()
     @Transactional
-    @ApiOperation(value = "保存或更新用户", notes = "保存或更新用户")
+    @ApiOperation(value = "新增或更新用户", notes = "新增或更新用户")
     @CheckRequestBody()
     @AuditLog(operation = "'新增或更新用户:' + #record.userCode")
     public Result saveOrUpdate(@Valid @RequestBody  SysUser record , BindingResult bindingResult, HttpServletResponse response){
 
         // 查询是否已有该用户
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",record.getUserCode()));
+
+        if(record.getPassword()!=null){
+            record.setPassword(passwordEncoder.encode(record.getPassword()));
+        }
+
         // 如果没有，直接新增
-        if(user==null) {
+        if(user == null) {
             return Result.succeed(sysUserService.save(record));
         }
         // 到这里说明数据库有该用户 判断是否为admin用户

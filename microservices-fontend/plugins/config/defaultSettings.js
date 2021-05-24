@@ -11,6 +11,10 @@ const BASE_URL =
 export default {
   API_URL: BASE_URL,
 
+  client_id: 'webApp',
+  client_secret: 123456,
+  grant_type: 'password_code',
+
   //配置菜单的属性
   navTheme: 'dark', // theme for nav menu
   primaryColor: '#52C41A', // primary color of ant design

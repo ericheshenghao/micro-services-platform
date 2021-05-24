@@ -39,7 +39,6 @@ import java.io.IOException;
 @Slf4j
 public class OauthController {
 
-//    public HashMap<String, Object> user(OAuth2Authentication user){
 
     @Autowired
     private ValidateCodeService validateCodeService;

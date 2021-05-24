@@ -60,7 +60,7 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
             return Mono.error(ex);
         }
         if (!BlockException.isBlockException(ex)) {
-            return  handleBlockedRequest(exchange,ex).flatMap(response -> writeResponse(response,exchange,"服务器开小差了"));
+            return  handleBlockedRequest(exchange,ex).flatMap(response -> writeResponse(response,exchange,"服务暂不可用"));
         }
 
         return handleBlockedRequest(exchange, ex)

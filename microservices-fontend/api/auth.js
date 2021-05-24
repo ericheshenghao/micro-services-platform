@@ -1,11 +1,12 @@
 import vue from 'vue'
 import { getUid } from '@/utils/util'
 import qs from 'qs'
+import config from '@/plugins/config/defaultSettings'
 
 const userApi = {
   Login: 'uaa/oauth/token',
-  Logout: 'uaa/oauth/removeToken',
-  captchaUri: 'uaa/oauth/captcha/',
+  Logout: 'uaa/validate/removeToken',
+  captchaUri: 'uaa/validate/captcha/',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
@@ -18,7 +19,6 @@ const userApi = {
 }
 
 /**
- * 使用password_code方式获取token
  * @param parameter
  * @returns {*}
  */
@@ -29,9 +29,9 @@ export function login(parameter) {
     data: qs.stringify({
       ...parameter,
       deviceId: userApi.uid,
-      client_id: 'webApp',
-      client_secret: 123456,
-      grant_type: 'password_code',
+      client_id: config.client_id,
+      client_secret: config.client_secret,
+      grant_type: config.grant_type,
     }),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

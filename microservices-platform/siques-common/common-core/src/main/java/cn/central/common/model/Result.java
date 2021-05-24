@@ -15,8 +15,8 @@ import java.io.Serializable;
 public class Result<T> implements Serializable {
 
     private T data;
-    private Integer respCode;
-    private String respMsg;
+    private Integer code;
+    private String msg;
 
     public static <T> Result<T> succeed(String msg) {
         return of(null, HttpStatus.SUCCESS, msg);

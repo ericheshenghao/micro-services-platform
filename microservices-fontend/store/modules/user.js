@@ -1,4 +1,4 @@
-import { login, getUserInfo, logout } from '@/api/login'
+import { login, getUserInfo, logout } from '@/api/auth'
 import { welcome } from '@/utils/util'
 
 export const state = () => ({
@@ -6,6 +6,7 @@ export const state = () => ({
   name: '',
   welcome: '',
   avatar: '',
+  tenant_id: '',
   permissions: [],
   info: {},
 })
@@ -13,6 +14,9 @@ export const state = () => ({
 export const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_TENANTID: (state, id) => {
+    state.tenant_id = id
   },
   SET_NAME: (state, { name, welcome }) => {
     state.name = name
@@ -35,6 +39,7 @@ export const actions = {
       login(userInfo)
         .then((res) => {
           commit('SET_TOKEN', res.access_token)
+          commit('SET_TENANTID', res.x_tenant_id)
           resolve()
         })
         .catch((e) => {
@@ -57,6 +62,7 @@ export const actions = {
       logout()
         .then(() => {
           commit('SET_TOKEN', '')
+          commit('SET_TENANTID', '')
           resolve()
         })
         .catch(() => {

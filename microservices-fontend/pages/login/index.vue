@@ -211,7 +211,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import { getSmsCaptcha, get2step, getCaptcha } from '~/api/login.js'
+import { getCaptcha } from '~/api/auth.js'
 import { timeFix } from '@/utils/util'
 @Component({})
 export default class login extends Vue {
