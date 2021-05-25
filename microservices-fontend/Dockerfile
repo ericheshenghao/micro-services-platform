@@ -8,6 +8,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --update nodejs nodejs-npm
 RUN apk add --update --no-cache curl py-pip
 
+RUN npm config set disturl $disturl
+RUN npm config set registry $registry
+RUN npm i -g yarn
+
 RUN yarn config set disturl $disturl
 RUN yarn config set registry $registry
 COPY package.json  yarn.lock ./
@@ -26,6 +30,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --update nodejs nodejs-npm
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY . . 
+RUN npm config set disturl $disturl
+RUN npm config set registry $registry
+RUN npm i -g yarn
+
 RUN yarn config set disturl $disturl
 RUN yarn config set registry $registry
 RUN yarn build 
