@@ -4,9 +4,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --update nodejs nodejs-npm
 RUN apk add --update --no-cache curl py-pip
 COPY package.json  yarn.lock ./
-RUN npm config set registry https://registry.npm.taobao.org
 RUN npm i -g yarn
-RUN yarn config set registry https://registry.npm.taobao.org
 RUN yarn install
 
 
@@ -17,9 +15,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --update nodejs nodejs-npm
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY . . 
-RUN npm config set registry https://registry.npm.taobao.org
 RUN npm i -g yarn
-RUN yarn config set registry https://registry.npm.taobao.org
 RUN yarn build 
 EXPOSE 3000
 CMD ["yarn","start"]
