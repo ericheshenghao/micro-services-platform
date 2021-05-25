@@ -61,14 +61,15 @@ export const actions = {
     return new Promise((resolve) => {
       logout()
         .then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_TENANTID', '')
           resolve()
         })
         .catch(() => {
           resolve()
         })
-        .finally(() => {})
+        .finally(() => {
+          commit('SET_TOKEN', '')
+          commit('SET_TENANTID', '')
+        })
     })
   },
 }
