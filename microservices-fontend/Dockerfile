@@ -8,12 +8,12 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --update nodejs nodejs-npm
 RUN apk add --update --no-cache curl py-pip
 
-RUN npm config set disturl $disturl
-RUN npm config set registry $registry
-RUN npm i -g yarn
+RUN npm i -g yarn --registry=$registry
 
-RUN yarn config set disturl $disturl
-RUN yarn config set registry $registry
+RUN yarn config set disturl $disturl -g
+RUN yarn config set registry $registry -g
+RUN yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
+
 COPY package.json  yarn.lock ./
 
 RUN yarn install
