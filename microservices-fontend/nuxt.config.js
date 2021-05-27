@@ -35,7 +35,7 @@ export default {
   ],
 
   router: {
-    middleware: ['worktab'],
+    middleware: ['worktab', 'authenticated'],
   },
 
   // Modules (https://go.nuxtjs.dev/config-modules)

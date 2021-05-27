@@ -5,6 +5,7 @@ import config from '@/plugins/config/defaultSettings'
 
 const userApi = {
   Login: 'uaa/oauth/token',
+  authorizationId: 'uaa/validate/authorize',
   Logout: 'uaa/validate/removeToken',
   captchaUri: 'uaa/validate/captcha/',
   ForgePassword: '/auth/forge-password',
@@ -35,6 +36,20 @@ export function login(parameter) {
     }),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
+}
+
+export function authorizationId(parameter) {
+  return vue.prototype.$http({
+    url: userApi.authorizationId,
+    method: 'get',
+    params: {
+      client_id: parameter.client_id,
+      redirect_uri: parameter.redirect_uri,
+      response_type: 'code',
+      scope: parameter.scope,
+      state: parameter.state,
     },
   })
 }

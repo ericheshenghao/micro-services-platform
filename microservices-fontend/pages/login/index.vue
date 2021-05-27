@@ -250,7 +250,7 @@ export default class login extends Vue {
   state = {
     time: 60,
     loginBtn: false,
-    // login type= 0 email, 1 username, 2 telephone
+    // login type= 0 email, 1 username, 2 telephone, 3 单点登录
     loginType: 0,
     smsSendBtn: false,
   }
@@ -306,11 +306,17 @@ export default class login extends Vue {
 
           loginParams.password = values.password
           // console.log('login form', loginParams)
+
           this.$store
             .dispatch('modules/user/Login', loginParams)
 
             .then((res: any) => {
-              this.loginSuccess(res)
+              // 登录成功后，如果包含有客户端id，则进行获取授权操作
+              if (this.$route.query['client_id']) {
+                this.$router.push({ name: 'prove', query: this.$route.query })
+              } else {
+                this.loginSuccess(res)
+              }
             })
 
             .finally(() => {

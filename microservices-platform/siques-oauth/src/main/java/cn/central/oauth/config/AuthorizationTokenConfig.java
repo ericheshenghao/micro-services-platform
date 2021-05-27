@@ -148,18 +148,23 @@ public class AuthorizationTokenConfig {
         }
         return tokenGranter;
     }
+
+    @Bean
+    public OAuth2RequestFactory requestFactory(){
+        return new DefaultOAuth2RequestFactory(clientDetailsService);
+    }
     /**
      * 所有授权模式：默认的5种模式 + 自定义的模式
      */
     private List<TokenGranter> getAllTokenGranters() {
         AuthorizationServerTokenServices tokenServices = tokenServices();
 
-        OAuth2RequestFactory requestFactory = new DefaultOAuth2RequestFactory(clientDetailsService);
+
         //获取默认的授权模式
-        List<TokenGranter> tokenGranters = getDefaultTokenGranters(tokenServices, authorizationCodeServices, requestFactory);
+        List<TokenGranter> tokenGranters = getDefaultTokenGranters(tokenServices, authorizationCodeServices, requestFactory());
         if (authenticationManager != null) {
             // 添加密码加图形验证码模式
-            tokenGranters.add(new PwdImgCodeGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory, validateCodeService));
+            tokenGranters.add(new PwdImgCodeGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory(), validateCodeService));
         }
         return tokenGranters;
     }

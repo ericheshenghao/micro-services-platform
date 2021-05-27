@@ -1,4 +1,4 @@
-import { login, getUserInfo, logout } from '@/api/auth'
+import { login, getUserInfo, logout, authorizationId } from '@/api/auth'
 import { welcome } from '@/utils/util'
 
 export const state = () => ({
@@ -40,7 +40,20 @@ export const actions = {
         .then((res) => {
           commit('SET_TOKEN', res.access_token)
           commit('SET_TENANTID', res.x_tenant_id)
-          resolve()
+          resolve(res)
+        })
+        .catch((e) => {
+          reject(e)
+        })
+        .finally(() => {})
+    })
+  },
+
+  authorizationId({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      authorizationId(userInfo)
+        .then((res) => {
+          resolve(res)
         })
         .catch((e) => {
           reject(e)
