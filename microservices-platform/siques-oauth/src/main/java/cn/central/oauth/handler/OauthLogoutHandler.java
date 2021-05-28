@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Component
+@Deprecated
 public class OauthLogoutHandler  implements LogoutHandler {
     @Resource
     TokenStore tokenStore;

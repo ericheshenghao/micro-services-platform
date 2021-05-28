@@ -27,11 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author zlt
+ * @author he
  * @date 2020/3/10
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
 @RestController
 public class ApiController {
@@ -81,7 +78,7 @@ public class ApiController {
         param.add("code", code);
         param.add("grant_type", "authorization_code");
         param.add("redirect_uri", redirectUri);
-        param.add("scope", "app");
+        param.add("scope", "webApp");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(param, headers);
         ResponseEntity<Map> response = restTemplate.postForEntity(accessTokenUri, request , Map.class);
         Map result = response.getBody();

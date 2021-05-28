@@ -38,7 +38,9 @@
         let accessToken = sessionStorage.getItem('access_token');
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('username');
-        window.location = getLogoutUri(accessToken);
+        getLogoutUri(accessToken);
+
+
     }
 </script>
 </body>

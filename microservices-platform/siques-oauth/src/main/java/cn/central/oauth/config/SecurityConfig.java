@@ -37,8 +37,8 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired(required = false)
-    private AuthenticationEntryPoint authenticationEntryPoint;
+//    @Autowired(required = false)
+//    private AuthenticationEntryPoint authenticationEntryPoint;
 
 
     @Resource
@@ -47,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Resource
-    private LogoutHandler oauthLogoutHandler;
+//    @Resource
+//    private LogoutHandler oauthLogoutHandler;
 
     /**
      * 注入授权管理器
@@ -61,30 +61,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http
-                .requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/oauth/**").authenticated()
-
-                .and().logout().logoutUrl(SecurityConstants.LOGOUT_URL)
-                .addLogoutHandler(oauthLogoutHandler)
-                .clearAuthentication(true).and()
-                .formLogin().permitAll(); //新增login form支持用户登录及授权
-
-
-        // 基于密码 等模式可以无session,不支持授权码模式
-//        if (authenticationEntryPoint != null) {
-//            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        } else {
-        // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-//     }
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable();
+//        http
+//                .requestMatchers().antMatchers("/oauth/**")
+//                .and()
+//                .authorizeRequests()
+//                .anyRequest().authenticated();
+//
+//
+////                .and().logout().logoutUrl(SecurityConstants.LOGOUT_URL)
+////                .addLogoutHandler(oauthLogoutHandler)
+////                .clearAuthentication(true).and()
+////                .formLogin().permitAll(); //新增login form支持用户登录及授权
+//
+//
+//        // 基于密码 等模式可以无session,不支持授权码模式
+////        if (authenticationEntryPoint != null) {
+////            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+////            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+////        } else {
+//        // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+////     }
+//    }
     /**
      * 全局用户信息
      */

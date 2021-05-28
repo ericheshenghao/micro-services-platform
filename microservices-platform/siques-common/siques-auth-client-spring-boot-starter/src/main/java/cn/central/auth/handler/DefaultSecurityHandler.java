@@ -35,7 +35,7 @@ public class DefaultSecurityHandler {
     public AuthenticationEntryPoint authenticationEntryPoint() {
         // 通过流写回前端
         return (request, response, authException) ->
-                ResponseUtil.responseFailed(objectMapper, response, "未授权", HttpStatus.UNAUTHORIZED.value());
+                ResponseUtil.responseFailed(objectMapper, response, authException.getMessage(), HttpStatus.UNAUTHORIZED.value());
     }
 
 

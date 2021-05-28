@@ -14,8 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @author : heshenghao
  * @date : 23:26 2020/11/14
  */
-//@Configuration
-//@EnableResourceServer
-//public class ResourceServerConfig extends DefaultResourceServerConfig {
-//
-//}
+@Configuration
+@EnableResourceServer
+public class ResourceServerConfig extends DefaultResourceServerConfig {
+
+}

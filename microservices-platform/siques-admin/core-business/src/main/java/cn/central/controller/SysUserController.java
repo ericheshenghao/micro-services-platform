@@ -49,7 +49,11 @@ public class SysUserController {
     @Autowired
     private IQueryService queryService;
 
-
+    /**
+     * 登录用户可查
+     * @param sysUser
+     * @return
+     */
     @GetMapping("info")
     public Result<SysUser> getUserInfo(@LoginUser(isFull = true) SysUser sysUser){
         sysUser.setPermissions(sysUserService.findPermission(sysUser.getUserCode()));

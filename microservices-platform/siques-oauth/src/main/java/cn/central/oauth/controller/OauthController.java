@@ -3,6 +3,7 @@ package cn.central.oauth.controller;
 import cn.central.auth.util.AuthUtils;
 import cn.central.common.annotation.LoginUser;
 import cn.central.common.model.Result;
+import cn.central.common.model.SysUser;
 import cn.central.common.utils.SecurityUtils;
 import cn.central.oauth.controller.dto.LoginDto;
 import cn.central.oauth.service.SysClientDetailsService;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -134,14 +136,21 @@ public class OauthController    {
     }
 
 
-
+    /**
+     * 重写方法进行自定义返回code
+     * @param parameters
+     * @param sessionStatus
+     * @return
+     */
     @GetMapping(value = "/authorize")
     public Result authorize(@RequestParam Map<String, String> parameters,
-                            SessionStatus sessionStatus, Principal principal) {
+                            SessionStatus sessionStatus) {
+        Authentication authentication = SecurityUtils.getAuthentication();
 
         // Pull out the authorization request first, using the OAuth2RequestFactory. All further logic should
         // query off of the authorization request instead of referring back to the parameters map. The contents of the
         // parameters map will be stored without change in the AuthorizationRequest object once it is created.
+
         AuthorizationRequest authorizationRequest = requestFactory.createAuthorizationRequest(parameters);
 
         Set<String> responseTypes = authorizationRequest.getResponseTypes();
@@ -156,10 +165,10 @@ public class OauthController    {
 
         try {
 
-//            if (!(principal instanceof Authentication) || !((Authentication) principal).isAuthenticated()) {
-//                throw new InsufficientAuthenticationException(
-//                        "User must be authenticated with Spring Security before authorization can be completed.");
-//            }
+            if (!(authentication instanceof Authentication) || !authentication.isAuthenticated()) {
+                throw new InsufficientAuthenticationException(
+                        "User must be authenticated with Spring Security before authorization can be completed.");
+            }
 
             ClientDetails client = sysClientDetailsService.loadClientByClientId(authorizationRequest.getClientId());
 
@@ -178,12 +187,12 @@ public class OauthController    {
             // been added to the request by the manager).
             oauth2RequestValidator.validateScope(authorizationRequest, client);
 
-
+            authorizationRequest.setApproved(true);
 
             // Validation is all done, so we can check for auto approval...
 
                 return    Result.succeed(generateCode(authorizationRequest,
-                        (Authentication) principal),"code返回成功") ;
+                         authentication),"code返回成功") ;
 //
 //
 //            // Store authorizationRequest AND an immutable Map of authorizationRequest in session

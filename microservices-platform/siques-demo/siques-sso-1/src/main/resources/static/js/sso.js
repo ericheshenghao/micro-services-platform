@@ -13,7 +13,7 @@ return uaaUri+'login?client_id='+clientId+'&redirect_uri=http://localhost:8091/c
 }
 
 function getLogoutUri(accessToken) {
-    return uaaUri+'remove/token?redirect_uri=http://localhost:8091/index.html&access_token='+accessToken;
+    return uaaUri+'logout?redirect_uri=http://localhost:8091/index.html&access_token='+accessToken;
 }
 
 

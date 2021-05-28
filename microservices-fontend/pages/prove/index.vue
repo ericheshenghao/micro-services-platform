@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div>是否授权app:xx 访问您的数据</div>
+    <div>
+      是否授权{{ this.param.client_id }} 访问您账号的{{ this.param.scope }}权限
+    </div>
     <template>
       <a-radio-group name="radioGroup" :default-value="1">
         <a-radio :value="1"> 允许 </a-radio>
@@ -21,23 +23,26 @@ export default class Prove extends Vue {
   layout(context) {
     return 'auth'
   }
+  q = this.$route.query
+  param = {
+    client_id: this.q['client_id'],
+    redirect_uri: this.q['redirect_uri'],
+    scope: this.q['scope'],
+    state: this.q['state'],
+  }
 
   allow() {
-    let param = {}
-
-    const q = this.$route.query
-    param.client_id = q['client_id']
-    param.redirect_uri = q['redirect_uri']
-    param.scope = q['scope']
-    param.state = q['state']
-
     this.$store
-      .dispatch('modules/user/authorizationId', param)
+      .dispatch('modules/user/authorizationId', this.param)
 
       .then((res) => {
         console.log(res)
-        window.location =
-          param.redirect_uri + '?code=' + res.data + '&state=' + param.state
+        // window.location =
+        //   this.param.redirect_uri +
+        //   '?code=' +
+        //   res.data +
+        //   '&state=' +
+        //   this.param.state
       })
   }
 }

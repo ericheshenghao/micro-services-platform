@@ -9,6 +9,10 @@
 #    token:
 #      store:
 #        type: authredis
+#  security:
+#    ignore:
+#      - /validate/captcha
+#      - /client/**
 #spring:
 #  main:
 #    banner-mode: off
