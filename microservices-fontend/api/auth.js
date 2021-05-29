@@ -85,9 +85,12 @@ export function getCurrentUserNav() {
   })
 }
 
-export function logout() {
+export function logout(token) {
   return vue.prototype.$http({
     url: userApi.Logout,
+    params: {
+      token: token ? token : '',
+    },
     method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',

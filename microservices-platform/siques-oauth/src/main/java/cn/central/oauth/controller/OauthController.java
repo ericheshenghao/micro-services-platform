@@ -176,6 +176,7 @@ public class OauthController    {
             // clientDetails. Either way we need to store it on the AuthorizationRequest.
 
             String redirectUriParameter = authorizationRequest.getRequestParameters().get(OAuth2Utils.REDIRECT_URI);
+            // 此处会进行一个判断，判断该回调链接与我们的客户端id是否匹配，因此修改前端参数没有问题
             String resolvedRedirect = redirectResolver.resolveRedirect(redirectUriParameter, client);
             if (!StringUtils.hasText(resolvedRedirect)) {
                 throw new RedirectMismatchException(

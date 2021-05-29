@@ -311,7 +311,7 @@ export default class login extends Vue {
             .dispatch('modules/user/Login', loginParams)
 
             .then((res: any) => {
-              // 登录成功后，如果包含有客户端id，则进行获取授权操作
+              // 登录成功后，如果包含有客户端id，则进行获取授权码操作
               if (this.$route.query['client_id']) {
                 this.$router.push({ name: 'prove', query: this.$route.query })
               } else {

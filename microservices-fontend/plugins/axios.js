@@ -22,6 +22,7 @@ export default ({ app, store, route, redirect }) => {
 
   // code返回回调
   axios.onResponse((res) => {
+    console.log(res.data.code)
     switch (res.data.code) {
       case 0:
         Vue.prototype.$notification['error']({
@@ -29,7 +30,14 @@ export default ({ app, store, route, redirect }) => {
           description: res.data.msg,
           duration: 4,
         })
-        throw new Error(res.data.msg)
+        break
+      case 500:
+        Vue.prototype.$notification['error']({
+          message: '提示',
+          description: res.data.msg,
+          duration: 4,
+        })
+        break
       case 401:
         Vue.prototype.$notification['info']({
           message: '提示',
@@ -37,8 +45,11 @@ export default ({ app, store, route, redirect }) => {
           duration: 4,
         })
 
-        redirect('/login')
-        throw new Error(res.data.msg)
+        store.dispatch('modules/user/Logout').then(() => {
+          redirect('/login')
+        })
+
+        break
       default:
         return res.data
     }

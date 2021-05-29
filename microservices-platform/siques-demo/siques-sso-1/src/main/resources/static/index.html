@@ -38,8 +38,7 @@
         let accessToken = sessionStorage.getItem('access_token');
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('username');
-        getLogoutUri(accessToken);
-
+         window.location = "http://localhost:8091/index.html"
 
     }
 </script>

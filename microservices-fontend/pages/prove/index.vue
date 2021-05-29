@@ -11,7 +11,9 @@
     </template>
 
     <div>
-      <a-button type="primary" @click="allow"> 授权 </a-button>
+      <a-button :loading="isLoading" type="primary" @click="allow">
+        授权
+      </a-button>
     </div>
   </div>
 </template>
@@ -31,18 +33,20 @@ export default class Prove extends Vue {
     state: this.q['state'],
   }
 
+  isLoading = false
+
   allow() {
+    this.isLoading = true
     this.$store
       .dispatch('modules/user/authorizationId', this.param)
-
       .then((res) => {
-        console.log(res)
-        // window.location =
-        //   this.param.redirect_uri +
-        //   '?code=' +
-        //   res.data +
-        //   '&state=' +
-        //   this.param.state
+        this.isLoading = false
+        window.location =
+          this.param.redirect_uri +
+          '?code=' +
+          res.data +
+          '&state=' +
+          this.param.state
       })
   }
 }
