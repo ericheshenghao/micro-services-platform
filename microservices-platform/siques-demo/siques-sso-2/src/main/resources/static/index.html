@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-    <title>siques</title>
+    <title>siques-2</title>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/sso.js"></script>
 </head>
@@ -38,7 +38,8 @@
         let accessToken = sessionStorage.getItem('access_token');
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('username');
-        window.location = getLogoutUri(accessToken);
+         window.location = "http://localhost:8092/index.html"
+
     }
 </script>
 </body>

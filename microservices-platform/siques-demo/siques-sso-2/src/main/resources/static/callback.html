@@ -20,7 +20,7 @@
             sessionStorage.setItem("state", state);
             window.location = getAuthorizeUri(state);
         }
-        console.log(123)
+
         //url获取code
         let code = getQueryVariable('code');
           axios.defaults.withCredentials = true

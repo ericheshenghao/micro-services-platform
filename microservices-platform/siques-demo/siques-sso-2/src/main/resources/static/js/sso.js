@@ -4,16 +4,12 @@ let clientId = 'siques-1';
 
 let clientSecret = '123456';
 //授权中心地址
-let uaaUri = 'http://localhost:8984/oauth/';
 
+//let uaaUri = 'http://admin.siques.cn/';
+let uaaUri = 'http://localhost:3000/';
 function getAuthorizeUri(state) {
-    return uaaUri+'authorize?client_id='+clientId+'&redirect_uri=http://localhost:8092/callback.html&response_type=code&scope=READ&state='+state;
+    return uaaUri+'login?client_id='+clientId+'&redirect_uri=http://localhost:8092/callback.html&response_type=code&scope=READ&state='+state;
 }
-
-function getLogoutUri(accessToken) {
-    return uaaUri+'remove/token?redirect_uri=http://localhost:8092/index.html&access_token='+accessToken;
-}
-
 
 
 function getState() {

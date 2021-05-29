@@ -30,14 +30,14 @@ export default ({ app, store, route, redirect }) => {
           description: res.data.msg,
           duration: 4,
         })
-        break
+        throw new Error(res.data.msg)
       case 500:
         Vue.prototype.$notification['error']({
           message: '提示',
           description: res.data.msg,
           duration: 4,
         })
-        break
+        throw new Error(res.data.msg)
       case 401:
         Vue.prototype.$notification['info']({
           message: '提示',
@@ -49,7 +49,7 @@ export default ({ app, store, route, redirect }) => {
           redirect('/login')
         })
 
-        break
+        throw new Error(res.data.msg)
       default:
         return res.data
     }

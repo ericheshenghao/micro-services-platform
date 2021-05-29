@@ -1,24 +1,29 @@
+import { checkToken } from '@/api/auth'
+
 export default function ({ route, store, redirect }) {
-  // If the user is not authenticated
-  // true true
-  // if (route.path != '/sys/login' && !store.state.auth.loggedIn) {
-  //   return redirect('/sys/login')
-  // }
-  // // 用户已存在想访问登录页面
+  let token = store.state.modules.user.token
 
-  if (
-    route.path == '/login' &&
-    store.state.modules.user.token &&
-    route.query['client_id']
-  ) {
-    return redirect({ name: 'prove', query: route.query })
-  }
+  // 登录界面
+  if (route.path == '/login') {
+    // token非空
+    if (token !== '') {
+      if (route.query['client_id']) {
+        let res = checkToken(token)
+        if (res.code == 0) {
+          return
+        }
+        return redirect({ name: 'prove', query: route.query })
+      }
+      return redirect('/')
+    }
 
-  if (route.path == '/login' && !store.state.modules.user.token == '') {
-    return redirect('/')
-  }
-
-  if (route.path != '/login' && store.state.modules.user.token == '') {
-    return redirect('/login')
+    // 非登录界面无token
+  } else {
+    if (token == '') {
+      if (route.query['client_id']) {
+        return redirect({ name: 'login', query: route.query })
+      }
+      return redirect('/login')
+    }
   }
 }

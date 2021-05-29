@@ -20,6 +20,7 @@
 
 <script>
 import { Vue, Component } from 'nuxt-property-decorator'
+
 @Component({})
 export default class Prove extends Vue {
   layout(context) {
@@ -32,7 +33,6 @@ export default class Prove extends Vue {
     scope: this.q['scope'],
     state: this.q['state'],
   }
-
   isLoading = false
 
   allow() {
