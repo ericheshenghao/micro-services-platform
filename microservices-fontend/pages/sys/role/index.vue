@@ -137,6 +137,7 @@ export default class SysRole extends Vue {
     let menuSet: any = []
     // 只设置最小节点
     res.data.sysMenuList.forEach((e: any) => {
+      // 类型为按钮 或者 目标是外链
       if (e.type == 2 || e.target == '_blank') {
         menuSet.push(e.id)
       }

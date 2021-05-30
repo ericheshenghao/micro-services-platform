@@ -32,7 +32,9 @@
               v-if="!column.addHide && column.dataIndex != 'action'"
               :key="column.id"
               :label="column.title"
-              :prop="column.dataIndex"
+              :prop="
+                column.validatorAlias ? column.validatorAlias : column.dataIndex
+              "
             >
               <a-input
                 v-if="!column.formSlots"

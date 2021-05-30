@@ -62,7 +62,7 @@ public class DefaultSecurityHandler {
                 try {
                     ResponseUtil.responseFailed(objectMapper, response, authException.getMessage(), HttpStatus.UNAUTHORIZED.value());
                 } catch (IOException e) {
-//                    logger.debug(e.getMessage());
+                     logger.debug(e.getMessage());
                 }
             }
         };

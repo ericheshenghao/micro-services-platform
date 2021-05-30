@@ -2,16 +2,12 @@ package cn.central.service.impl;
 
 
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.model.Result;
-import cn.central.common.model.SysMenu;
 import cn.central.common.model.SysRole;
-import cn.central.common.model.SysUser;
 import cn.central.dao.SysMenuMapper;
 import cn.central.dao.SysRoleMapper;
 import cn.central.dao.SysRoleMenuMapper;
 
 import cn.central.entity.SysRoleMenu;
-import cn.central.entity.SysUserRole;
 import cn.central.service.SysRoleMenuService;
 import cn.central.service.SysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -61,7 +57,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Transactional
     @Override
     @CacheEvict(value="findMenuTree",key="#roleCode")
-    public Result saveRoleMenus(String roleCode, Long roleId, Set<String> menuSet) {
+    public boolean saveRoleMenus(String roleCode, Long roleId, Set<String> menuSet) {
 
         // 清除已有的的菜单
         sysRoleMenuMapper.deleteByRoleId(roleId);
@@ -70,7 +66,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                 .map(menuId -> new SysRoleMenu(roleId, Long.valueOf(menuId)))
                 .collect(Collectors.toList());
 
-        return Result.succeed(sysRoleMenuService.saveBatch(collect));
+        return sysRoleMenuService.saveBatch(collect);
     }
 
 //    @Override

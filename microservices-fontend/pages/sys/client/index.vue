@@ -85,10 +85,18 @@ export default class Client extends Vue {
       {
         title: '客户端名称',
         dataIndex: 'clientId',
+        rules: [
+          {
+            required: true,
+            trigger: 'blur',
+            validator: this.validateName,
+          },
+        ],
       },
       {
         title: '客户端密码',
         dataIndex: 'clientSecret',
+        editHide: true,
         ellipsis: true,
       },
       {
@@ -129,6 +137,13 @@ export default class Client extends Vue {
     ],
   }
 
+  validateName(rule: any, value: any, callback: any) {
+    if (value === '') {
+      callback(new Error('请输入客户端名称'))
+    } else {
+      callback()
+    }
+  }
   loadDataFun = async (parameter: any) => {
     const requestParameters = Object.assign({}, parameter)
     const res = await getClientList(requestParameters)

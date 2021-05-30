@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 配置需要放权的url白名单
  *
- * @author zlt
+ * @author he
  */
 @Setter
 @Getter

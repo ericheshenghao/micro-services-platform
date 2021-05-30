@@ -81,7 +81,7 @@ public class SysRoleController {
         SysRole role = sysRoleService.getById(roleId);
 
        // 修改角色的权限
-        return Result.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(),roleId,menuSet));
+        return  Result.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(),roleId,menuSet));
     }
 
 }

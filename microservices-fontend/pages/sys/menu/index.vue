@@ -5,6 +5,7 @@
       :option="option"
       :loadDataFun="loadDataFun"
       @before-open="beforeOpen"
+      @before-close="beforeClose"
       @row-save="rowSave"
       @row-del="rowDel"
       @row-update="rowUpdate"
@@ -35,6 +36,7 @@
           mode="combobox"
           option-filter-prop="children"
           v-model="record.name"
+          @change="(e) => handleSet(e, record)"
         >
           <a-select-option value="查看"> 查看 </a-select-option>
           <a-select-option value="新增"> 新增 </a-select-option>
@@ -63,6 +65,15 @@
         </IconSelector>
       </template>
 
+      <template v-slot:targetForm="{ record }">
+        <a-radio-group v-model="record.target" :default-value="''">
+          <a-radio :disabled="record.type == 2" :value="'_blank'">
+            外链
+          </a-radio>
+          <a-radio :value="''"> 内链 </a-radio>
+        </a-radio-group>
+      </template>
+
       <template v-slot:permsForm="{ record }">
         <a-input :disabled="record.type != 2" v-model="record.perms"></a-input>
       </template>
@@ -89,12 +100,22 @@ import { Vue, Component } from 'nuxt-property-decorator'
 import { findMenuTree, saveOrUpdataMenu, delMenu } from '@/api/menu'
 @Component({})
 export default class SysMenu extends Vue {
+  // 目录：0 菜单: 1 权限: 2
+
   option: any = {
     columns: [
       {
         title: '菜单名称',
         dataIndex: 'name',
         formSlots: true,
+        rules: [
+          {
+            required: true,
+            trigger: 'blur',
+
+            validator: this.validateName,
+          },
+        ],
         width: '130px',
       },
       {
@@ -102,7 +123,7 @@ export default class SysMenu extends Vue {
         dataIndex: 'type',
         width: '100px',
         formSlots: true,
-
+        value: 0,
         scopedSlots: { customRender: 'type' },
       },
 
@@ -110,7 +131,15 @@ export default class SysMenu extends Vue {
         title: '上级菜单',
         width: '100px',
         dataIndex: 'parentName',
+        validatorAlias: 'parentArray',
         formSlots: true,
+        rules: [
+          {
+            required: true,
+            trigger: 'blur',
+            validator: this.validateParent,
+          },
+        ],
       },
       {
         title: '权限标识',
@@ -151,6 +180,7 @@ export default class SysMenu extends Vue {
         title: '目标',
         width: '80px',
         dataIndex: 'target',
+        formSlots: true,
       },
 
       {
@@ -175,18 +205,56 @@ export default class SysMenu extends Vue {
   data = []
 
   visible = false
-  // 目录：0 菜单: 1 权限: 2
-  formType = 1
+  formType = 0
+
   onChange(record: any) {
     this.formType = record.type
     if (record.type != 1) record.url = null
     if (record.type != 2) record.perms = null
-    if (record.type == 2) record.icon = null
-    if (record.type == 0) record.parentArray = []
+    if (record.type == 2) {
+      record.icon = null
+      record.target = ''
+    }
+    if (record.type == 0) {
+      record.parentArray = []
+    }
   }
+
+  handleSet(value: any, record: any) {
+    if (
+      value == '查看' ||
+      value == '新增' ||
+      value == '修改' ||
+      value == '删除'
+    ) {
+      record.type = 2
+      record.icon = null
+    }
+  }
+
+  validateName(rule: any, value: any, callback: any) {
+    if (value === undefined || value === '') {
+      callback(new Error('请输入菜单名称'))
+    } else {
+      callback()
+    }
+  }
+
+  validateParent(rule: any, value: any, callback: any) {
+    if (this.formType !== 0) {
+      if (value === undefined || value === '') {
+        callback(new Error('请选择上级菜单'))
+      } else {
+        callback()
+      }
+    } else {
+      callback()
+    }
+  }
+
   validateUrl(rule: any, value: any, callback: any) {
     if (this.formType === 1) {
-      if (value === '') {
+      if (value === undefined || value === '') {
         callback(new Error('请输入链接'))
       } else {
         callback()
@@ -198,7 +266,7 @@ export default class SysMenu extends Vue {
 
   validatePerms(rule: any, value: any, callback: any) {
     if (this.formType === 2) {
-      if (value === '') {
+      if (value === undefined || value === '') {
         callback(new Error('请输入权限信息'))
       } else {
         callback()
@@ -253,6 +321,10 @@ export default class SysMenu extends Vue {
     }
   }
 
+  beforeClose(form: any) {
+    this.formType = 0
+  }
+
   /** 增加下级菜单 */
   handleSub(row: any) {
     row.parentArray.push(row.id)
@@ -260,17 +332,19 @@ export default class SysMenu extends Vue {
       icon: row.icon,
       parentArray: row.parentArray,
       type: 1,
+      target: '',
     })
   }
 
   async rowSave(row: any, done: Function) {
     const res = await saveOrUpdataMenu(row)
+
     done()
   }
 
   async rowUpdate(row: any, done: Function) {
     const res = await saveOrUpdataMenu(row)
-    console.log(res)
+
     done()
   }
 

@@ -113,7 +113,7 @@
       </span>
     </a-table>
 
-    <LazyCreateForm
+    <CreateForm
       ref="createModal"
       :visible="visible"
       :columns="option.columns"
@@ -146,7 +146,7 @@
           </slot>
         </template>
       </template>
-    </LazyCreateForm>
+    </CreateForm>
     <step-by-step-modal ref="modal" />
   </a-card>
 </template>
@@ -316,7 +316,11 @@ export default class TableCrud extends Vue {
         e.rules.map((r: any) => {
           rule.push(r)
         })
-        rules[e.dataIndex] = rule
+        if (e.validatorAlias) {
+          rules[e.validatorAlias] = rule
+        } else {
+          rules[e.dataIndex] = rule
+        }
       }
     })
     return rules
@@ -325,11 +329,17 @@ export default class TableCrud extends Vue {
   /** init参数：外部直接调用handleAdd方法传参 */
   handleAdd(init?: any) {
     /** 表单默认值生成 */
+
     this.$emit('before-open', 'add')
+
     let obj: any = {}
     this.option.columns.map((e: any) => {
       if (e.value != undefined) {
-        obj[e.dataIndex] = e.value
+        if (typeof e.value === 'function') {
+          obj[e.dataIndex] = e.value()
+        } else {
+          obj[e.dataIndex] = e.value
+        }
       }
     })
     /** */
@@ -339,7 +349,7 @@ export default class TableCrud extends Vue {
     this.visible = true
   }
   handleEdit(record: any) {
-    this.$emit('before-open', 'edit', record)
+    this.$emit('before-open', record)
     this.type = 'edit'
     this.visible = true
 
@@ -373,12 +383,12 @@ export default class TableCrud extends Vue {
 
   /** 表单验证并提交 */
   handleOk(type: any) {
-    console.log(this.mdl)
     const rule = this.$refs.createModal.$refs.ruleForm
     this.confirmLoading = true
 
-    this.tableLoading = true
+    // this.tableLoading = true
     // 表单验证
+
     rule.validate((valid: any) => {
       if (valid) {
         this.visible = false
@@ -397,8 +407,6 @@ export default class TableCrud extends Vue {
         } else {
           this.$emit('row-update', this.mdl, this.successCallBack)
         }
-        // 重置表单
-        this.mdl = {}
       } else {
         console.log('error submit!!')
         return false
@@ -418,6 +426,7 @@ export default class TableCrud extends Vue {
 
   /** 取消操作 */
   handleCancel() {
+    this.$emit('before-close', this.type, this.mdl)
     this.visible = false
     this.mdl = {}
     const form = this.$refs.createModal.$refs.ruleForm

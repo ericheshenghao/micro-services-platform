@@ -89,7 +89,7 @@ export default class SysUser extends Vue {
         rules: [
           {
             required: true,
-            message: 'Please input Activity userName',
+            message: '请输入登录账号',
             trigger: 'blur',
           },
         ],
