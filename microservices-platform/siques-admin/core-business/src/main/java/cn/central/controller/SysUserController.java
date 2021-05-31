@@ -60,6 +60,11 @@ public class SysUserController {
        return Result.succeed(sysUser);
     }
 
+    /**
+     * 通过用户编码查询用户
+     * @param userCode
+     * @return
+     */
     @GetMapping("/{userCode}")
     public  SysUser getUserByUserCode(@PathVariable String userCode){
         return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",userCode));
@@ -81,6 +86,14 @@ public class SysUserController {
                   .eq("id",userId).set("password",passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
 
+    @PreAuthorize("@el.check('sys:user:edit')")
+    @PutMapping("{id}")
+    @ApiOperation(value = "锁定或解锁用户")
+    public Result changeStatus(@PathVariable("id") String userId,@RequestBody SysUser sysUser){
+        return Result.succeed(sysUserService.update(new UpdateWrapper<SysUser>()
+        .eq("id",userId).set("status",sysUser.getStatus())));
+    }
+
     @PreAuthorize("@el.check('sys:user:delete')")
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除用户", notes = "删除用户")
@@ -89,6 +102,7 @@ public class SysUserController {
     public Result delete(@PathVariable("id") String id){
        return Result.succeed(sysUserService.removeById(id));
     }
+
 
 
     @PreAuthorize("@el.check('sys:user:delete')")
@@ -131,7 +145,6 @@ public class SysUserController {
         if(record.getPassword()!=null){
             record.setPassword(passwordEncoder.encode(record.getPassword()));
         }
-
         // 如果没有，直接新增
         if(user == null) {
             return Result.succeed(sysUserService.save(record));

@@ -32,7 +32,7 @@ public class CheckRequestBodyAspect {
     @Around("@within(CheckRequestBody) || @annotation(CheckRequestBody)")
     public Object aroundMethod(ProceedingJoinPoint joinPoint, CheckRequestBody CheckRequestBody) throws Throwable {
         Object[] args = joinPoint.getArgs();
-
+        // 查询绑定值中是否有错误
         List<Object> collect = Arrays.stream(args).filter(o -> o instanceof BindingResult).collect(Collectors.toList());
         List<Object> responses = Arrays.stream(args).filter(o -> o instanceof HttpServletResponse).collect(Collectors.toList());
         for (Object obj : collect) {

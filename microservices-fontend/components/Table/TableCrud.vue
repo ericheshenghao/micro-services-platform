@@ -103,7 +103,7 @@
         <a-popconfirm
           v-if="permissions.delBtn"
           @confirm="handleDel(record)"
-          title="Are you sure？"
+          title="确定删除吗？"
         >
           <a-icon slot="icon" type="question-circle-o" style="color: red" />
           <a href="#">删除</a>

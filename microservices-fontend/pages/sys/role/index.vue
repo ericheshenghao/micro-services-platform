@@ -50,7 +50,7 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import { getRoleList } from '@/api/role'
 import { findMenuTree } from '@/api/menu'
-import { saveRoleMenus, findRoleMenus, saveRole } from '@/api/role'
+import { saveRoleMenus, findRoleMenus, saveRole, delRole } from '@/api/role'
 @Component({})
 export default class SysRole extends Vue {
   option: any = {
@@ -68,6 +68,13 @@ export default class SysRole extends Vue {
         title: '角色编码',
         dataIndex: 'roleCode',
         width: '150px',
+        rules: [
+          {
+            required: true,
+            message: '请输入角色编码',
+            trigger: 'blur',
+          },
+        ],
       },
       {
         title: '角色名称',
@@ -76,7 +83,7 @@ export default class SysRole extends Vue {
         rules: [
           {
             required: true,
-            message: 'Please input Activity loginCode',
+            message: '请输入角色名称',
             trigger: 'blur',
           },
         ],
@@ -181,7 +188,10 @@ export default class SysRole extends Vue {
     done()
   }
 
-  rowDel() {}
+  async rowDel(row: any, done: Function) {
+    await delRole(row.id)
+    done()
+  }
 
   rowRefresh() {}
 }

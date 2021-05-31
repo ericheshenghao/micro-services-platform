@@ -1,5 +1,7 @@
 package cn.central.oauth.controller;
 
+import cn.central.common.constant.AdminConstants;
+import cn.central.common.model.SysUser;
 import cn.central.common.page.PageRequest;
 
 
@@ -8,6 +10,7 @@ import cn.central.common.model.Result;
 import cn.central.oauth.entity.SysClientDetails;
 import cn.central.oauth.service.SysClientDetailsService;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,7 +18,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -39,6 +46,8 @@ public class SysClientDetailsController {
     @Autowired
     SysClientDetailsService sysClientDetailsService;
 
+    @Resource
+    BCryptPasswordEncoder passwordEncoder;
     /**
    * 分页查询
    * @param page
@@ -63,6 +72,18 @@ public class SysClientDetailsController {
     })
     public Result getSysClientDetails(@PathVariable("id") Long id){
       return Result.succeed(sysClientDetailsService.getById(id));
+    }
+
+
+    @PutMapping("/secret/{id}")
+    @PreAuthorize("@el.check('sys:client:edit')")
+    @ApiOperation(value = "重置密码", notes = "重置密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "主键id", required = true)
+    })
+    public Result resetClientSecret(@PathVariable("id") Long id){
+        return Result.succeed(sysClientDetailsService.update(new UpdateWrapper<SysClientDetails>()
+                .eq("id",id).set("client_secret",passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
 
     /**

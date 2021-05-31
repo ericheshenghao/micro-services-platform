@@ -3,6 +3,7 @@ import vue from 'vue'
 const clientApi = {
   clientList: '/uaa/client/findPage',
   client: '/uaa/client',
+  resetSecret: '/uaa/client/secret',
 }
 
 export function getClientList(parameter) {
@@ -10,6 +11,13 @@ export function getClientList(parameter) {
     url: clientApi.clientList,
     method: 'post',
     data: parameter,
+  })
+}
+
+export function resetSecret(id) {
+  return vue.prototype.$http({
+    url: clientApi.resetSecret + '/' + id,
+    method: 'put',
   })
 }
 

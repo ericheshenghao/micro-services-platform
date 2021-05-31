@@ -3,6 +3,7 @@ import vue from 'vue'
 const roleApi = {
   roleList: '/core/pri/role',
   saveRole: '/core/pri/role',
+  delRole: '/core/pri/role',
   saveRoleMenus: '/core/pri/role/saveRoleMenus',
   findRoleMenus: '/core/pri/role/findRoleMenus',
 }
@@ -34,5 +35,12 @@ export function saveRole(parameter) {
     url: roleApi.saveRole,
     method: 'post',
     data: parameter,
+  })
+}
+
+export function delRole(id) {
+  return vue.prototype.$http({
+    url: roleApi.delRole + '/' + id,
+    method: 'delete',
   })
 }

@@ -4,6 +4,7 @@
       :option="option"
       :loadDataFun="loadDataFun"
       :searchFun="searchFun"
+      :scroll="{ x: 1000 }"
       @row-save="rowSave"
       @row-del="rowDel"
       @row-del-batch="delBatch"
@@ -22,7 +23,7 @@
           :show-arrow="true"
           mode="multiple"
           style="width: 100%"
-          placeholder="请选择"
+          placeholder="请选择授权类型"
         >
           <a-select-option v-for="type in grantTypes" :key="type" :value="type">
             {{ type }}
@@ -48,6 +49,14 @@
           </a-select-option>
         </a-select>
       </template>
+
+      <template v-slot:action="{ record }">
+        <a-divider type="vertical" />
+        <a-popconfirm @confirm="handleReset(record)" title="确定要重置密码？">
+          <a-icon slot="icon" type="question-circle-o" style="color: red" />
+          <a>重置密码</a>
+        </a-popconfirm>
+      </template>
     </TableCrud>
   </div>
 </template>
@@ -55,7 +64,13 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 
-import { getClientList, saveClient, delClient, putClient } from '@/api/client'
+import {
+  getClientList,
+  saveClient,
+  delClient,
+  putClient,
+  resetSecret,
+} from '@/api/client'
 @Component({})
 export default class Client extends Vue {
   grantTypes = [
@@ -98,6 +113,8 @@ export default class Client extends Vue {
         dataIndex: 'clientSecret',
         editHide: true,
         ellipsis: true,
+        value: 123456,
+        customRender: () => '****',
       },
       {
         title: '授权类型',
@@ -113,10 +130,12 @@ export default class Client extends Vue {
       },
       {
         title: 'token有效时间',
+        value: 12000,
         dataIndex: 'accessTokenValiditySeconds',
       },
       {
         title: '续签有效时间',
+        value: 12000,
         dataIndex: 'refreshTokenValiditySeconds',
       },
       {
@@ -131,14 +150,14 @@ export default class Client extends Vue {
         title: '操作',
         fixed: 'right',
         dataIndex: 'action',
-        width: 150,
+        width: 200,
         scopedSlots: { customRender: 'action' },
       },
     ],
   }
 
   validateName(rule: any, value: any, callback: any) {
-    if (value === '') {
+    if (value === '' || value == undefined) {
       callback(new Error('请输入客户端名称'))
     } else {
       callback()
@@ -156,6 +175,15 @@ export default class Client extends Vue {
   }
 
   searchFun = (pageInfo: any, parameter: any) => {}
+
+  handleReset(row: any) {
+    resetSecret(row.id).then(() => {
+      this.$message.success({
+        content: '密码重置成功!',
+        duration: 2,
+      })
+    })
+  }
 
   async rowSave(row: any, done: any) {
     saveClient(row)

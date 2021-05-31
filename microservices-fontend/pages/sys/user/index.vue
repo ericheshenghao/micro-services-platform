@@ -21,6 +21,7 @@
           checked-children="启用"
           un-checked-children="禁用"
           default-checked
+          @change="statusChange(record)"
         />
       </template>
 
@@ -57,7 +58,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import { getUserList, saveUser, deleteById, deleteBatch } from '@/api/user'
+import {
+  getUserList,
+  saveUser,
+  deleteById,
+  deleteBatch,
+  changeStatus,
+} from '@/api/user'
 import { getRoleList } from '@/api/role'
 import { generateUserCode } from '@/utils/util'
 @Component({})
@@ -180,10 +187,19 @@ export default class SysUser extends Vue {
     }
   }
 
+  statusChange(row: any) {
+    changeStatus(row).then(() => {
+      this.$message.success({
+        content: '修改用户状态',
+        duration: 2,
+      })
+    })
+  }
+
   async rowSave(row: any, done: any) {
+    // 生成随机用户编码
     row.userCode = generateUserCode()
     const res = await saveUser(row)
-
     done()
   }
 

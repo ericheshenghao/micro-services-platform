@@ -6,6 +6,7 @@ const userApi = {
   deleteBatch: '/core/pri/user/deleteBatch',
   saveUser: '/core/pri/user',
   deleteById: '/core/pri/user',
+  changeStatus: '/core/pri/user',
   searchUser: '/core/pri/user/searchUser',
 }
 
@@ -52,6 +53,14 @@ export function deleteBatch(parameter) {
   return vue.prototype.$http({
     url: userApi.deleteBatch,
     method: 'post',
+    data: parameter,
+  })
+}
+
+export function changeStatus(parameter) {
+  return vue.prototype.$http({
+    url: userApi.changeStatus + '/' + parameter.id,
+    method: 'put',
     data: parameter,
   })
 }

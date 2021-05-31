@@ -3,13 +3,11 @@ package cn.central.common.config;
 import cn.central.common.constant.AdminConstants;
 import cn.central.common.feign.AuthService;
 import cn.central.common.utils.SecurityUtils;
-import cn.central.log.annotation.AuditLog;
-import cn.central.log.monitor.PointUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.Arrays;
+import java.util.Set;
 
 /**
  *  自定义url级别el表达式鉴权
@@ -21,7 +19,6 @@ import java.util.Arrays;
 public class ElPermissionConfig {
 
     @Autowired
-    @Lazy
     AuthService authService;
 
     /**
@@ -35,6 +32,7 @@ public class ElPermissionConfig {
         /**
          * 判断是否有权限，判断userCode是否为管理员元，查询权限
          */
+        Set<String> permissionsByUserCode = authService.findPermissionsByUserCode(userCode);
         boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || authService.findPermissionsByUserCode(userCode).contains(permission);
         // 埋点日志
 //        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+
