@@ -109,10 +109,7 @@ public interface SecurityConstants {
      * 验证码文字大小
      */
     String DEFAULT_IMAGE_FONT_SIZE = "30";
-    /**
-     * zlt公共前缀
-     */
-    String ZLT_PREFIX = "zlt:";
+
     /**
      * 缓存client的redis key，这里是hash结构存储
      */

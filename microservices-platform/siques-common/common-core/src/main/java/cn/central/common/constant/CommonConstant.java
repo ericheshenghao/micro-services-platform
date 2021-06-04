@@ -11,9 +11,8 @@ public interface CommonConstant {
 
 
     String AESIV = "1234567890987654";
-    /**
-     * 盐
-     */
+
+
     String AESKEY = "1234567890987654";
 
     /**

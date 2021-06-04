@@ -18,6 +18,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @date 2019/8/28
  */
 public class BannerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
 

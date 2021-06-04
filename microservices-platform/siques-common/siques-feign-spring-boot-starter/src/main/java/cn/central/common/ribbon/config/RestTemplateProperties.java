@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * RestTemplate 配置
+ * @author Administrator
  * @date 2017/11/17
  */
 @Setter
@@ -26,6 +27,10 @@ public class RestTemplateProperties {
     private int readTimeout = 35000;
     /**
      * 链接超时时间 ms
+     * 并没有生效？？？
      */
-    private int connectTimeout = 10000;
+    private int connectTimeout = 100000;
+
+
+    private int socketTimeout = 100000;
 }

@@ -51,11 +51,10 @@
         </dependency>
 
 
-
-<!--        <dependency>-->
-<!--            <groupId>cn.siques</groupId>-->
-<!--            <artifactId>siques-feign-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.siques</groupId>
+            <artifactId>siques-feign-spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.siques</groupId>

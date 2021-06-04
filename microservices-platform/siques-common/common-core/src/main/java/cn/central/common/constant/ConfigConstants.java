@@ -3,7 +3,7 @@ package cn.central.common.constant;
 /**
  * 配置项常量
  *
- * @author zlt
+ * @author he
  * @date 2019/9/3
  */
 public interface ConfigConstants {

@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 /**
  * 认证服务器使用数据库存取令牌
  *
- * @author zlt
+ * @author he
  * @date 2018/7/24 16:23
  */
 @ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "db")

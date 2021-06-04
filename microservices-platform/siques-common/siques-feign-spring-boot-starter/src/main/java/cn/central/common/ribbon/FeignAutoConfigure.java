@@ -1,7 +1,10 @@
 package cn.central.common.ribbon;
 
 import feign.Logger;
+import feign.Request;
 import org.springframework.context.annotation.Bean;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Feign统一配置
@@ -18,4 +21,7 @@ public class FeignAutoConfigure {
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
+
+
+
 }

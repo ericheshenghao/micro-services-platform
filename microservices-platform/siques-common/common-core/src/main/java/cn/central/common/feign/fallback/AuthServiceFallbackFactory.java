@@ -24,6 +24,7 @@ public class AuthServiceFallbackFactory implements FallbackFactory<AuthService> 
         return new AuthService() {
 
 
+
             @Override
             public SysUser selectByUserCode(String userCode) {
                 log.error("通过用户code查询用户异常:{}", userCode, throwable);
@@ -32,7 +33,7 @@ public class AuthServiceFallbackFactory implements FallbackFactory<AuthService> 
 
             @Override
             public Set<String> findPermissionsByUserCode(String userCode) {
-                log.error("通过code查询用户异常:{}", userCode, throwable);
+                log.error("通过code查询用户权限异常:{}", userCode, throwable);
                 return new HashSet<>();
             }
 

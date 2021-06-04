@@ -3,16 +3,28 @@ package cn.central.auth.config.client;
 import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionMessage;
+import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
@@ -26,14 +38,27 @@ import java.util.Base64;
  */
 @Slf4j
 @Import(BCryptPasswordEncoder.class)
-public class DefaultResourceTokenConfig {
+public class DefaultResourceTokenConfig  {
 
-    @Bean
-    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
-        RedisTokenStore redisTokenStore = new RedisTokenStore(connectionFactory);
-        return redisTokenStore;
+
+    private static class JwtTokenStoreCondition extends SpringBootCondition {
+        private JwtTokenStoreCondition() {
+        }
+
+        @Override
+        public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            ConditionMessage.Builder message = ConditionMessage.forCondition("OAuth JWT TokenStore Condition", new Object[0]);
+            Environment environment = context.getEnvironment();
+            String keyStore = environment.getProperty("siques.oauth2.token.store.type");
+            return !StringUtils.hasText(keyStore) ? ConditionOutcome.match(message.foundExactly("provided key store location")) : ConditionOutcome.noMatch(message.didNotFind("provided key store location").atAll());
+        }
     }
 
+    @Bean
+    @Conditional({JwtTokenStoreCondition.class})
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
 
     @Autowired
     private  ResourceServerProperties resourceServerProperties;

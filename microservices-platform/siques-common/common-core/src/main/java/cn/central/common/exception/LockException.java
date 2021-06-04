@@ -3,7 +3,7 @@ package cn.central.common.exception;
 /**
  * 分布式锁异常
  *
- * @author zlt
+ * @author he
  */
 public class LockException extends RuntimeException {
     private static final long serialVersionUID = 6610083281801529147L;

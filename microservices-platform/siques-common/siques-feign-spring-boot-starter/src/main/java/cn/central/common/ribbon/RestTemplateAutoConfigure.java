@@ -4,8 +4,11 @@ package cn.central.common.ribbon;
 import cn.central.common.ribbon.config.RestTemplateProperties;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.config.ConnectionConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
+import org.apache.http.config.SocketConfig;
+import feign.Request.Options;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -20,6 +23,9 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author he
  * @date 2018/11/17
@@ -28,6 +34,12 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateAutoConfigure {
     @Autowired
     private RestTemplateProperties restTemplateProperties;
+
+
+    @Bean
+    public Options options(){
+        return new Options(30, TimeUnit.SECONDS,30,TimeUnit.SECONDS,true);
+    }
 
     @LoadBalanced
     @Bean
@@ -60,6 +72,7 @@ public class RestTemplateAutoConfigure {
         // 同路由并发数20
         connectionManager.setDefaultMaxPerRoute(restTemplateProperties.getMaxPerRoute());
 
+
         RequestConfig requestConfig = RequestConfig.custom()
                 // 读超时
                 .setSocketTimeout(restTemplateProperties.getReadTimeout())
@@ -68,6 +81,8 @@ public class RestTemplateAutoConfigure {
                 // 链接不够用的等待时间
                 .setConnectionRequestTimeout(restTemplateProperties.getReadTimeout())
                 .build();
+
+
 
         return HttpClientBuilder.create()
                 .setDefaultRequestConfig(requestConfig)

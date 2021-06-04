@@ -5,9 +5,6 @@ import cn.central.common.feign.AuthService;
 import cn.central.common.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-
-import java.util.Set;
 
 /**
  *  自定义url级别el表达式鉴权
@@ -30,9 +27,9 @@ public class ElPermissionConfig {
     public Boolean check(String ...permission){
         String userCode = SecurityUtils.getUserCode();
         /**
-         * 判断是否有权限，判断userCode是否为管理员元，查询权限
+         * 判断是否有权限，判断userCode是否为管理员，查询权限
          */
-        Set<String> permissionsByUserCode = authService.findPermissionsByUserCode(userCode);
+
         boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || authService.findPermissionsByUserCode(userCode).contains(permission);
         // 埋点日志
 //        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+

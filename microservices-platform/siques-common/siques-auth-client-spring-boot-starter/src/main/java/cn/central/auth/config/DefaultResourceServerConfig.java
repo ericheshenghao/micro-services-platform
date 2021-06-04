@@ -1,11 +1,13 @@
 package cn.central.auth.config;
 
 
+import cn.central.auth.config.client.DefaultResourceTokenConfig;
 import cn.central.auth.handler.DefaultSecurityHandler;
 import cn.central.auth.properties.SecurityProperties;
 import cn.central.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -27,6 +31,7 @@ import javax.annotation.Resource;
  */
 @Import(DefaultSecurityHandler.class)
 public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter {
+
 
     /**
      * 通过yaml实例化的的储存介质，这里其实现类依赖于 cn.central.auth.store 包
@@ -61,6 +66,12 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Bean
+    public DefaultTokenServices defaultTokenServices(TokenStore tokenStore) {
+        DefaultTokenServices services = new DefaultTokenServices();
+        services.setTokenStore(tokenStore);
+        return services;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

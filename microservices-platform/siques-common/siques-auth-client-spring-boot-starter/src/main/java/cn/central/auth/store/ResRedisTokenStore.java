@@ -29,7 +29,6 @@ import java.util.Base64;
  * @author : heshenghao
  * @date : 21:00 2021/5/16
  */
-@Slf4j
 @ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "redis")
 public class ResRedisTokenStore {
 

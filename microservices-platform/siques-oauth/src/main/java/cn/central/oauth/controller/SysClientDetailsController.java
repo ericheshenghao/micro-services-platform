@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
@@ -75,6 +76,7 @@ public class SysClientDetailsController {
     }
 
 
+
     @PutMapping("/secret/{id}")
     @PreAuthorize("@el.check('sys:client:edit')")
     @ApiOperation(value = "重置密码", notes = "重置密码")
@@ -82,6 +84,7 @@ public class SysClientDetailsController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     public Result resetClientSecret(@PathVariable("id") Long id){
+
         return Result.succeed(sysClientDetailsService.update(new UpdateWrapper<SysClientDetails>()
                 .eq("id",id).set("client_secret",passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
