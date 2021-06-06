@@ -121,12 +121,13 @@ export default class SysRole extends Vue {
   visible = false
   confirmLoading = false
 
-  loadDataFun = async (parameter: any) => {
-    const res = await getRoleList()
-    return {
-      records: res.data,
-      pagination: false,
-    }
+  loadDataFun = () => {
+    return getRoleList().then((res: any) => {
+      return {
+        records: res.data,
+        pagination: false,
+      }
+    })
   }
   replaceFields = { children: 'children', title: 'name', key: 'id' }
   autoExpandParent = true

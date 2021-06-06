@@ -3,8 +3,8 @@
     <TableCrud
       :option="option"
       :loadDataFun="loadDataFun"
-      :searchFun="searchFun"
       :scroll="{ x: 1000 }"
+      :permission="permission"
       @row-save="rowSave"
       @row-del="rowDel"
       @row-del-batch="delBatch"
@@ -83,6 +83,11 @@ export default class Client extends Vue {
   ]
 
   DefaultScopes = ['READ', 'WRITE']
+
+  permission = {
+    addBtn: true,
+    searchBtn: false,
+  }
 
   /** 配置分页参数 */
 
@@ -163,18 +168,21 @@ export default class Client extends Vue {
       callback()
     }
   }
-  loadDataFun = async (parameter: any) => {
+  loadDataFun = (parameter: any) => {
     const requestParameters = Object.assign({}, parameter)
-    const res = await getClientList(requestParameters)
-    return {
-      records: res.data.records,
-      pagination: {
-        total: res.data.total,
-      },
-    }
+    return getClientList(requestParameters)
+      .then((res: any) => {
+        return {
+          records: res.data.records,
+          pagination: {
+            total: res.data.total,
+          },
+        }
+      })
+      .catch((error: any) => {
+        return {}
+      })
   }
-
-  searchFun = (pageInfo: any, parameter: any) => {}
 
   handleReset(row: any) {
     resetSecret(row.id).then(() => {

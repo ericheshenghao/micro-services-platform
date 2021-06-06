@@ -27,8 +27,7 @@ public class AuthRedisTokenStore {
 
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
-        RedisTokenStore redisTokenStore = new RedisTokenStore(connectionFactory);
-        return redisTokenStore;
+        return  new RedisTokenStore(connectionFactory);
     }
 
     //

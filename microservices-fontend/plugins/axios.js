@@ -22,40 +22,43 @@ export default ({ app, store, route, redirect }) => {
 
   // code返回回调
   axios.onResponse((res) => {
-    console.log(res.data.code)
-    switch (res.data.code) {
+    res = res.data
+    switch (res.code) {
       case 0:
-        Vue.prototype.$notification['error']({
-          message: '提示',
-          description: res.data.msg,
-          duration: 4,
-        })
-        throw new Error(res.data.msg)
+        notification(res.msg)
+        throw new Error(res.msg)
       case 500:
-        Vue.prototype.$notification['error']({
-          message: '提示',
-          description: res.data.msg,
-          duration: 4,
-        })
-        throw new Error(res.data.msg)
+        notification(res.msg)
+        throw new Error(res.msg)
       case 401:
-        Vue.prototype.$notification['info']({
-          message: '提示',
-          description: 'token失效，请重新登录',
-          duration: 4,
-        })
-
+        notification('token失效，请重新登录')
         store.dispatch('modules/user/Logout').then(() => {
           redirect('/login')
         })
 
-        throw new Error(res.data.msg)
+        throw new Error(res.msg)
       default:
-        return res.data
+        return res
     }
   })
 
   // 内部错误回调
-  axios.onError((error) => {})
+  axios.onError((error) => {
+    if (
+      error.code == 'ECONNABORTED' &&
+      error.message.indexOf('timeout') != -1
+    ) {
+      notification('请求超时')
+    }
+  })
   Vue.prototype.$http = axios
+}
+
+function notification(msg) {
+  Vue.prototype.$notification['info']({
+    key: msg,
+    message: '提示',
+    description: msg,
+    duration: 4,
+  })
 }

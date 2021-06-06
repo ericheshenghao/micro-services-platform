@@ -22,7 +22,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     SysMenuMapper sysMenuMapper;
 
     @Override
-    @Cacheable(cacheNames = {"findMenuTree"} ,key="#userCode")
     public List<SysMenu> findTree(String userCode, int menuType) {
         List<SysMenu> sysMenus = new ArrayList<>();
         // 用户所有的
@@ -58,8 +57,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 }
             }
 
-            if(children.size()!=0){
-
+            if(children.size() != 0){
                 SysMenu.setChildren(children);
             }
             children.sort((o1, o2) -> o1.getOrderNum().compareTo(o2.getOrderNum()));
@@ -90,7 +88,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    @Transactional(rollbackFor = {})
     public int removeIdAndChild(Long id) {
            sysMenuMapper.deleteById(id);
           return sysMenuMapper.deleteChild(id);

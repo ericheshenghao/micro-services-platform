@@ -86,13 +86,19 @@ export default class searchIndex extends Vue {
     }
   }
 
-  loadDataFun = async (parameter: any) => {
-    const requestParameters = Object.assign({}, parameter)
-    const res = await searchIndices()
-    return {
-      records: res.data,
-      pagination: false,
-    }
+  loadDataFun = (parameter: any) => {
+    return searchIndices()
+      .then((res: any) => {
+        return {
+          records: res.data.records,
+          pagination: {
+            total: res.data.total,
+          },
+        }
+      })
+      .catch((error: any) => {
+        return {}
+      })
   }
 
   searchFun = (pageInfo: any, parameter: any) => {}

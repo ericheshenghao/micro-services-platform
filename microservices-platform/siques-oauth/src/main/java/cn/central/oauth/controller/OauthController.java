@@ -137,7 +137,7 @@ public class OauthController    {
 
 
     /**
-     * 重写方法进行自定义返回code
+     * 重写方法实行前后端分离的单点登录
      * @param parameters
      * @param sessionStatus
      * @return

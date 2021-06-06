@@ -162,29 +162,38 @@ export default class SysUser extends Vue {
     this.roleList = res.data
   }
 
-  loadDataFun = async (parameter: any) => {
-    const res = await getUserList(parameter)
-    return {
-      records: res.data.records,
-      pagination: {
-        total: res.data.total,
-      },
-    }
+  loadDataFun = (parameter: any) => {
+    return getUserList(parameter)
+      .then((res: any) => {
+        return {
+          records: res.data.records,
+          pagination: {
+            total: res.data.total,
+          },
+        }
+      })
+      .catch(() => {
+        return {}
+      })
   }
 
-  searchFun = async (pageInfo: any, parameter: any) => {
-    const res = await getUserList({
+  searchFun = (pageInfo: any, parameter: any) => {
+    return getUserList({
       pageSize: pageInfo.pageSize,
       params: parameter,
     })
-
-    return {
-      records: res.data.records,
-      pagination: {
-        total: res.data.total,
-        current: res.data.current,
-      },
-    }
+      .then((res: any) => {
+        return {
+          records: res.data.records,
+          pagination: {
+            total: res.data.total,
+            current: res.data.current,
+          },
+        }
+      })
+      .catch(() => {
+        return {}
+      })
   }
 
   statusChange(row: any) {

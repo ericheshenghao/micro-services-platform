@@ -62,10 +62,10 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         if(authentication!=null && !(authentication instanceof AnonymousAuthenticationToken))
         {
             String userCode = authentication.getName();
+            // 发起远程调用查询
             if (isFull) {
                 result = userService.selectByUserCode(userCode);
             } else {
-
                 result.setUserCode(userCode);
             }
 

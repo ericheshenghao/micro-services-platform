@@ -76,7 +76,3 @@
 #      scope: READ
 #
 # TODO 配置不生效问题
-feign:
-  httpclient:
-    enabled: true
-    connection-timeout: 300000

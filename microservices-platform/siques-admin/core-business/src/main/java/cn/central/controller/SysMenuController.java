@@ -1,8 +1,10 @@
 package cn.central.controller;
 
 
+import cn.central.common.annotation.LoginUser;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysMenu;
+import cn.central.common.model.SysUser;
 import cn.central.common.utils.SecurityUtils;
 
 
@@ -14,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +67,9 @@ public class SysMenuController {
      */
     @GetMapping(value="/findNavTree")
     @ApiOperation(value = "查询导航菜单")
-    public Result findNavTree() {
-        return Result.succeed(sysMenuService.findTree(SecurityUtils.getUserCode(), 1));
+    @Cacheable(cacheNames = {"findMenuTree"} ,key="#sysUser.userCode")
+    public Result findNavTree(@LoginUser SysUser sysUser) {
+        return Result.succeed(sysMenuService.findTree(sysUser.getUserCode(), 1));
     }
 
 

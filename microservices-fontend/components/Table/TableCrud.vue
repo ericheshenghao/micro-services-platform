@@ -56,12 +56,21 @@
         <slot name="TableHeadLeft"></slot>
       </div>
 
-      <div v-if="permissions.searchBtn" class="table-right-content">
+      <div class="table-right-content">
         <a-button
+          v-if="permissions.searchBtn"
           @click="searchFormShow = !searchFormShow"
           type="primary"
           shape="circle"
           icon="search"
+        />
+
+        <a-button
+          v-if="permissions.refetchBtn"
+          @click="loadData()"
+          type="primary"
+          shape="circle"
+          icon="reload"
         />
         <slot name="TableHeadRight"></slot>
       </div>
@@ -174,6 +183,7 @@ export default class TableCrud extends Vue {
   defaultPerms = {
     addBtn: true,
     searchBtn: true,
+    refetchBtn: true,
     editBtn: true,
     delBtn: true,
   }
@@ -264,25 +274,28 @@ export default class TableCrud extends Vue {
       params: this.queryParam,
     })
 
-    setTimeout(() => {
-      this.tableLoading = false
-      this.data = res.records
-
-      if (res.pagination == false) {
-        this.pagination = false
-      } else this.pagination.total = res.pagination.total
-    }, 100)
+    this.handleResult(res)
   }
 
   async handleSearch() {
     this.tableLoading = true
     const res = await this.searchFun(this.pagination, this.queryParam)
-    setTimeout(() => {
-      this.tableLoading = false
-      this.data = res.records
+    this.handleResult(res)
+  }
+
+  handleResult(res: any) {
+    this.tableLoading = false
+    if (!res.records) return
+    this.data = res.records
+    if (res.pagination == false) {
+      this.pagination = false
+    } else {
       this.pagination.total = res.pagination.total
-      this.pagination.current = res.pagination.current
-    }, 100)
+
+      if (res.pagination.current) {
+        this.pagination.current = res.pagination.current
+      }
+    }
   }
 
   /** 默认弹窗表单为添加 */
