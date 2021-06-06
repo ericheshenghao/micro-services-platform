@@ -90,10 +90,7 @@ export default class searchIndex extends Vue {
     return searchIndices()
       .then((res: any) => {
         return {
-          records: res.data.records,
-          pagination: {
-            total: res.data.total,
-          },
+          records: res.data,
         }
       })
       .catch((error: any) => {

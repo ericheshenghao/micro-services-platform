@@ -125,7 +125,6 @@ export default class SysRole extends Vue {
     return getRoleList().then((res: any) => {
       return {
         records: res.data,
-        pagination: false,
       }
     })
   }

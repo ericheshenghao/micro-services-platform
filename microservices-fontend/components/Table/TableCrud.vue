@@ -280,6 +280,7 @@ export default class TableCrud extends Vue {
   async handleSearch() {
     this.tableLoading = true
     const res = await this.searchFun(this.pagination, this.queryParam)
+
     this.handleResult(res)
   }
 
@@ -287,7 +288,7 @@ export default class TableCrud extends Vue {
     this.tableLoading = false
     if (!res.records) return
     this.data = res.records
-    if (res.pagination == false) {
+    if (!res.pagination) {
       this.pagination = false
     } else {
       this.pagination.total = res.pagination.total

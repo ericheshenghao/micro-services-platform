@@ -30,6 +30,10 @@
       <span v-html="text"> </span>
     </template>
 
+    <template v-slot:nickName="{ text }">
+      <span v-html="text"> </span>
+    </template>
+
     <template v-slot:createTime="{ text }">
       <span v-html="text"> </span>
     </template>
@@ -76,7 +80,7 @@ export default class userIndex extends Vue {
         title: '用户昵称',
         dataIndex: 'nickName',
         width: '80px',
-        // scopedSlots: { customRender: 'nickName' },
+        scopedSlots: { customRender: 'nickName' },
       },
       {
         title: '用户状态',
@@ -122,7 +126,7 @@ export default class userIndex extends Vue {
 
   /** pageInfo,包含当前分页信息 */
   searchFun = (pageInfo: any, parameter: any) => {
-    userIndices({
+    return userIndices({
       queryStr: parameter.queryStr,
     })
       .then((res: any) => {

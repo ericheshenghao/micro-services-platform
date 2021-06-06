@@ -307,11 +307,11 @@ export default class SysMenu extends Vue {
   }
 
   loadDataFun = async (parameter: any) => {
-    const res = await findMenuTree()
-    return {
-      records: res.data,
-      pagination: false,
-    }
+    return findMenuTree().then((res: any) => {
+      return {
+        records: res.data,
+      }
+    })
   }
 
   beforeOpen(type: any, form: any) {

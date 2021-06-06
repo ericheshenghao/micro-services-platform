@@ -173,14 +173,15 @@ export default class Client extends Vue {
     const res = await changeSource(this.dbList[e.key])
   }
 
-  loadDataFun = async (parameter: any) => {
-    const res = await getTableList(parameter)
-    return {
-      records: res.data.records,
-      pagination: {
-        total: res.data.total,
-      },
-    }
+  loadDataFun = (parameter: any) => {
+    return getTableList(parameter).then((res: any) => {
+      return {
+        records: res.data.records,
+        pagination: {
+          total: res.data.total,
+        },
+      }
+    })
   }
 
   async rowSave(row: any, done: any) {
