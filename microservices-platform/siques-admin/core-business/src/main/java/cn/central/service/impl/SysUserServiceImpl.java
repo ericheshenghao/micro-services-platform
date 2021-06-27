@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @author heshenghao
  */
 @Service
-public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     @Resource
     SysMenuMapper sysMenuMapper;
@@ -45,13 +45,14 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
 
     /**
      * 根据code查找菜单，再根据菜单查询权限
+     *
      * @param userCode
      * @return
      */
     @Override
     public Set<String> findPermission(String userCode) {
         List<SysMenu> sysMenus;
-        if(userCode.equals(AdminConstants.ADMIN)) {
+        if (userCode.equals(AdminConstants.ADMIN)) {
             sysMenus = sysMenuMapper.selectList(new QueryWrapper<SysMenu>());
         } else {
             sysMenus = sysMenuMapper.findUserMenuByUserCode(userCode);
@@ -64,35 +65,35 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     }
 
 
-
     @Override
-    public int delUserRoleByUserId(Long id) {
+    public int delUserRoleByUserId(String id) {
         return sysUserRoleMapper.deleteByUserId(id);
     }
 
 
-
-    public  Result findPage(PageRequest pageRequest,QueryWrapper<SysUser> queryWrapper){
+    public Result findPage(PageRequest pageRequest, QueryWrapper<SysUser> queryWrapper) {
         IPage<SysUser> userPage = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         // 超级管理员不加入该集合
         List<SysUser> records = baseMapper
                 .selectPage(userPage, queryWrapper
                         .not(true, sysUserQueryWrapper ->
-                                sysUserQueryWrapper.eq("user_code",AdminConstants.ADMIN)))
+                                sysUserQueryWrapper.eq("user_code", AdminConstants.ADMIN)))
                 .getRecords();
 
         long total = userPage.getTotal();
 
-        if (total > 0 && records.size()>0) {
-            List<Long> userIds = records.stream().map(SysUser::getId).collect(Collectors.toList());
+        if (total > 0 && records.size() > 0) {
+            List<String> userIds = records.stream().map(SysUser::getId).collect(Collectors.toList());
             List<SysUserRole> sysUserRoles = sysUserRoleMapper
-                    .selectList(new QueryWrapper<SysUserRole>().in("user_id",userIds));
+                    .selectList(new QueryWrapper<SysUserRole>().in("user_id", userIds));
 
-            records.forEach(user->user.setRoleIds(
-                    sysUserRoles.stream()
-                            .filter(ur-> ObjectUtil.equal(ur.getUserId(),user.getId()))
-                            .map(ur->ur.getRoleId().toString()).collect(Collectors.toList())
-            ));
+            for (SysUser user : records) {
+                user.setRoleIds(
+                        sysUserRoles.stream()
+                                .filter(ur -> ObjectUtil.equal(ur.getUserId(), user.getId()))
+                                .map(ur -> ur.getRoleId().toString()).collect(Collectors.toList())
+                );
+            }
         }
 
         return Result.succeed(userPage);
@@ -102,20 +103,20 @@ public class SysUserServiceImpl  extends ServiceImpl<SysUserMapper, SysUser> imp
     public Result findPage(PageRequest pageRequest) {
         SysUser user = (SysUser) pageRequest.getParams();
         Map<String, Object> stringObjectMap = user.toMap();
-        if(stringObjectMap.size()!=0){
-            return findPage(pageRequest,new QueryWrapper<SysUser>().allEq(stringObjectMap));
+        if (stringObjectMap.size() != 0) {
+            return findPage(pageRequest, new QueryWrapper<SysUser>().allEq(stringObjectMap));
         }
 
-      return  findPage(pageRequest,new QueryWrapper<>());
+        return findPage(pageRequest, new QueryWrapper<>());
     }
 
     @Override
-    @CacheEvict(value="findMenuTree",key = "#record.userCode")
+    @CacheEvict(value = "findMenuTree", key = "#record.userCode")
     public boolean saveUserRoles(SysUser record) {
-        if(ObjectUtil.isNotNull(record.getRoleIds())){
+        if (ObjectUtil.isNotNull(record.getRoleIds())) {
             delUserRoleByUserId(record.getId());
             List<SysUserRole> sysUserRoles = record.getRoleIds().stream()
-                    .map(s -> new SysUserRole(record.getId(), Long.valueOf(s)))
+                    .map(s -> new SysUserRole(record.getId(), String.valueOf(s)))
                     .collect(Collectors.toList());
             return sysUserRoleService.saveBatch(sysUserRoles);
         }

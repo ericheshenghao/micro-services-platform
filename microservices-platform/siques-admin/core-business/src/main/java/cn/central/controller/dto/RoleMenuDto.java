@@ -1,7 +1,6 @@
 package cn.central.controller.dto;
 
 
-
 import cn.central.entity.SysRoleMenu;
 import lombok.Data;
 

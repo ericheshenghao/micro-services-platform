@@ -10,16 +10,18 @@ import java.util.List;
 /**
  * @author he
  */
-public interface SysCodeGenService  {
+public interface SysCodeGenService {
     /**
      * 生成代码
+     *
      * @param genConfig
      * @return
      */
-   byte[] generatorCode(GenConfig genConfig);
+    byte[] generatorCode(GenConfig genConfig);
 
     /**
      * 分页
+     *
      * @param pageRequest
      * @return
      */
@@ -28,6 +30,7 @@ public interface SysCodeGenService  {
 
     /**
      * 数据库列表
+     *
      * @return
      */
     List<DbConfig> queryDbList();

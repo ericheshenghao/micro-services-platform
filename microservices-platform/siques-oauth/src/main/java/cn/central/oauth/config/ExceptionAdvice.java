@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
  * 对http访问异常的处理
- * @author  heshenghao
+ *
+ * @author heshenghao
  * @date 2018/12/22
  */
 @ControllerAdvice

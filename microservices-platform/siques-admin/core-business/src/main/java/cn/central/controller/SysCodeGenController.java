@@ -28,16 +28,16 @@ import java.io.IOException;
 @RequestMapping("/pri/codeGen")
 @Api(tags = {"代码生成器接口"})
 public class SysCodeGenController {
-    private   Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     SysCodeGenService sysCodeGenService;
 
     @PostMapping("findPage")
-    public Result findPage(@RequestBody PageRequest pageRequest){
+    public Result findPage(@RequestBody PageRequest pageRequest) {
         logger.info(sysCodeGenService.findPage(pageRequest).getRecords().toString());
         PageResult page = sysCodeGenService.findPage(pageRequest);
-        return  Result.succeed(page);
+        return Result.succeed(page);
     }
 
     @Autowired
@@ -57,13 +57,13 @@ public class SysCodeGenController {
     }
 
     @GetMapping("dblist")
-    public Result queryDbList(){
+    public Result queryDbList() {
         logger.info(sysCodeGenService.queryDbList().toString());
-      return Result.succeed(sysCodeGenService.queryDbList());
+        return Result.succeed(sysCodeGenService.queryDbList());
     }
 
     @PostMapping("changeSource")
-    public Result changeSource(@RequestBody DbConfig dbConfig){
+    public Result changeSource(@RequestBody DbConfig dbConfig) {
 
         dbUtil.setDbSource(dbConfig);
         PageRequest pageRequest = new PageRequest();

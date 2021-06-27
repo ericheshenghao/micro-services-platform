@@ -5,11 +5,11 @@ import cn.central.entity.SysLogger;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
- * @package:  cn.siques.mangosound.service
- * @description: 
+ * @package: cn.siques.mangosound.service
+ * @description:
  * @author: Shenghao.He
  * @date: Created in 2020-11-18 22:12:02
  * @copyright: Copyright (c) 2020

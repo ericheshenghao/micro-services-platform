@@ -10,12 +10,14 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @author  heshenghao
+ * @author heshenghao
  */
 @Data
 @Validated
 @ConfigurationProperties("spring")
 public class DbProperty {
-    /**多数据源地址**/
-   private List<DbConfig> multipleSource;
+    /**
+     * 数据源地址
+     **/
+    private List<DbConfig> multipleSource;
 }

@@ -7,9 +7,9 @@ import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
+    #if(${hasBigDecimal})
+    import java.math.BigDecimal;
+    #end
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -31,17 +31,17 @@ import java.time.LocalDateTime;
 @ApiModel(description = "${comments}")
 @EqualsAndHashCode(callSuper = true)
 public class ${className} extends Model<${className}> {
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID=1L;
 
-  #foreach ($column in $columns)
-    /**
-     * $column.comments
-     */
+#foreach ($column in $columns)
+/**
+ * $column.comments
+ */
     #if($column.columnName == $pk.columnName)
     @TableId
     #end
-    @ApiModelProperty(value = "$column.comments")
-    private $column.attrType $column.lowerAttrName;
-  #end
+@ApiModelProperty(value = "$column.comments")
+private $column.attrType $column.lowerAttrName;
+#end
 
 }

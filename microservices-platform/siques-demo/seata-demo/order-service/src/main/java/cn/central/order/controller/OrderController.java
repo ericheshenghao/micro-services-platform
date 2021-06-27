@@ -21,9 +21,10 @@ public class OrderController {
 
     /**
      * 创建订单
-     * @param userId 用户id
+     *
+     * @param userId        用户id
      * @param commodityCode 订单编号
-     * @param count 数量
+     * @param count         数量
      */
     @RequestMapping("/create")
     public Boolean create(String userId, String commodityCode, Integer count) {

@@ -100,7 +100,7 @@ public class AESUtil {
         cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
         byte[] data = Base64.getDecoder().decode(encryptedContent);
         byte[] decryptedContent = cipher.doFinal(data);
-        return new String(decryptedContent,"UTF8");
+        return new String(decryptedContent, "UTF8");
 
     }
 

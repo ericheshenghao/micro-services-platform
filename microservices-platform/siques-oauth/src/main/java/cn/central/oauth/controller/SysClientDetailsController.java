@@ -27,11 +27,11 @@ import javax.annotation.Resource;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
- * @package:  cn.siques.mangosound.controller
- * @description: 
+ * @package: cn.siques.mangosound.controller
+ * @description:
  * @author: Shenghao.He
  * @date: Created in 2020-11-18 22:50:20
  * @copyright: Copyright (c) 2020
@@ -49,11 +49,13 @@ public class SysClientDetailsController {
 
     @Resource
     BCryptPasswordEncoder passwordEncoder;
+
     /**
-   * 分页查询
-   * @param page
-   * @return
-   */
+     * 分页查询
+     *
+     * @param page
+     * @return
+     */
     @PostMapping("findPage")
     @ApiOperation(value = "分页查询", notes = "分页查询")
     public Result listSysRoleMenu(@RequestBody PageRequest page) {
@@ -63,6 +65,7 @@ public class SysClientDetailsController {
 
     /**
      * 通过id查询,post请求会跑到这里，怎么解决？
+     *
      * @param id id
      * @return JsonData
      */
@@ -71,10 +74,9 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result getSysClientDetails(@PathVariable("id") Long id){
-      return Result.succeed(sysClientDetailsService.getById(id));
+    public Result getSysClientDetails(@PathVariable("id") Long id) {
+        return Result.succeed(sysClientDetailsService.getById(id));
     }
-
 
 
     @PutMapping("/secret/{id}")
@@ -83,27 +85,29 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result resetClientSecret(@PathVariable("id") Long id){
+    public Result resetClientSecret(@PathVariable("id") Long id) {
 
         return Result.succeed(sysClientDetailsService.update(new UpdateWrapper<SysClientDetails>()
-                .eq("id",id).set("client_secret",passwordEncoder.encode(AdminConstants.PASSWORD))));
+                .eq("id", id).set("client_secret", passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
 
     /**
      * 新增
-     * @param sysClientDetails 
+     *
+     * @param sysClientDetails
      * @return JsonData
      */
     @PostMapping
     @ApiOperation(value = "新增", notes = "新增")
-    public Result saveSysClientDetails(@RequestBody SysClientDetails sysClientDetails){
-      return  Result.succeed(sysClientDetailsService.save(sysClientDetails));
+    public Result saveSysClientDetails(@RequestBody SysClientDetails sysClientDetails) {
+        return Result.succeed(sysClientDetailsService.save(sysClientDetails));
     }
 
     /**
      * 修改
-     * @param id id
-     * @param sysClientDetails 
+     *
+     * @param id               id
+     * @param sysClientDetails
      * @return JsonData
      */
     @PutMapping("/{id}")
@@ -111,12 +115,13 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result updateSysClientDetails(@PathVariable("id") Long id, @RequestBody SysClientDetails sysClientDetails){
-      return  Result.succeed(sysClientDetailsService.updateById(sysClientDetails));
+    public Result updateSysClientDetails(@PathVariable("id") Long id, @RequestBody SysClientDetails sysClientDetails) {
+        return Result.succeed(sysClientDetailsService.updateById(sysClientDetails));
     }
 
     /**
      * 通过id删除
+     *
      * @param id id
      * @return JsonData
      */
@@ -125,8 +130,8 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result deleteSysClientDetails(@PathVariable("id") Long id){
-      return  Result.succeed(sysClientDetailsService.removeById(id));
+    public Result deleteSysClientDetails(@PathVariable("id") Long id) {
+        return Result.succeed(sysClientDetailsService.removeById(id));
     }
 
 }

@@ -1,10 +1,6 @@
 package cn.siques.sso.controller;
 
 
-
-
-
-
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollectionUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +47,7 @@ public class ApiController {
     public Map tokenInfo(@PathVariable String code) throws UnsupportedEncodingException {
         //获取token
         Map tokenMap = getAccessToken(code);
-        String accessToken = (String)tokenMap.get("access_token");
+        String accessToken = (String) tokenMap.get("access_token");
         //获取用户信息
         Map userMap = getUserInfo(accessToken);
         List<String> roles = getRoles(userMap);
@@ -80,7 +76,7 @@ public class ApiController {
         param.add("redirect_uri", redirectUri);
         param.add("scope", "webApp");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(param, headers);
-        ResponseEntity<Map> response = restTemplate.postForEntity(accessTokenUri, request , Map.class);
+        ResponseEntity<Map> response = restTemplate.postForEntity(accessTokenUri, request, Map.class);
         Map result = response.getBody();
         return result;
     }
@@ -90,12 +86,12 @@ public class ApiController {
      */
     public Map getUserInfo(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
-        Map result = restTemplate.getForObject(userInfoUri+"?access_token="+accessToken, Map.class);
-        return (Map)result.get("datas");
+        Map result = restTemplate.getForObject(userInfoUri + "?access_token=" + accessToken, Map.class);
+        return (Map) result.get("datas");
     }
 
     private List<String> getRoles(Map userMap) {
-        List<Map<String, String>> roles = (List<Map<String, String>>)userMap.get("roles");
+        List<Map<String, String>> roles = (List<Map<String, String>>) userMap.get("roles");
         List<String> result = new ArrayList<>();
         if (CollectionUtil.isNotEmpty(roles)) {
             roles.forEach(e -> {

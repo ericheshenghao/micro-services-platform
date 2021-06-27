@@ -47,7 +47,7 @@ jobs:
       - restore_cache:
           name: restore node_modules
           keys:
-          - build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+            - build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install dependencies
           command: |
@@ -64,7 +64,7 @@ jobs:
             - ~/.cache/Cypress
           key: cypress-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
-          name: Build and test panel 
+          name: Build and test panel
           command: /usr/local/bin/grafana-toolkit plugin:ci-build
       - run:
           name: Move results to ci folder
@@ -76,10 +76,10 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-          - ci/jobs/package
-          - ci/packages
-          - ci/dist
-          - ci/grafana-test-env
+            - ci/jobs/package
+            - ci/packages
+            - ci/dist
+            - ci/grafana-test-env
       - store_artifacts:
           path: ci
 
@@ -112,7 +112,7 @@ jobs:
       - restore_cache:
           name: restore node_modules
           keys:
-          - build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+            - build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: "Publish Release on GitHub"
           command: |

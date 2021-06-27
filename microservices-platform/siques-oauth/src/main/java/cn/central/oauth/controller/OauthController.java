@@ -62,7 +62,7 @@ import java.util.Set;
 @RequestMapping("/validate")
 @Api(tags = {"验证码接口"})
 @Slf4j
-public class OauthController    {
+public class OauthController {
 
     private RedirectResolver redirectResolver = new DefaultRedirectResolver();
 
@@ -88,17 +88,18 @@ public class OauthController    {
 
     /**
      * 前后端分离情况下的退出登录操作
+     *
      * @param request
      */
     @GetMapping("removeToken")
-    public void logOut(HttpServletRequest request){
+    public void logOut(HttpServletRequest request) {
 
-       Assert.notNull(tokenStore, "tokenStore must be set");
+        Assert.notNull(tokenStore, "tokenStore must be set");
         String token = request.getParameter("token");
         if (StrUtil.isEmpty(token)) {
             token = AuthUtils.extractToken(request);
         }
-        if(StrUtil.isNotEmpty(token)){
+        if (StrUtil.isNotEmpty(token)) {
             OAuth2AccessToken existingAccessToken = tokenStore.readAccessToken(token);
             OAuth2RefreshToken refreshToken;
             if (existingAccessToken != null) {
@@ -116,6 +117,7 @@ public class OauthController    {
 
     /**
      * 验证码接口
+     *
      * @param response
      * @param request
      * @throws IOException
@@ -138,6 +140,7 @@ public class OauthController    {
 
     /**
      * 重写方法实行前后端分离的单点登录
+     *
      * @param parameters
      * @param sessionStatus
      * @return
@@ -192,8 +195,8 @@ public class OauthController    {
 
             // Validation is all done, so we can check for auto approval...
 
-                return    Result.succeed(generateCode(authorizationRequest,
-                         authentication),"code返回成功") ;
+            return Result.succeed(generateCode(authorizationRequest,
+                    authentication), "code返回成功");
 //
 //
 //            // Store authorizationRequest AND an immutable Map of authorizationRequest in session
@@ -203,8 +206,7 @@ public class OauthController    {
 //
 //            return getUserApprovalPageResponse(model, authorizationRequest, (Authentication) principal);
 
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             sessionStatus.setComplete();
             throw e;
         }
@@ -239,8 +241,7 @@ public class OauthController    {
 
             return code;
 
-        }
-        catch (OAuth2Exception e) {
+        } catch (OAuth2Exception e) {
 
             if (authorizationRequest.getState() != null) {
                 e.addAdditionalInformation("state", authorizationRequest.getState());

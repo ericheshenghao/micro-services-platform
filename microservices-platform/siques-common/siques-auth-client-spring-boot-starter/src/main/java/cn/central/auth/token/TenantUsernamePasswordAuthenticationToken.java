@@ -12,7 +12,6 @@ import java.util.Collection;
  * @author he
  * @date 2020/6/10
  * <p>
-
  */
 public class TenantUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
     private static final long serialVersionUID = -5638287853803374687L;

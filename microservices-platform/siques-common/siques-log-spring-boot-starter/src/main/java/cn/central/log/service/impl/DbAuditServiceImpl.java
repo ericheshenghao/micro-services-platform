@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.util.SimpleIdGenerator;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -25,6 +26,9 @@ import javax.sql.DataSource;
 @ConditionalOnProperty(name = "siques.audit-log.log-type", havingValue = "db")
 @ConditionalOnClass(JdbcTemplate.class)
 public class DbAuditServiceImpl implements IAuditService {
+
+
+
     private static final String INSERT_SQL = " insert into sys_logger " +
             " (application_name, class_name, method_name, user_id, user_code, client_id, operation, timestamp) " +
             " values (?,?,?,?,?,?,?,?)";

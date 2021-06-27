@@ -36,7 +36,7 @@ public class LbIsolationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws IOException, ServletException {
         try {
             String version = request.getHeader(CommonConstant.Z_L_T_VERSION);
-            if(StrUtil.isNotEmpty(version)){
+            if (StrUtil.isNotEmpty(version)) {
                 LbIsolationContextHolder.setVersion(version);
             }
 

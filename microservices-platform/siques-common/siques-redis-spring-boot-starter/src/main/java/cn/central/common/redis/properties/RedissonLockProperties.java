@@ -15,6 +15,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "siques.lock")
 public class RedissonLockProperties {
     private LockerType lockerType = LockerType.REDIS;
+
     public enum LockerType {
         REDIS,
     }

@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
  * HttpException转换器
- * @author  heshenghao
+ *
+ * @author heshenghao
  * @date 2018/12/22
  */
 @ControllerAdvice

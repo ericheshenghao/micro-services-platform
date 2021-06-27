@@ -29,7 +29,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({IllegalArgumentException.class})
     public Result badRequestException(IllegalArgumentException e) {
-        return defHandler("参数解析失败", e,HttpStatus.BAD_REQUEST.value());
+        return defHandler("参数解析失败", e, HttpStatus.BAD_REQUEST.value());
     }
 
     /**
@@ -39,7 +39,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({UnauthorizedUserException.class})
     public Result unAuthorizedException(IllegalArgumentException e) {
-        return defHandler("未授权", e,HttpStatus.UNAUTHORIZED.value());
+        return defHandler("未授权", e, HttpStatus.UNAUTHORIZED.value());
     }
 
     /**
@@ -49,7 +49,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({AccessDeniedException.class})
     public Result badMethodExpressException(AccessDeniedException e) {
-        return defHandler("没有权限请求当前方法", e,HttpStatus.FORBIDDEN.value());
+        return defHandler("没有权限请求当前方法", e, HttpStatus.FORBIDDEN.value());
     }
 
     /**
@@ -58,7 +58,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
     public Result handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        return defHandler("不支持当前请求方法", e,HttpStatus.METHOD_NOT_ALLOWED.value());
+        return defHandler("不支持当前请求方法", e, HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     /**
@@ -67,7 +67,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
     public Result handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        return defHandler("不支持当前媒体类型", e,HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
+        return defHandler("不支持当前媒体类型", e, HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
     }
 
     /**
@@ -77,7 +77,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({SQLException.class})
     public Result handleSQLException(SQLException e) {
-        return defHandler("服务运行SQLException异常", e,HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return defHandler("服务运行SQLException异常", e, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     /**
@@ -87,7 +87,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(BusinessException.class)
     public Result handleException(BusinessException e) {
-        return defHandler("业务异常", e,HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return defHandler("业务异常", e, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     /**
@@ -97,7 +97,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(IdempotencyException.class)
     public Result handleException(IdempotencyException e) {
-        return Result.failed(e.getMessage(),HttpStatus.OK.value());
+        return Result.failed(e.getMessage(), HttpStatus.OK.value());
     }
 
     /**
@@ -107,11 +107,11 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e) {
-        return defHandler(e.getMessage(), e,HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return defHandler(e.getMessage(), e, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
-    private Result defHandler(String msg, Exception e,Integer code) {
+    private Result defHandler(String msg, Exception e, Integer code) {
         log.error(msg, e);
-        return Result.failed(msg,code);
+        return Result.failed(msg, code);
     }
 }

@@ -18,7 +18,7 @@ public class AccountService {
     @Resource
     private AccountMapper accountMapper;
 
-    public void reduce(String userId,int money){
+    public void reduce(String userId, int money) {
         if ("U002".equals(userId)) {
             throw new RuntimeException("this is a mock Exception");
         }

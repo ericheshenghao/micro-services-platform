@@ -18,7 +18,7 @@ services:
       - "8848:8848"
       - "9555:9555"
     env_file:
-        # 集群配置文件
+      # 集群配置文件
       - ./env/nacos-hostname.env
     restart: on-failure
   nacos2:

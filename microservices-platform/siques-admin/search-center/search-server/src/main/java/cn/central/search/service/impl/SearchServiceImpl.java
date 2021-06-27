@@ -28,6 +28,7 @@ public class SearchServiceImpl implements ISearchService {
 
     /**
      * StringQuery通用搜索
+     *
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      * @return

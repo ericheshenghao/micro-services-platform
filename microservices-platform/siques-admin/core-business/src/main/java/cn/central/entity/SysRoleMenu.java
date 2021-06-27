@@ -23,15 +23,15 @@ public class SysRoleMenu extends Model<SysRoleMenu> implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "编号")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long id;
+    private String id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long roleId;
+    private String roleId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long menuId;
+    private String menuId;
 
-    public SysRoleMenu(Long roleId, Long menuId) {
+    public SysRoleMenu(String roleId, String menuId) {
         this.roleId = roleId;
         this.menuId = menuId;
     }

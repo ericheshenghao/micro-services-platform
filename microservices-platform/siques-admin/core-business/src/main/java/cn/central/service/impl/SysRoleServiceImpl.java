@@ -37,9 +37,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     SysRoleMenuService sysRoleMenuService;
 
     @Override
-    public SysRole findRoleMenus(Long roleId) {
+    public SysRole findRoleMenus(String roleId) {
         SysRole sysRole = sysRoleMapper.selectById(roleId);
-        if(AdminConstants.ADMIN.equalsIgnoreCase(sysRole.getRoleCode())) {
+        if (AdminConstants.ADMIN.equalsIgnoreCase(sysRole.getRoleCode())) {
             // 如果是超级管理员，返回全部的权限
             sysRole.setSysMenuList(sysMenuMapper.selectList(new QueryWrapper<>()));
             return sysRole;
@@ -50,20 +50,21 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     /**
      * 修改角色菜单权限，需要同时清空该用户的菜单缓存
+     *
      * @param
      * @param roleCode
      * @return
      */
     @Transactional
     @Override
-    @CacheEvict(value="findMenuTree",key="#roleCode")
-    public boolean saveRoleMenus(String roleCode, Long roleId, Set<String> menuSet) {
+    @CacheEvict(value = "findMenuTree", key = "#roleCode")
+    public boolean saveRoleMenus(String roleCode, String roleId, Set<String> menuSet) {
 
         // 清除已有的的菜单
         sysRoleMenuMapper.deleteByRoleId(roleId);
         // 批量插入
         List<SysRoleMenu> collect = menuSet.stream()
-                .map(menuId -> new SysRoleMenu(roleId, Long.valueOf(menuId)))
+                .map(menuId -> new SysRoleMenu(roleId, String.valueOf(menuId)))
                 .collect(Collectors.toList());
 
         return sysRoleMenuService.saveBatch(collect);

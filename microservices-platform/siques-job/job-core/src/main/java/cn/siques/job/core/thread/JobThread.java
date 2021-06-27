@@ -23,19 +23,19 @@ import java.util.concurrent.*;
  * @author : heshenghao
  * @date : 15:57 2021/5/16
  */
-public class JobThread extends Thread{
+public class JobThread extends Thread {
     private static Logger logger = LoggerFactory.getLogger(JobThread.class);
 
     private int jobId;
     private IJobHandler handler;
     private LinkedBlockingQueue<TriggerParam> triggerQueue;
-    private Set<Integer> triggerLogIdSet;		// avoid repeat trigger for the same TRIGGER_LOG_ID
+    private Set<Integer> triggerLogIdSet;        // avoid repeat trigger for the same TRIGGER_LOG_ID
 
     private volatile boolean toStop = false;
     private String stopReason;
 
     private boolean running = false;    // if running job
-    private int idleTimes = 0;			// idel times
+    private int idleTimes = 0;            // idel times
 
 
     public JobThread(int jobId, IJobHandler handler) {
@@ -44,6 +44,7 @@ public class JobThread extends Thread{
         this.triggerQueue = new LinkedBlockingQueue<TriggerParam>();
         this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<Integer>());
     }
+
     public IJobHandler getHandler() {
         return handler;
     }
@@ -83,10 +84,11 @@ public class JobThread extends Thread{
 
     /**
      * is running job
+     *
      * @return
      */
     public boolean isRunningOrHasQueue() {
-        return running || triggerQueue.size()>0;
+        return running || triggerQueue.size() > 0;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class JobThread extends Thread{
         }
 
         // execute
-        while(!toStop){
+        while (!toStop) {
             running = false;
             idleTimes++;
 
@@ -109,7 +111,7 @@ public class JobThread extends Thread{
             try {
                 // to check toStop signal, we need cycle, so wo cannot use queue.take(), instand of poll(timeout)
                 triggerParam = triggerQueue.poll(3L, TimeUnit.SECONDS);
-                if (triggerParam!=null) {
+                if (triggerParam != null) {
                     running = true;
                     idleTimes = 0;
                     triggerLogIdSet.remove(triggerParam.getLogId());
@@ -173,7 +175,7 @@ public class JobThread extends Thread{
 
                 XxlJobLogger.log("<br>----------- JobThread Exception:" + errorMsg + "<br>----------- xxl-job job execute end(error) -----------");
             } finally {
-                if(triggerParam != null) {
+                if (triggerParam != null) {
                     // callback handler info
                     if (!toStop) {
                         // commonm
@@ -188,9 +190,9 @@ public class JobThread extends Thread{
         }
 
         // callback trigger request in queue
-        while(triggerQueue !=null && triggerQueue.size()>0){
+        while (triggerQueue != null && triggerQueue.size() > 0) {
             TriggerParam triggerParam = triggerQueue.poll();
-            if (triggerParam!=null) {
+            if (triggerParam != null) {
                 // is killed
                 ReturnT<String> stopResult = new ReturnT<String>(ReturnT.FAIL_CODE, stopReason + " [job not executed, in the job queue, killed.]");
                 TriggerCallbackThread.pushCallBack(new HandleCallbackParam(triggerParam.getLogId(), triggerParam.getLogDateTim(), stopResult));

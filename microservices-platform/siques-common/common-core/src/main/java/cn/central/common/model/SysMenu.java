@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @TableName("sys_menu")
 @ApiModel(description = "菜单或者权限表")
-public class SysMenu extends SuperEntity<SysMenu>  {
+public class SysMenu extends SuperEntity<SysMenu> {
     private static final long serialVersionUID = -4855350263474682807L;
 
     @TableField(exist = false)
@@ -42,7 +42,7 @@ public class SysMenu extends SuperEntity<SysMenu>  {
     private List<String> parentArray;
 
     public List<String> getParentArray() {
-        if(ObjectUtil.isNotNull(parentArray)) {
+        if (ObjectUtil.isNotNull(parentArray)) {
             return parentArray;
         }
         return Arrays.asList(this.parentIds.split(","))

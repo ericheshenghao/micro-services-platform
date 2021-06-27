@@ -18,17 +18,17 @@ public class SysUserRole extends Model<SysUserRole> {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "编号")
-    private Long id;
+    private String id;
 
-    private Long userId;
+    private String userId;
 
 
-    private Long roleId;
+    private String roleId;
 
     private String remarks;
 
-    public SysUserRole(long userId, long roleId) {
-        this.userId=userId;
-        this.roleId=roleId;
+    public SysUserRole(String userId, String roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
     }
 }

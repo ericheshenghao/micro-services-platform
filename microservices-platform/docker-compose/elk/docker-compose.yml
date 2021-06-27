@@ -41,7 +41,7 @@ services:
       SW_ES_USER: elastic
       SW_ES_PASSWORD: heshenghao
     healthcheck:
-      test: ["CMD", "./bin/swctl", "ch"]
+      test: [ "CMD", "./bin/swctl", "ch" ]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -39,7 +39,7 @@ public class TenantFilter extends OncePerRequestFilter {
 
             //保存租户id
             if (StrUtil.isNotEmpty(tenantId)) {
-                tenantId = AESUtil.aesCbcPkcs5PaddingDecrypt(tenantId,CommonConstant.AESKEY,CommonConstant.AESIV);
+                tenantId = AESUtil.aesCbcPkcs5PaddingDecrypt(tenantId, CommonConstant.AESKEY, CommonConstant.AESIV);
                 TenantContextHolder.setTenant(tenantId);
             }
 

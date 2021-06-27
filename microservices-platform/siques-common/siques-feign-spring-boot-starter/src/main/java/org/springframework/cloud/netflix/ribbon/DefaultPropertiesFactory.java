@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static org.springframework.cloud.netflix.ribbon.SpringClientFactory.NAMESPACE;
 
 
@@ -42,7 +43,7 @@ public class DefaultPropertiesFactory extends PropertiesFactory {
     public String getClassName(Class clazz, String name) {
         String className = super.getClassName(clazz, name);
         // 读取全局配置
-        if(!StringUtils.hasText(className) && this.classToProperty.containsKey(clazz)){
+        if (!StringUtils.hasText(className) && this.classToProperty.containsKey(clazz)) {
             String classNameProperty = this.classToProperty.get(clazz);
             className = environment.getProperty(NAMESPACE + "." + classNameProperty);
         }

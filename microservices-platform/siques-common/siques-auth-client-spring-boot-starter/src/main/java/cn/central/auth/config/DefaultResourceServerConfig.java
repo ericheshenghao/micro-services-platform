@@ -24,9 +24,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import javax.annotation.Resource;
 
 /**
- *  资源服务器的配置，受保护服务与鉴权服务都被认定为资源
- *  都需要继承该类
+ * 资源服务器的配置，受保护服务与鉴权服务都被认定为资源
+ * 都需要继承该类
  * 内存实现
+ *
  * @author he
  */
 @Import(DefaultSecurityHandler.class)
@@ -43,7 +44,7 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
      * yaml中配置的资源属性
      */
     @Autowired
-    private  ResourceServerProperties resourceServerProperties;
+    private ResourceServerProperties resourceServerProperties;
 
     /**
      * 认证节点
@@ -88,7 +89,7 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
         http.csrf().disable().
                 formLogin().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 自定义的忽略认证的路径
                 .antMatchers(securityProperties.getIgnore().getUrls()).permitAll()
                 .anyRequest().authenticated();

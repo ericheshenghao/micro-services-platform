@@ -49,5 +49,5 @@ public class GenConfig {
     /**
      * 生成路径
      */
-    private  String path;
+    private String path;
 }

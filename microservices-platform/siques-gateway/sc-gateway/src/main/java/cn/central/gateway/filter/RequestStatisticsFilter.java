@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * 统计访问数据
+ *
  * @author : heshenghao
  * @date : 22:00 2020/11/17
  */
@@ -25,7 +26,7 @@ public class RequestStatisticsFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         Map<String, String> headers = request.getHeaders().toSingleValueMap();
-        UserAgent userAgent  = UserAgent.parseUserAgentString(headers.get("User-Agent"));
+        UserAgent userAgent = UserAgent.parseUserAgentString(headers.get("User-Agent"));
         // 日志埋点
         PointUtil.debug(request.getId(), "request-statistics",
                 "ip=" + ReactiveAddrUtil.getRemoteAddr(request)

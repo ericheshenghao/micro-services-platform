@@ -16,7 +16,9 @@ public class RegistryParam implements Serializable {
     private String registryKey;
     private String registryValue;
 
-    public RegistryParam(){}
+    public RegistryParam() {
+    }
+
     public RegistryParam(String registGroup, String registryKey, String registryValue) {
         this.registerGroup = registGroup;
         this.registryKey = registryKey;

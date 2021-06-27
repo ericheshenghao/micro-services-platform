@@ -1,13 +1,14 @@
 version: "3"
 
 services:
-  canal: 
+  canal:
     image: canal/canal-server:latest
-    ports: 
+    ports:
       - 11111:11111
-    volumes: 
-      - ./conf/canal.properties:/home/admin/canal-server/conf/canal.properties
-      - ./conf/instance.properties:/home/admin/canal-server/conf/example/instance.properties
+    volumes:
+      - ./canal.properties:/home/admin/canal-server/conf/canal.properties
+      - ./siques-doc/instance.properties:/home/admin/canal-server/conf/siques-doc/instance.properties
+      - ./siques-admin-user/instance.properties:/home/admin/canal-server/conf/siques-admin-user/instance.properties
       - ./logs/:/home/admin/canal-server/logs/
     restart: always
  

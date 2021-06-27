@@ -15,30 +15,30 @@ metadata:
       fieldsV1:
         f:metadata:
           f:annotations:
-            f:deployment.kubernetes.io/revision: {}
+            f:deployment.kubernetes.io/revision: { }
         f:status:
           f:conditions:
-            .: {}
+            .: { }
             k:{"type":"Available"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
+              .: { }
+              f:lastTransitionTime: { }
+              f:lastUpdateTime: { }
+              f:message: { }
+              f:reason: { }
+              f:status: { }
+              f:type: { }
             k:{"type":"Progressing"}:
-              .: {}
-              f:lastTransitionTime: {}
-              f:lastUpdateTime: {}
-              f:message: {}
-              f:reason: {}
-              f:status: {}
-              f:type: {}
-          f:observedGeneration: {}
-          f:replicas: {}
-          f:unavailableReplicas: {}
-          f:updatedReplicas: {}
+              .: { }
+              f:lastTransitionTime: { }
+              f:lastUpdateTime: { }
+              f:message: { }
+              f:reason: { }
+              f:status: { }
+              f:type: { }
+          f:observedGeneration: { }
+          f:replicas: { }
+          f:unavailableReplicas: { }
+          f:updatedReplicas: { }
       manager: kube-controller-manager
       operation: Update
       time: "2020-12-03T09:11:40Z"
@@ -47,71 +47,71 @@ metadata:
       fieldsV1:
         f:metadata:
           f:annotations:
-            .: {}
-            f:field.cattle.io/creatorId: {}
+            .: { }
+            f:field.cattle.io/creatorId: { }
           f:labels:
-            .: {}
-            f:cattle.io/creator: {}
-            f:workload.user.cattle.io/workloadselector: {}
+            .: { }
+            f:cattle.io/creator: { }
+            f:workload.user.cattle.io/workloadselector: { }
         f:spec:
-          f:progressDeadlineSeconds: {}
-          f:replicas: {}
-          f:revisionHistoryLimit: {}
+          f:progressDeadlineSeconds: { }
+          f:replicas: { }
+          f:revisionHistoryLimit: { }
           f:selector:
             f:matchLabels:
-              .: {}
-              f:workload.user.cattle.io/workloadselector: {}
+              .: { }
+              f:workload.user.cattle.io/workloadselector: { }
           f:strategy:
             f:rollingUpdate:
-              .: {}
-              f:maxSurge: {}
-              f:maxUnavailable: {}
-            f:type: {}
+              .: { }
+              f:maxSurge: { }
+              f:maxUnavailable: { }
+            f:type: { }
           f:template:
             f:metadata:
               f:annotations:
-                .: {}
-                f:cattle.io/timestamp: {}
-                f:field.cattle.io/ports: {}
+                .: { }
+                f:cattle.io/timestamp: { }
+                f:field.cattle.io/ports: { }
               f:labels:
-                .: {}
-                f:workload.user.cattle.io/workloadselector: {}
+                .: { }
+                f:workload.user.cattle.io/workloadselector: { }
             f:spec:
               f:containers:
                 k:{"name":"sc-oauth"}:
-                  .: {}
-                  f:image: {}
-                  f:imagePullPolicy: {}
-                  f:name: {}
+                  .: { }
+                  f:image: { }
+                  f:imagePullPolicy: { }
+                  f:name: { }
                   f:ports:
-                    .: {}
+                    .: { }
                     k:{"containerPort":8083,"protocol":"TCP"}:
-                      .: {}
-                      f:containerPort: {}
-                      f:name: {}
-                      f:protocol: {}
-                  f:resources: {}
+                      .: { }
+                      f:containerPort: { }
+                      f:name: { }
+                      f:protocol: { }
+                  f:resources: { }
                   f:securityContext:
-                    .: {}
-                    f:allowPrivilegeEscalation: {}
-                    f:capabilities: {}
-                    f:privileged: {}
-                    f:readOnlyRootFilesystem: {}
-                    f:runAsNonRoot: {}
-                  f:stdin: {}
-                  f:terminationMessagePath: {}
-                  f:terminationMessagePolicy: {}
-                  f:tty: {}
-              f:dnsPolicy: {}
+                    .: { }
+                    f:allowPrivilegeEscalation: { }
+                    f:capabilities: { }
+                    f:privileged: { }
+                    f:readOnlyRootFilesystem: { }
+                    f:runAsNonRoot: { }
+                  f:stdin: { }
+                  f:terminationMessagePath: { }
+                  f:terminationMessagePolicy: { }
+                  f:tty: { }
+              f:dnsPolicy: { }
               f:imagePullSecrets:
-                .: {}
+                .: { }
                 k:{"name":"aliyun"}:
-                  .: {}
-                  f:name: {}
-              f:restartPolicy: {}
-              f:schedulerName: {}
-              f:securityContext: {}
-              f:terminationGracePeriodSeconds: {}
+                  .: { }
+                  f:name: { }
+              f:restartPolicy: { }
+              f:schedulerName: { }
+              f:securityContext: { }
+              f:terminationGracePeriodSeconds: { }
       manager: rancher
       operation: Update
       time: "2020-12-03T09:11:40Z"
@@ -147,10 +147,10 @@ spec:
               hostPort: 8984
               name: main
               protocol: TCP
-          resources: {}
+          resources: { }
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities: {}
+            capabilities: { }
             privileged: false
             readOnlyRootFilesystem: false
             runAsNonRoot: false
@@ -164,6 +164,6 @@ spec:
       hostNetwork: true
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
+      securityContext: { }
       terminationGracePeriodSeconds: 30
 

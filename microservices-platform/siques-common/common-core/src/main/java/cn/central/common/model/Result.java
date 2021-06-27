@@ -38,7 +38,7 @@ public class Result<T> implements Serializable {
         return of(null, HttpStatus.FAILED, msg);
     }
 
-    public static <T> Result<T> failed( String msg,Integer code) {
+    public static <T> Result<T> failed(String msg, Integer code) {
         return of(null, code, msg);
     }
 

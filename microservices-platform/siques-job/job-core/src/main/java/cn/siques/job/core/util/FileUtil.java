@@ -11,7 +11,7 @@ import java.util.List;
  * @author : heshenghao
  * @date : 15:58 2021/5/16
  */
-public class FileUtil{
+public class FileUtil {
     private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     /**
@@ -82,7 +82,7 @@ public class FileUtil{
 
     }
 
-    public static List<String> loadFileLines(String fileName){
+    public static List<String> loadFileLines(String fileName) {
 
         List<String> result = new ArrayList<>();
 
@@ -100,8 +100,8 @@ public class FileUtil{
             //reader = new LineNumberReader(new FileReader(logFile));
             reader = new LineNumberReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
             String line = null;
-            while ((line = reader.readLine())!=null) {
-                if (line!=null && line.trim().length()>0) {
+            while ((line = reader.readLine()) != null) {
+                if (line != null && line.trim().length() > 0) {
                     result.add(line);
                 }
             }

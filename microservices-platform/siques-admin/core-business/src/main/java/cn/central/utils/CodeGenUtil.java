@@ -51,7 +51,7 @@ public class CodeGenUtil {
     private final String CONTROLLER_JAVA_VM = "Controller.java.vm";
     private final String MAPPER_XML_VM = "Mapper.xml.vm";
     private final String API_JS_VM = "api.js.vm";
-    private final  String INDEX_VUE_VM = "index.vue.vm";
+    private final String INDEX_VUE_VM = "index.vue.vm";
 
     private List<String> getTemplates() {
         List<String> templates = new ArrayList<>();
@@ -186,7 +186,7 @@ public class CodeGenUtil {
                 zip.putNextEntry(new ZipEntry(Objects.requireNonNull(getFileName(template, tableEntity.getCaseClassName(),
                         genConfig.getPath(),
                         map.get("package")
-                        .toString(), map.get("moduleName").toString()))));
+                                .toString(), map.get("moduleName").toString()))));
                 IoUtil.write(zip, StandardCharsets.UTF_8, false, sw.toString());
 
 //                File file = new File(getFileName(template, tableEntity.getCaseClassName(),genConfig.getPath(),map
@@ -232,9 +232,9 @@ public class CodeGenUtil {
     /**
      * 获取文件名
      */
-    private String getFileName(String template, String className, String path,String packageName, String moduleName) {
+    private String getFileName(String template, String className, String path, String packageName, String moduleName) {
         // 包路径
-        String packagePath =path + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
+        String packagePath = path + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
         // 资源路径
         String resourcePath = path + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
         // api路径
@@ -274,8 +274,8 @@ public class CodeGenUtil {
 //            return apiPath + className.toLowerCase() + ".js";
 //        }
 
-        if(template.contains(INDEX_VUE_VM)){
-            return indexPath +"index.vue";
+        if (template.contains(INDEX_VUE_VM)) {
+            return indexPath + "index.vue";
         }
 
         return null;

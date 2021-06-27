@@ -18,16 +18,18 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableConfigurationProperties(RestClientPoolProperties.class)
 public class RestAutoCnfigure {
+
+
     @Bean
     public RestClientBuilderCustomizer restClientBuilderCustomizer(
             RestClientPoolProperties poolProperties,
             RestClientProperties restClientProperties
-    ){
-            return (builder -> {
-                setRequestConfig(builder, poolProperties);
+    ) {
+        return (builder -> {
+            setRequestConfig(builder, poolProperties);
 
-                setHttpClientConfig(builder,poolProperties,restClientProperties);
-            });
+            setHttpClientConfig(builder, poolProperties, restClientProperties);
+        });
     }
 
     /**
@@ -38,13 +40,13 @@ public class RestAutoCnfigure {
             httpAsyncClientBuilder.setMaxConnPerRoute(poolProperties.getMaxConnectPerRoute())
                     .setMaxConnPerRoute(poolProperties.getMaxConnectPerRoute());
             PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
-            map.from(restClientProperties::getUsername).to(username->{
+            map.from(restClientProperties::getUsername).to(username -> {
                 CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
                 credentialsProvider.setCredentials(AuthScope.ANY,
                         new UsernamePasswordCredentials(username, restClientProperties.getPassword()));
-            httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+                httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
             });
-        return httpAsyncClientBuilder;
+            return httpAsyncClientBuilder;
         });
     }
 
@@ -52,11 +54,11 @@ public class RestAutoCnfigure {
      * 异步httpclient连接延时配置
      */
     private void setRequestConfig(RestClientBuilder builder, RestClientPoolProperties poolProperties) {
-        builder.setRequestConfigCallback(requestConfigBuilder ->{
-           requestConfigBuilder.setConnectTimeout(poolProperties.getConnectTimeOut())
-           .setSocketTimeout(poolProperties.getSocketTimeOut())
-           .setConnectionRequestTimeout(poolProperties.getConnectionRequestTimeOut());
-           return requestConfigBuilder;
+        builder.setRequestConfigCallback(requestConfigBuilder -> {
+            requestConfigBuilder.setConnectTimeout(poolProperties.getConnectTimeOut())
+                    .setSocketTimeout(poolProperties.getSocketTimeOut())
+                    .setConnectionRequestTimeout(poolProperties.getConnectionRequestTimeOut());
+            return requestConfigBuilder;
         });
     }
 

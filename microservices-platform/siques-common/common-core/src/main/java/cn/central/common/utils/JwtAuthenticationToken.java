@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collection;
 import java.util.List;
 
-public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken  {
+public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
 
     private String token;
@@ -20,19 +20,19 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
         super(principal, credentials);
     }
 
-    public JwtAuthenticationToken(Object principal,Object credentials ,String token){
-        super(principal,credentials);
-        this.token =token;
+    public JwtAuthenticationToken(Object principal, Object credentials, String token) {
+        super(principal, credentials);
+        this.token = token;
     }
 
-    public JwtAuthenticationToken(Object principal,Object credentials , Collection<? extends GrantedAuthority> authorities){
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
     }
 
-    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities,String token) {
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String token) {
         super(principal, credentials, authorities);
 //        this.principal =principal;
-        this.token =token;
+        this.token = token;
     }
 
     public String getToken() {

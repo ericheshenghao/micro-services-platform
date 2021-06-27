@@ -32,14 +32,14 @@ import io.swagger.annotations.ApiImplicitParams;
 public class ${className}Controller {
 
     @Autowired
-    ${className}Service ${classname}Service;
+        ${className}Service ${classname}Service;
 
 
     /**
-   * 分页查询${comments}
-   * @param pageRequest
-   * @return
-   */
+     * 分页查询${comments}
+     * @param pageRequest
+     * @return
+     */
     @PostMapping("findPage")
     @ApiOperation(value = "分页查询${comments}", notes = "分页查询${comments}")
     public JsonData listSysRoleMenu(@RequestBody PageRequest pageRequest) {
@@ -58,8 +58,8 @@ public class ${className}Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
-    public JsonData get${className}(@PathVariable("${pk.lowerAttrName}") ${pk.attrType} ${pk.lowerAttrName}){
-      return  JsonData.buildSuccess(${classname}Service.getById(${pk.lowerAttrName}));
+    public JsonData get${className}(@PathVariable("${pk.lowerAttrName}") ${pk.attrType} ${pk.lowerAttrName}) {
+        return JsonData.buildSuccess(${classname}Service.getById(${pk.lowerAttrName}));
     }
 
     /**
@@ -69,8 +69,8 @@ public class ${className}Controller {
      */
     @PostMapping
     @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
-    public JsonData save${className}(@RequestBody ${className} ${classname}){
-      return  JsonData.buildSuccess(${classname}Service.save(${classname}));
+    public JsonData save${className}(@RequestBody ${className} ${classname}) {
+        return JsonData.buildSuccess(${classname}Service.save(${classname}));
     }
 
     /**
@@ -84,8 +84,8 @@ public class ${className}Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
-    public JsonData update${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}, @RequestBody ${className} ${classname}){
-      return  JsonData.buildSuccess(${classname}Service.updateById(${classname}));
+    public JsonData update${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}, @RequestBody ${className} ${classname}) {
+        return JsonData.buildSuccess(${classname}Service.updateById(${classname}));
     }
 
     /**
@@ -98,8 +98,8 @@ public class ${className}Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "${pk.lowerAttrName}", value = "主键id", required = true)
     })
-    public JsonData delete${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}){
-      return  JsonData.buildSuccess(${classname}Service.removeById(${pk.lowerAttrName}));
+    public JsonData delete${className}(@PathVariable ${pk.attrType} ${pk.lowerAttrName}) {
+        return JsonData.buildSuccess(${classname}Service.removeById(${pk.lowerAttrName}));
     }
 
 }

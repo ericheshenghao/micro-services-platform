@@ -14,6 +14,7 @@ import java.io.IOException;
 public interface ISearchService {
     /**
      * StringQuery通用搜索
+     *
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      * @return

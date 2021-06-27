@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @TableName("sys_role")
 @ApiModel(description = "角色表")
-public class SysRole extends SuperEntity<SysRole>  {
+public class SysRole extends SuperEntity<SysRole> {
 
     @ApiModelProperty(value = "角色编码")
     private String roleCode;

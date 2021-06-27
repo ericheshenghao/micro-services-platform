@@ -9,7 +9,6 @@ package cn.central.common.constant;
 public interface CommonConstant {
 
 
-
     String AESIV = "1234567890987654";
 
 

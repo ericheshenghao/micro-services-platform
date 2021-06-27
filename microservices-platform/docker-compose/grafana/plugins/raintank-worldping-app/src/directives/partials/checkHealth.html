@@ -1,20 +1,21 @@
 <div ng-if="eventReady">
     <div class="statusType" ng-show="okCount > 0">OK:&nbsp;
-    	<a class="online" bs-tooltip="'View recent OK events'" ng-click="$event.stopPropagation();" ng-href="dashboard/db/worldping-events?from=now-15m&to=now&var-endpoint={{ctrl.endpoint.slug}}&var-monitor_type={{check.type|lowercase}}&var-severity=OK">{{okCount}}</a>
-    </div> 
+        <a class="online" bs-tooltip="'View recent OK events'" ng-click="$event.stopPropagation();"
+           ng-href="dashboard/db/worldping-events?from=now-15m&to=now&var-endpoint={{ctrl.endpoint.slug}}&var-monitor_type={{check.type|lowercase}}&var-severity=OK">{{okCount}}</a>
+    </div>
 
     <div class="statusType" ng-show="!okCount">OK:&nbsp;
-    	<span class="nodata">--</span>
+        <span class="nodata">--</span>
     </div>
- </div>
+</div>
 <!-- Please display this while we're waiting for data. Note: I made up eventReady -->
 <div class="statusType" ng-if="!eventReady">OK:&nbsp;
-    	<div class="ascii-spinner-container">
-    		<span>&nbsp;&nbsp;</span>
-    		<span class="ascii-spinner-1">-&nbsp;</span>
-    		<span class="ascii-spinner-2">&nbsp;-</span>
-    		<span class="ascii-spinner-3"></span>
-    	</div>
+    <div class="ascii-spinner-container">
+        <span>&nbsp;&nbsp;</span>
+        <span class="ascii-spinner-1">-&nbsp;</span>
+        <span class="ascii-spinner-2">&nbsp;-</span>
+        <span class="ascii-spinner-3"></span>
+    </div>
 </div>
 <!-- End animation -->
 
@@ -26,44 +27,45 @@
 </div> -->
 <div ng-if="eventReady">
     <div class="statusType" ng-show="errorCount > 0">Error:&nbsp;
-        <a class="online" bs-tooltip="'View recent Error events'" ng-click="$event.stopPropagation();" ng-href="dashboard/db/worldping-events?from=now-15m&to=now&var-endpoint={{ctrl.endpoint.slug}}&var-monitor_type={{check.type|lowercase}}&var-severity=ERROR">
-    	   <span class="critical">{{errorCount}}</span>
+        <a class="online" bs-tooltip="'View recent Error events'" ng-click="$event.stopPropagation();"
+           ng-href="dashboard/db/worldping-events?from=now-15m&to=now&var-endpoint={{ctrl.endpoint.slug}}&var-monitor_type={{check.type|lowercase}}&var-severity=ERROR">
+            <span class="critical">{{errorCount}}</span>
         </a>
     </div>
 
     <div class="statusType" ng-show="!errorCount">Error:&nbsp;
-    	<span class="nodata">--</span>
+        <span class="nodata">--</span>
     </div>
 </div>
 
 <!-- Please display this while we're waiting for data. Note: I made up eventReady-->
 <div class="statusType" ng-if="!eventReady">Error:&nbsp;
-    	<div class="ascii-spinner-container">
-    		<span>&nbsp;&nbsp;</span>
-    		<span class="ascii-spinner-1" style="animation-delay: 750ms;">-&nbsp;</span>
-    		<span class="ascii-spinner-2" style="animation-delay: 750ms;">&nbsp;-</span>
-    		<span class="ascii-spinner-3" style="animation-delay: 750ms;"></span>
-    	</div>
+    <div class="ascii-spinner-container">
+        <span>&nbsp;&nbsp;</span>
+        <span class="ascii-spinner-1" style="animation-delay: 750ms;">-&nbsp;</span>
+        <span class="ascii-spinner-2" style="animation-delay: 750ms;">&nbsp;-</span>
+        <span class="ascii-spinner-3" style="animation-delay: 750ms;"></span>
+    </div>
 </div>
 <!-- End animation -->
 
 <div ng-if="eventReady">
     <div class="statusType" ng-show="unknownCount > 0">Unknown:&nbsp;
-    	<span class="none">{{unknownCount}}</span>
+        <span class="none">{{unknownCount}}</span>
     </div>
 
     <div class="statusType" ng-show="!unknownCount">Unknown:&nbsp;
-    	<span class="nodata">--</span>
+        <span class="nodata">--</span>
     </div>
 </div>
 
 <!-- Please display this while we're waiting for data. Note: I made up eventReady -->
 <div class="statusType" ng-if="!eventReady">Unknown:&nbsp;
-    	<div class="ascii-spinner-container">
-	    	<span>&nbsp;&nbsp;</span>
-	    	<span class="ascii-spinner-1" style="animation-delay: 1.5s;">-&nbsp;</span>
-	    	<span class="ascii-spinner-2" style="animation-delay: 1.5s;">&nbsp;-</span>
-	    	<span class="ascii-spinner-3" style="animation-delay: 1.5s;"></span>
-    	</div>
+    <div class="ascii-spinner-container">
+        <span>&nbsp;&nbsp;</span>
+        <span class="ascii-spinner-1" style="animation-delay: 1.5s;">-&nbsp;</span>
+        <span class="ascii-spinner-2" style="animation-delay: 1.5s;">&nbsp;-</span>
+        <span class="ascii-spinner-3" style="animation-delay: 1.5s;"></span>
+    </div>
 </div>
 <!-- End animation -->

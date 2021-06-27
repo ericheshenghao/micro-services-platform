@@ -1,7 +1,7 @@
 package cn.central.common.resolver;
 
 import cn.central.common.annotation.LoginUser;
-import cn.central.common.feign.AuthService;
+import cn.central.common.feign.UserInfoService;
 
 
 import cn.central.common.model.SysUser;
@@ -24,9 +24,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  */
 @Slf4j
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
-    private AuthService userService;
+    private UserInfoService userService;
 
-    public TokenArgumentResolver(AuthService userService) {
+    public TokenArgumentResolver(UserInfoService userService) {
         this.userService = userService;
     }
 
@@ -59,8 +59,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         // 已认证过的状态
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication!=null && !(authentication instanceof AnonymousAuthenticationToken))
-        {
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String userCode = authentication.getName();
             // 发起远程调用查询
             if (isFull) {

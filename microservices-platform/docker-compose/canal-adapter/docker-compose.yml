@@ -6,8 +6,8 @@ services:
     ports:
       - 8089:8089
     volumes:
-      - ./sys_user.yml:/opt/canal/adapter/conf/es7/sys_user.yml
-      - ./nest_doc.yml:/opt/canal/adapter/conf/es7/nest_doc.yml
+      - ./siques_admin_user.yml:/opt/canal/adapter/conf/es7/siques_admin_user.yml
+      - ./siques_doc.yml:/opt/canal/adapter/conf/es7/siques_doc.yml
       - ./application.yml:/opt/canal/adapter/conf/application.yml
       - ./data/:/opt/canal/adapter/logs/adapter/
     restart: always

@@ -1,13 +1,14 @@
 package cn.central.common.config;
 
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.feign.AuthService;
+import cn.central.common.feign.UserInfoService;
 import cn.central.common.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *  自定义url级别el表达式鉴权
+ * 自定义url级别el表达式鉴权
+ *
  * @author : heshenghao
  * @date : 22:16 2020/11/19
  */
@@ -16,15 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ElPermissionConfig {
 
     @Autowired
-    AuthService authService;
+    UserInfoService authService;
 
     /**
      * 发起远程调用鉴权
+     *
      * @param permission
      * @return
      */
 //    @AuditLog(operation = "")
-    public Boolean check(String ...permission){
+    public Boolean check(String... permission) {
         String userCode = SecurityUtils.getUserCode();
         /**
          * 判断是否有权限，判断userCode是否为管理员，查询权限

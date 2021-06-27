@@ -39,32 +39,32 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
     @Autowired
     DbUtil dbUtil;
 
-   @SneakyThrows
-   @Override
-   public PageResult findPage(PageRequest page){
-       HikariDataSource dataSource = dbUtil.buildDb();
-       PageHelper.startPage(page.getPageNum(),page.getPageSize());
+    @SneakyThrows
+    @Override
+    public PageResult findPage(PageRequest page) {
+        HikariDataSource dataSource = dbUtil.buildDb();
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
 
-       Db db = new Db(dataSource);
-       String paramSql = StrUtil.EMPTY;
-       String sql = String.format(TABLE_SQL_TEMPLATE,paramSql);
-       String countSql = String.format(COUNT_SQL_TEMPLATE, sql);
-       List<Entity> query = db.query(sql + PAGE_SQL_TEMPLATE, (page.getPageNum()-1)*page.getPageSize(), page.getPageSize());
-       BigDecimal count = (BigDecimal) db.queryNumber(countSql);
+        Db db = new Db(dataSource);
+        String paramSql = StrUtil.EMPTY;
+        String sql = String.format(TABLE_SQL_TEMPLATE, paramSql);
+        String countSql = String.format(COUNT_SQL_TEMPLATE, sql);
+        List<Entity> query = db.query(sql + PAGE_SQL_TEMPLATE, (page.getPageNum() - 1) * page.getPageSize(), page.getPageSize());
+        BigDecimal count = (BigDecimal) db.queryNumber(countSql);
 
-       dataSource.close();
-       PageResult pageResult = new PageResult();
-       pageResult.setPageNum(page.getPageNum());
-       pageResult.setPageSize(page.getPageSize());
-       pageResult.setTotal(count.longValue());
-       pageResult.setRecords(query);
+        dataSource.close();
+        PageResult pageResult = new PageResult();
+        pageResult.setPageNum(page.getPageNum());
+        pageResult.setPageSize(page.getPageSize());
+        pageResult.setTotal(count.longValue());
+        pageResult.setRecords(query);
 
-       return  pageResult;
-   }
+        return pageResult;
+    }
 
     @Override
     public List<DbConfig> queryDbList() {
-        return   dbUtil.getDbList();
+        return dbUtil.getDbList();
     }
 
 
@@ -90,7 +90,7 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
     }
 
     @SneakyThrows
-    private Entity queryTable(String  tableName) {
+    private Entity queryTable(String tableName) {
         HikariDataSource dataSource = dbUtil.buildDb();
         Db db = new Db(dataSource);
 
@@ -115,7 +115,6 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
         dataSource.close();
         return query;
     }
-
 
 
 }

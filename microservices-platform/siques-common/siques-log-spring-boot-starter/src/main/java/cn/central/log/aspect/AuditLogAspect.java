@@ -7,7 +7,6 @@ import cn.central.log.properties.AuditLogProperties;
 import cn.central.log.service.IAuditService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -57,6 +56,7 @@ public class AuditLogAspect {
 
     /**
      * 对标注有auditLog的方法进行织入
+     *
      * @param joinPoint
      * @param auditLog
      */
@@ -65,7 +65,7 @@ public class AuditLogAspect {
 
         //判断功能是否开启
         if (auditLogProperties.getEnabled()) {
-            if (auditService == null ) {
+            if (auditService == null) {
                 log.warn("AuditLogAspect - auditService is null");
                 return;
             }
@@ -81,9 +81,10 @@ public class AuditLogAspect {
 
     /**
      * 解析spEL表达式
+     *
      * @param spEL
      * @param methodSignature 切入方法的签名
-     * @param args 方法的参数
+     * @param args            方法的参数
      * @return
      */
     private String getValByspel(String spEL, MethodSignature methodSignature, Object[] args) {
@@ -95,7 +96,7 @@ public class AuditLogAspect {
             // spring的表达式上下文对象
             EvaluationContext context = new StandardEvaluationContext();
             // 给上下文赋值
-            for(int i = 0; i < args.length; i++) {
+            for (int i = 0; i < args.length; i++) {
                 context.setVariable(paramNames[i], args[i]);
             }
             Object value = expression.getValue(context);
@@ -112,7 +113,7 @@ public class AuditLogAspect {
         audit.setTimestamp(LocalDateTime.now());
         audit.setApplicationName(applicationName);
 
-        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         audit.setClassName(methodSignature.getDeclaringTypeName());
         audit.setMethodName(methodSignature.getName());
 

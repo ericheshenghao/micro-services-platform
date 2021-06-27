@@ -32,6 +32,7 @@ public class ResponseUtil {
 
     /**
      * 通过流写到前端
+     *
      * @param objectMapper 对象序列化
      * @param response
      * @param obj
@@ -43,13 +44,14 @@ public class ResponseUtil {
 
     /**
      * 通过流写到前端
+     *
      * @param objectMapper
      * @param response
      * @param msg
      * @throws IOException
      */
-    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg,Integer code) throws IOException {
-        Result result = Result.failed(msg,code);
+    public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg, Integer code) throws IOException {
+        Result result = Result.failed(msg, code);
         responseWrite(objectMapper, response, result);
     }
 

@@ -31,8 +31,9 @@ public class AggregationController {
 
     /**
      * 访问统计聚合查询
+     *
      * @param indexName 索引名
-     * @param routing es的路由
+     * @param routing   es的路由
      */
     @GetMapping("/requestStat/{indexName}/{routing}")
     public Map<String, Object> requestStatAgg(@PathVariable String indexName, @PathVariable String routing) throws IOException {

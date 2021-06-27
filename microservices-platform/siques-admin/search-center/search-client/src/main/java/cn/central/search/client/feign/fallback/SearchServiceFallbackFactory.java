@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 降级工厂
+ *
  * @author : heshenghao
  * @date : 10:37 2020/11/19
  */

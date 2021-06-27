@@ -38,7 +38,8 @@ public class QueryServiceImpl implements IQueryService {
 
     /**
      * 拼装逻辑删除的条件
-     * @param searchDto 搜索dto
+     *
+     * @param searchDto   搜索dto
      * @param logicDelDto 逻辑删除dto
      */
     private void setLogicDelQueryStr(SearchDto searchDto, LogicDelDto logicDelDto) {
@@ -61,8 +62,9 @@ public class QueryServiceImpl implements IQueryService {
 
     /**
      * 访问统计聚合查询
+     *
      * @param indexName 索引名
-     * @param routing es的路由
+     * @param routing   es的路由
      */
     @Override
     public Map<String, Object> requestStatAgg(String indexName, String routing) {

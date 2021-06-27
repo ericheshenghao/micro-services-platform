@@ -13,6 +13,7 @@ import java.util.Map;
 public interface IQueryService {
     /**
      * 查询文档列表
+     *
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      */
@@ -20,16 +21,18 @@ public interface IQueryService {
 
     /**
      * 查询文档列表
-     * @param indexName 索引名
-     * @param searchDto 搜索Dto
+     *
+     * @param indexName   索引名
+     * @param searchDto   搜索Dto
      * @param logicDelDto 逻辑删除Dto
      */
     Result strQuery(String indexName, SearchDto searchDto, LogicDelDto logicDelDto);
 
     /**
      * 访问统计聚合查询
+     *
      * @param indexName 索引名
-     * @param routing es的路由
+     * @param routing   es的路由
      */
     Map<String, Object> requestStatAgg(String indexName, String routing);
 }

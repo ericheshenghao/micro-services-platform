@@ -23,7 +23,7 @@ public class StorageService {
      * 减库存
      *
      * @param commodityCode 商品编号
-     * @param count 数量
+     * @param count         数量
      */
     //@Transactional(rollbackFor = Exception.class)
     public void deduct(String commodityCode, int count) {

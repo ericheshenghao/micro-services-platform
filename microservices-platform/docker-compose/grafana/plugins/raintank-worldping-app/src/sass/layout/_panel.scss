@@ -3,7 +3,6 @@
 // ==========================================================================
 
 
-
 // Endpoint Nav Header
 // ==========================================================================
 
@@ -48,7 +47,7 @@
 .wp-icon-success {
   color: $online;
   font-size: 24px;
-  text-decoration:none;
+  text-decoration: none;
   vertical-align: sub;
 }
 
@@ -90,13 +89,13 @@
 
 .rt-nav--warning-subcopy {
   display: block;
-  font-size:12px;
+  font-size: 12px;
   color: $text-color;
 }
 
 .rt-nav--warning-icons-alert {
   color: $text-color-strong;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 20px;
   margin-right: 5px;
 }
@@ -106,54 +105,54 @@ RAINTANK DASHBOARD STYLES
 ******************************************/
 
 .rt-dashboard-h1 {
-    font-size: 60px;
-    font-weight:900;
-    letter-spacing: -1px;
-    color: #EEE;
-    display: inline;
-    padding-top: 20px;
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #EEE;
+  display: inline;
+  padding-top: 20px;
 }
 
 p.rt-dashboard-copy {
-    font-size:14px;
-    color: $text-color;
+  font-size: 14px;
+  color: $text-color;
 }
 
 .rt-dash-flex-container {
-     display: flex;
-     justify-content: flex-start;
-     flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .rt-panel-CTA-flex-container {
-     display: flex;
-     justify-content: center;
-     flex-direction: row;
-     flex-wrap: wrap-reverse;
-     align-items: center;
-     text-align: center;
-     min-height: 220px;
-     margin: 0 100px 25px 80px;
-     background: lighten($panel-bg,1%);
-     border: $panel-border;
-     padding: 5px 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  text-align: center;
+  min-height: 220px;
+  margin: 0 100px 25px 80px;
+  background: lighten($panel-bg, 1%);
+  border: $panel-border;
+  padding: 5px 30px;
 
-    .rt-CTA-flex-copy {
-      flex-grow: 2;
-    }
+  .rt-CTA-flex-copy {
+    flex-grow: 2;
+  }
 }
 
 .rt-CTA-flex-image {
-    min-width: 185px;
-    max-width: 200px;
-    margin-bottom: 10px;
+  min-width: 185px;
+  max-width: 200px;
+  margin-bottom: 10px;
 }
 
 .rt-dash-flex-item {
-    flex: 1;
-    text-align: left;
-    margin-left: 15px;
-    margin-top: 15px;
+  flex: 1;
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 
 .rt-dash--warning {
@@ -178,40 +177,40 @@ p.rt-dashboard-copy {
 
 .rt-dash--warning-subcopy {
   display: block;
-  font-size:12px;
+  font-size: 12px;
   color: $text-color;
   margin: $spacer 0 $spacer 0;
 }
 
- @media screen and (max-width: 780px) {
+@media screen and (max-width: 780px) {
   .rt-dash-flex-item {
     flex: 0 100%;
     text-align: center;
     flex-direction: column;
-    margin:0 auto;
-    }
+    margin: 0 auto;
+  }
 }
 
-p.rt-helper-blurb{
-     font-size:14px;
-     color: $text-color;
-     min-height: 35px;
+p.rt-helper-blurb {
+  font-size: 14px;
+  color: $text-color;
+  min-height: 35px;
 }
 
-p.rt-dashboard-blurb{
-     font-size:14px;
-     color: $text-color;
-     margin: 0;
+p.rt-dashboard-blurb {
+  font-size: 14px;
+  color: $text-color;
+  margin: 0;
 }
 
-a.rt-dashboard-blurb{
-     font-size:14px;
-     color: $text-color;
-     margin: 0;
+a.rt-dashboard-blurb {
+  font-size: 14px;
+  color: $text-color;
+  margin: 0;
 }
 
-a.rt-dashboard-blurb:hover{
-     text-decoration: underline;
+a.rt-dashboard-blurb:hover {
+  text-decoration: underline;
 }
 
 .rt-dashboard-icons {
@@ -219,28 +218,28 @@ a.rt-dashboard-blurb:hover{
   -webkit-text-fill-color: transparent;
   background: $brand-gradient;
   -webkit-background-clip: text;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 20px;
   vertical-align: sub;
 }
 
 .rt-dashboard-icons-upcoming {
   color: $text-color-weak;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 20px;
   vertical-align: sub;
 }
 
 .rt-dashboard-icons-warning {
   color: $text-color-strong;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 20px;
   vertical-align: sub;
 }
 
 .rt-dashboard-icons-alert {
   color: $text-color-strong;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 23px;
   vertical-align: sub;
 }
@@ -272,8 +271,8 @@ a.rt-blurb-upcoming {
 }
 
 .rt-dashboard-icons-subcopy {
-     display: block;
-     font-size:12px;
-     color: $text-color;
-     margin: 0;
+  display: block;
+  font-size: 12px;
+  color: $text-color;
+  margin: 0;
 }

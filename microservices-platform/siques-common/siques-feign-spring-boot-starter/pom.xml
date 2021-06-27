@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>cn.siques</groupId>
@@ -13,8 +13,8 @@
     <packaging>jar</packaging>
     <description>远程通信通用组件-此包废弃</description>
 
-  <artifactId>siques-feign-spring-boot-starter</artifactId>
-  <version>4.2.0</version>
+    <artifactId>siques-feign-spring-boot-starter</artifactId>
+    <version>4.2.0</version>
 
 
     <dependencies>
@@ -26,7 +26,8 @@
                     <groupId>org.springframework.social</groupId>
                     <artifactId>spring-social-security</artifactId>
                 </exclusion>
-                <exclusion><groupId>org.springframework.security.oauth</groupId>
+                <exclusion>
+                    <groupId>org.springframework.security.oauth</groupId>
                     <artifactId>spring-security-oauth2</artifactId>
                 </exclusion>
                 <exclusion>

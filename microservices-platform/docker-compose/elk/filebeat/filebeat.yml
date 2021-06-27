@@ -15,7 +15,7 @@ filebeat.inputs:
       - D:\web\shenghao-nestjs\server\db\mysql-slow.log
     fields:
       docType: mysqlslowlogs
-    exclude_lines: ['^\# Time']
+    exclude_lines: [ '^\# Time' ]
     multiline:
       pattern: '^\# Time|^\# User'
       negate: true
@@ -24,8 +24,8 @@ filebeat.inputs:
     enabled: true
     paths:
       - D:\web\mango-platform-practice\logs\application\*\*.log
-    exclude_lines: ['\sDEBUG\s\d']
-    exclude_files: ['sc-admin.*.log$']
+    exclude_lines: [ '\sDEBUG\s\d' ]
+    exclude_files: [ 'sc-admin.*.log$' ]
     fields:
       docType: sys-log
       project: microservices-platform
@@ -42,7 +42,7 @@ filebeat.inputs:
       project: microservices-platform
 
 output.logstash:
-  hosts: ["localhost:5044"]
+  hosts: [ "localhost:5044" ]
   bulk_max_size: 2048
 
 processors:

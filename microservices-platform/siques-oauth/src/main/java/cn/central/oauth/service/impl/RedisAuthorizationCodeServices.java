@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * JdbcAuthorizationCodeServices替换
  * 客户端授权码模式需要用到此类
+ *
  * @author he
  * <p>
  */

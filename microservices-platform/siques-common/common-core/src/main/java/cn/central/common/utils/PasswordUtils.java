@@ -9,6 +9,7 @@ public class PasswordUtils {
 
     /**
      * 明文密码加密
+     *
      * @param rawPass 明文
      * @param salt
      * @return
@@ -19,6 +20,7 @@ public class PasswordUtils {
 
     /**
      * 获取加密盐
+     *
      * @return
      */
     public static String getSalt() {

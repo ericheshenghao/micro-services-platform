@@ -40,7 +40,7 @@
         </dependency>
 
         <dependency>
-        <!-- 包含一些认证需要用到的pojo -->
+            <!-- 包含一些认证需要用到的pojo -->
             <groupId>cn.siques</groupId>
             <artifactId>siques-common-spring-boot-starter</artifactId>
         </dependency>
@@ -87,24 +87,23 @@
     </dependencies>
 
 
-
     <build>
-    <plugins>
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <!--加入下面两项配置-->
-        <executions>
-            <execution>
-                <goals>
-                    <goal>repackage</goal>
-                </goals>
-            </execution>
-        </executions>
-        <configuration>
-            <includeSystemScope>true</includeSystemScope>
-        </configuration>
-    </plugin>
-    </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--加入下面两项配置-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

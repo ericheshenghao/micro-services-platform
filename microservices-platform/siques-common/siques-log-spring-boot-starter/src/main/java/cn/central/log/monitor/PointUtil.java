@@ -30,6 +30,7 @@ public class PointUtil {
 
     /**
      * debug方式的日志会持久化到目录，注解方式日志会持久化到db或者直接打印
+     *
      * @param id
      * @param type
      * @param message

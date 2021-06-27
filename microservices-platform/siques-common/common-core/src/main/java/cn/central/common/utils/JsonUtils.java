@@ -25,7 +25,7 @@ public class JsonUtils {
         // 忽略在json字符串中存在，但是在java对象中不存在对应属性的情况
         MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // 忽略空Bean转json的错误
-        MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
+        MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         // 允许不带引号的字段名称
         MAPPER.configure(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES.mappedFeature(), true);
         // 允许单引号
@@ -47,6 +47,7 @@ public class JsonUtils {
 
     /**
      * 对象转换为json字符串
+     *
      * @param o 要转换的对象
      */
     public static String toJSONString(Object o) {
@@ -55,7 +56,8 @@ public class JsonUtils {
 
     /**
      * 对象转换为json字符串
-     * @param o 要转换的对象
+     *
+     * @param o      要转换的对象
      * @param format 是否格式化json
      */
     public static String toJSONString(Object o, boolean format) {
@@ -67,7 +69,7 @@ public class JsonUtils {
                 return o.toString();
             }
             if (o instanceof String) {
-                return (String)o;
+                return (String) o;
             }
             if (format) {
                 return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(o);
@@ -80,11 +82,12 @@ public class JsonUtils {
 
     /**
      * 字符串转换为指定对象
+     *
      * @param json json字符串
-     * @param cls 目标对象
+     * @param cls  目标对象
      */
     public static <T> T toObject(String json, Class<T> cls) {
-        if(StringUtils.isBlank(json) || cls == null){
+        if (StringUtils.isBlank(json) || cls == null) {
             return null;
         }
         try {
@@ -97,12 +100,13 @@ public class JsonUtils {
     /**
      * 字符串转换为指定对象，并增加泛型转义
      * 例如：List<Integer> test = toObject(jsonStr, List.class, Integer.class);
-     * @param json json字符串
-     * @param parametrized 目标对象
+     *
+     * @param json             json字符串
+     * @param parametrized     目标对象
      * @param parameterClasses 泛型对象
      */
     public static <T> T toObject(String json, Class<?> parametrized, Class<?>... parameterClasses) {
-        if(StringUtils.isBlank(json) || parametrized == null){
+        if (StringUtils.isBlank(json) || parametrized == null) {
             return null;
         }
         try {
@@ -115,11 +119,12 @@ public class JsonUtils {
 
     /**
      * 字符串转换为指定对象
-     * @param json json字符串
+     *
+     * @param json          json字符串
      * @param typeReference 目标对象类型
      */
     public static <T> T toObject(String json, TypeReference<T> typeReference) {
-        if(StringUtils.isBlank(json) || typeReference == null){
+        if (StringUtils.isBlank(json) || typeReference == null) {
             return null;
         }
         try {
@@ -131,6 +136,7 @@ public class JsonUtils {
 
     /**
      * 字符串转换为JsonNode对象
+     *
      * @param json json字符串
      */
     public static JsonNode parse(String json) {
@@ -146,6 +152,7 @@ public class JsonUtils {
 
     /**
      * 对象转换为map对象
+     *
      * @param o 要转换的对象
      */
     public static <K, V> Map<K, V> toMap(Object o) {
@@ -153,13 +160,14 @@ public class JsonUtils {
             return null;
         }
         if (o instanceof String) {
-            return toObject((String)o, Map.class);
+            return toObject((String) o, Map.class);
         }
         return MAPPER.convertValue(o, Map.class);
     }
 
     /**
      * json字符串转换为list对象
+     *
      * @param json json字符串
      */
     public static <T> List<T> toList(String json) {
@@ -175,8 +183,9 @@ public class JsonUtils {
 
     /**
      * json字符串转换为list对象，并指定元素类型
+     *
      * @param json json字符串
-     * @param cls list的元素类型
+     * @param cls  list的元素类型
      */
     public static <T> List<T> toList(String json, Class<T> cls) {
         if (StringUtils.isBlank(json)) {

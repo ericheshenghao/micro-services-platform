@@ -38,7 +38,7 @@ public class PageResult<T> implements Serializable {
     /**
      * 页码总数
      */
-    private  int totalPages;
+    private int totalPages;
 
     /**
      * 分页数据

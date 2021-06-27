@@ -10,12 +10,10 @@ import java.util.Set;
 public interface SysRoleService extends IService<SysRole> {
 
 
-    SysRole findRoleMenus(Long id);
+    SysRole findRoleMenus(String id);
 
 
-
-    boolean saveRoleMenus(String roleCode, Long roleId, Set<String> menuSet);
-
+    boolean saveRoleMenus(String roleCode, String roleId, Set<String> menuSet);
 
 
 }

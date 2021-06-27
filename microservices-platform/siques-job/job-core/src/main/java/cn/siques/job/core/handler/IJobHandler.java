@@ -9,11 +9,17 @@ import cn.siques.job.core.biz.model.ReturnT;
 public abstract class IJobHandler {
 
 
-    /** success */
+    /**
+     * success
+     */
     public static final ReturnT<String> SUCCESS = new ReturnT<String>(200, null);
-    /** fail */
+    /**
+     * fail
+     */
     public static final ReturnT<String> FAIL = new ReturnT<String>(500, null);
-    /** fail timeout */
+    /**
+     * fail timeout
+     */
     public static final ReturnT<String> FAIL_TIMEOUT = new ReturnT<String>(502, null);
 
 

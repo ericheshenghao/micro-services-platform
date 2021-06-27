@@ -1,9 +1,9 @@
 package cn.central.common.constant;
 
 
-
 /**
  * 常量管理
+ *
  * @author Louis
  * @date Jan 13, 2019
  */

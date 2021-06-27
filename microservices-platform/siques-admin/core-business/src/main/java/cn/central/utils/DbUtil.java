@@ -1,7 +1,6 @@
 package cn.central.utils;
 
 
-
 import cn.central.config.DbProperty;
 import cn.central.controller.dto.DbConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,30 +16,28 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableConfigurationProperties(DbProperty.class)
 public class DbUtil {
-    
- 
-   @Autowired
-   private DbProperty dbProperty;
-
-   private DbConfig dbConfig;
 
 
+    @Autowired
+    private DbProperty dbProperty;
+
+    private DbConfig dbConfig;
 
 
-    public void setDbSource(DbConfig dbConfig)  {
-        this.dbConfig =dbConfig;
+    public void setDbSource(DbConfig dbConfig) {
+        this.dbConfig = dbConfig;
     }
 
 
-    public HikariDataSource buildDb()  {
+    public HikariDataSource buildDb() {
         List<DbConfig> dbList = getDbList();
         HikariDataSource dataSource = new HikariDataSource();
 
-        if(dbConfig!=null){
+        if (dbConfig != null) {
             List<DbConfig> collect = dbList.stream().filter(s -> s.getUrl().equals(dbConfig.getUrl())).collect(Collectors.toList());
             DbConfig dbConfig = collect.get(0);
-             dataSource = setConfig(dataSource, dbConfig);
-        }else{
+            dataSource = setConfig(dataSource, dbConfig);
+        } else {
             dataSource = setConfig(dataSource, dbList.get(0));
         }
 
@@ -50,10 +47,10 @@ public class DbUtil {
 
     public List<DbConfig> getDbList() {
         List<DbConfig> multiplesource = dbProperty.getMultipleSource();
-        return  multiplesource;
+        return multiplesource;
     }
 
-    public HikariDataSource setConfig(HikariDataSource dataSource,DbConfig dbConfig){
+    public HikariDataSource setConfig(HikariDataSource dataSource, DbConfig dbConfig) {
         dataSource.setJdbcUrl(dbConfig.getUrl());
         dataSource.setUsername(dbConfig.getUsername());
         dataSource.setPassword(dbConfig.getPassword());

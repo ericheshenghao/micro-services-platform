@@ -32,17 +32,17 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     /**
      * 保存用户验证码，和randomStr绑定
      *
-     * @param deviceId 客户端生成
+     * @param deviceId  客户端生成
      * @param imageCode 验证码信息
      */
     @Override
     public void saveImageCode(String deviceId, String imageCode) {
-        redisRepository.setExpire(buildKey(deviceId),imageCode,SecurityConstants.DEFAULT_IMAGE_EXPIRE);
+        redisRepository.setExpire(buildKey(deviceId), imageCode, SecurityConstants.DEFAULT_IMAGE_EXPIRE);
     }
 
     @Override
     public void validate(String username, String deviceId, String validCode) {
-        if(StringUtils.isBlank(deviceId)){
+        if (StringUtils.isBlank(deviceId)) {
             throw new ValidateCodeException("请携带deviceId参数");
         }
         String code = this.getCode(deviceId);
@@ -59,8 +59,8 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         }
 
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_name", username));
-        if(ObjectUtil.isNull(user) || user.getStatus()==false){
-            throw  new ValidateCodeException("账号不存在或被冻结");
+        if (ObjectUtil.isNull(user) || user.getStatus() == false) {
+            throw new ValidateCodeException("账号不存在或被冻结");
         }
         // 最后从redis中移除该设备号所对应的验证码
         this.remove(deviceId);
@@ -68,15 +68,17 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
     /**
      * 获取验证码
+     *
      * @param deviceId 前端唯一标识/手机号
      */
     public String getCode(String deviceId) {
-        return (String)redisRepository.get(buildKey(deviceId));
+        return (String) redisRepository.get(buildKey(deviceId));
     }
 
 
     /**
      * 删除验证码
+     *
      * @param deviceId 前端唯一标识/手机号
      */
     public void remove(String deviceId) {

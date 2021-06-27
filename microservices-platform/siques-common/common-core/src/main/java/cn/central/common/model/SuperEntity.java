@@ -27,7 +27,7 @@ public class SuperEntity<T extends Model<?>> extends Model<T> implements Seriali
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "编号")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long id;
+    private String id;
 
     private String createBy;
 

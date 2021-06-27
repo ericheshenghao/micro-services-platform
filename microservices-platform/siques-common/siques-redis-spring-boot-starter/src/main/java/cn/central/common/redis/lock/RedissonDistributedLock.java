@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @date 2020/5/5
  * <p>
-
  */
 @ConditionalOnClass(RedissonClient.class)
 @ConditionalOnProperty(prefix = "siques.lock", name = "lockerType", havingValue = "REDIS", matchIfMissing = true)
@@ -33,7 +32,7 @@ public class RedissonDistributedLock implements DistributedLock {
         if (isFair) {
             lock = redisson.getFairLock(CommonConstant.LOCK_KEY_PREFIX + key);
         } else {
-            lock =  redisson.getLock(CommonConstant.LOCK_KEY_PREFIX + key);
+            lock = redisson.getLock(CommonConstant.LOCK_KEY_PREFIX + key);
         }
         return new HLock(lock, this);
     }
@@ -41,7 +40,7 @@ public class RedissonDistributedLock implements DistributedLock {
     @Override
     public HLock lock(String key, long leaseTime, TimeUnit unit, boolean isFair) {
         HLock hlock = getLock(key, isFair);
-        RLock lock = (RLock)hlock.getLock();
+        RLock lock = (RLock) hlock.getLock();
         lock.lock(leaseTime, unit);
         return hlock;
     }
@@ -49,7 +48,7 @@ public class RedissonDistributedLock implements DistributedLock {
     @Override
     public HLock tryLock(String key, long waitTime, long leaseTime, TimeUnit unit, boolean isFair) throws InterruptedException {
         HLock hlock = getLock(key, isFair);
-        RLock lock = (RLock)hlock.getLock();
+        RLock lock = (RLock) hlock.getLock();
         if (lock.tryLock(waitTime, leaseTime, unit)) {
             return hlock;
         }
@@ -60,7 +59,7 @@ public class RedissonDistributedLock implements DistributedLock {
     public void unlock(Object lock) {
         if (lock != null) {
             if (lock instanceof RLock) {
-                RLock rLock = (RLock)lock;
+                RLock rLock = (RLock) lock;
                 if (rLock.isLocked()) {
                     rLock.unlock();
                 }

@@ -37,8 +37,8 @@ public class RestTemplateAutoConfigure {
 
 
     @Bean
-    public Options options(){
-        return new Options(30, TimeUnit.SECONDS,30,TimeUnit.SECONDS,true);
+    public Options options() {
+        return new Options(30, TimeUnit.SECONDS, 30, TimeUnit.SECONDS, true);
     }
 
     @LoadBalanced
@@ -81,7 +81,6 @@ public class RestTemplateAutoConfigure {
                 // 链接不够用的等待时间
                 .setConnectionRequestTimeout(restTemplateProperties.getReadTimeout())
                 .build();
-
 
 
         return HttpClientBuilder.create()

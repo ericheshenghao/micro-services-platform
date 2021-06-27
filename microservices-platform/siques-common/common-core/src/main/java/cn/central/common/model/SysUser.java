@@ -13,15 +13,14 @@ import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
- * @author zlt
- * 用户实体
+ * @author 用户实体
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
 @ApiModel(description = "用户表")
-public class SysUser extends SuperEntity<SysUser>   {
-	private static final long serialVersionUID = -5886012896705137070L;
+public class SysUser extends SuperEntity<SysUser> {
+    private static final long serialVersionUID = -5886012896705137070L;
 
 
     @ApiModelProperty(value = "用户编码")
@@ -62,30 +61,30 @@ public class SysUser extends SuperEntity<SysUser>   {
     @TableField(exist = false)
     private Set<String> permissions;
 
-	@TableField(exist = false)
-	private List<String> roleIds;
+    @TableField(exist = false)
+    private List<String> roleIds;
 
 
-	public Map<String,Object> toMap(){
+    public Map<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        if( ObjectUtil.isNotEmpty(userCode)) {
-            map.put("user_code",userCode);
+        if (ObjectUtil.isNotEmpty(userCode)) {
+            map.put("user_code", userCode);
         }
-        if(ObjectUtil.isNotEmpty(userName)) {
-            map.put("user_name",userName);
+        if (ObjectUtil.isNotEmpty(userName)) {
+            map.put("user_name", userName);
         }
-        if(ObjectUtil.isNotEmpty(nickName)) {
-            map.put("nick_name",nickName);
+        if (ObjectUtil.isNotEmpty(nickName)) {
+            map.put("nick_name", nickName);
         }
-        if(ObjectUtil.isNotEmpty(email)) {
-            map.put("email",email);
+        if (ObjectUtil.isNotEmpty(email)) {
+            map.put("email", email);
         }
-        if(ObjectUtil.isNotEmpty(mobile)) {
-            map.put("mobile",mobile);
+        if (ObjectUtil.isNotEmpty(mobile)) {
+            map.put("mobile", mobile);
         }
-        if(ObjectUtil.isNotEmpty(status)) {
-            map.put("status",status);
+        if (ObjectUtil.isNotEmpty(status)) {
+            map.put("status", status);
         }
-          return map;
-	}
+        return map;
+    }
 }

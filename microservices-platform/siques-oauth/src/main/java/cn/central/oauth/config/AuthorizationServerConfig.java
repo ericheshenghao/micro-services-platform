@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 /**
  * 鉴权服务器配置
+ *
  * @author : heshenghao
  * @date : 18:03 2020/11/13
  */
@@ -58,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /**
      * 储存认证码接口
      */
-    private  final AuthorizationCodeServices authorizationCodeServices;
+    private final AuthorizationCodeServices authorizationCodeServices;
 
     /**
      * 响应异常处理器
@@ -93,7 +94,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security){
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security
                 .tokenKeyAccess("isAuthenticated()")
                 .checkTokenAccess("permitAll()")
@@ -102,8 +103,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .allowFormAuthenticationForClients();
 
     }
-
-
 
 
 }

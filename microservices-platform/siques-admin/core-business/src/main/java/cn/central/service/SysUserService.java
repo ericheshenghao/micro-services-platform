@@ -1,7 +1,6 @@
 package cn.central.service;
 
 
-
 import cn.central.common.page.PageRequest;
 
 import cn.central.common.model.Result;
@@ -12,12 +11,14 @@ import java.util.Set;
 
 /**
  * CrudService已经有findpage方法
+ *
  * @author Administrator
  */
 public interface SysUserService extends IService<SysUser> {
 
     /**
      * 根据code查找权限
+     *
      * @param userCode
      * @return
      */
@@ -25,13 +26,15 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 根据id 删除用户角色
+     *
      * @param id
      * @return
      */
-    int delUserRoleByUserId(Long id);
+    int delUserRoleByUserId(String id);
 
     /**
      * 根据id 删除用户角色
+     *
      * @param pageRequest
      * @return
      */
@@ -40,6 +43,7 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 保存用户角色
+     *
      * @param record
      * @return
      */

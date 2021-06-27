@@ -1,7 +1,6 @@
 package cn.central.oauth.dao;
 
 
-
 import cn.central.common.model.SysMenu;
 import cn.central.common.model.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -23,6 +22,7 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
 
     /**
      * 调用者 cn.siques.mangooauth.dao.SysUserDao#findUserByName
+     *
      * @param id 用户id
      * @return
      */

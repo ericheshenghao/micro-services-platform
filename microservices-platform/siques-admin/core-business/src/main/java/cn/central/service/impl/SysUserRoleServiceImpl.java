@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
  * @date : 14:56 2020/11/29
  */
 @Component
-public class SysUserRoleServiceImpl  extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
+public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
 }

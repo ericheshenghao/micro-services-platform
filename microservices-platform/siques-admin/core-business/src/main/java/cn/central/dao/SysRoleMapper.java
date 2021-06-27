@@ -1,7 +1,6 @@
 package cn.central.dao;
 
 
-
 import cn.central.common.model.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;

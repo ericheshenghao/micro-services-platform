@@ -1,5 +1,6 @@
 package cn.central.auth.config.client;
 
+import cn.central.auth.properties.Oauth2Properties;
 import cn.hutool.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,12 @@ import java.util.Base64;
 
 /**
  * 资源服务器 token 相关配置，jwt 相关，资源服务器也通过redis进行鉴权
+ *
  * @author he
  */
 @Slf4j
 @Import(BCryptPasswordEncoder.class)
-public class DefaultResourceTokenConfig  {
+public class DefaultResourceTokenConfig {
 
 
     private static class JwtTokenStoreCondition extends SpringBootCondition {
@@ -50,10 +52,14 @@ public class DefaultResourceTokenConfig  {
             ConditionMessage.Builder message = ConditionMessage.forCondition("OAuth JWT TokenStore Condition", new Object[0]);
             Environment environment = context.getEnvironment();
             String keyStore = environment.getProperty("siques.oauth2.token.store.type");
-            return !StringUtils.hasText(keyStore) ? ConditionOutcome.match(message.foundExactly("provided key store location")) : ConditionOutcome.noMatch(message.didNotFind("provided key store location").atAll());
+            return !StringUtils.hasText(keyStore) ? ConditionOutcome.match(message.foundExactly("store type not provided")) : ConditionOutcome.noMatch(message.didNotFind("provided").atAll());
         }
     }
 
+    /**
+     *  默认使用
+     * @return
+     */
     @Bean
     @Conditional({JwtTokenStoreCondition.class})
     public TokenStore tokenStore() {
@@ -61,8 +67,7 @@ public class DefaultResourceTokenConfig  {
     }
 
     @Autowired
-    private  ResourceServerProperties resourceServerProperties;
-
+    private ResourceServerProperties resourceServerProperties;
 
 
     /**
@@ -87,8 +92,8 @@ public class DefaultResourceTokenConfig  {
     private String getPubKey() {
         // 如果本地没有密钥，就从授权服务器中获取
         return StringUtils.isEmpty(resourceServerProperties.getJwt().getKeyValue())
-            ? getKeyFromAuthorizationServer()
-            : resourceServerProperties.getJwt().getKeyValue();
+                ? getKeyFromAuthorizationServer()
+                : resourceServerProperties.getJwt().getKeyValue();
     }
 
     /**
@@ -103,7 +108,7 @@ public class DefaultResourceTokenConfig  {
         httpHeaders.add(HttpHeaders.AUTHORIZATION, encodeClient());
         HttpEntity<String> requestEntity = new HttpEntity<>(null, httpHeaders);
         String pubKey = new RestTemplate()
-            .getForObject(resourceServerProperties.getJwt().getKeyUri(), String.class, requestEntity);
+                .getForObject(resourceServerProperties.getJwt().getKeyUri(), String.class, requestEntity);
         try {
             JSONObject body = objectMapper.readValue(pubKey, JSONObject.class);
             log.info("Get Key From Authorization Server.");
@@ -121,7 +126,7 @@ public class DefaultResourceTokenConfig  {
      */
     public String encodeClient() {
         return "Basic " + Base64.getEncoder().encodeToString((resourceServerProperties.getClientId()
-            + ":" + resourceServerProperties.getClientSecret()).getBytes());
+                + ":" + resourceServerProperties.getClientSecret()).getBytes());
     }
 
 

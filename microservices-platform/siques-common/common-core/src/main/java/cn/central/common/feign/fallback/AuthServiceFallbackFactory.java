@@ -1,6 +1,6 @@
 package cn.central.common.feign.fallback;
 
-import cn.central.common.feign.AuthService;
+import cn.central.common.feign.UserInfoService;
 
 import cn.central.common.model.LoginAppUser;
 import cn.central.common.model.SysUser;
@@ -18,11 +18,10 @@ import java.util.Set;
  * @date 2019/1/18
  */
 @Slf4j
-public class AuthServiceFallbackFactory implements FallbackFactory<AuthService> {
+public class AuthServiceFallbackFactory implements FallbackFactory<UserInfoService> {
     @Override
-    public AuthService create(Throwable throwable) {
-        return new AuthService() {
-
+    public UserInfoService create(Throwable throwable) {
+        return new UserInfoService() {
 
 
             @Override

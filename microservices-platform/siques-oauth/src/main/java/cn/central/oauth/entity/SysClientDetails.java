@@ -29,16 +29,16 @@ import java.util.stream.Collectors;
  * 但是这里为了演示和 {@link  } 不同的方式，所以就选择实现这个接口了
  * 另一种方式是写一个方法将它转化为默认实现 {@link BaseClientDetails} 比较好一点并且简单很多
  */
- @Data
+@Data
 @TableName("sys_client_details")
 @ApiModel(description = "客户端信息")
 @EqualsAndHashCode()
-public class SysClientDetails  extends Model<SysClientDetails>   {
+public class SysClientDetails extends Model<SysClientDetails> {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "编号")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long id;
+    private String id;
 
     /**
      * client id

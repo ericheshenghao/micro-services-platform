@@ -25,13 +25,11 @@
 // @import "components/collector-animation.less";
 
 
-
-
 // Navbar
 // ---------------------------------------------------------------------------
 
 .top-nav-menu-btn { // modifies attributes in navbar.less
-  top:2px;
+  top: 2px;
   margin: 6px 6px 3px 22px;
 
   &:hover {
@@ -40,6 +38,7 @@
     }
   }
 }
+
 /***********************************
 raintank BOX
 ***********************************/
@@ -84,19 +83,30 @@ raintank BOX
   padding: 0px 30px;
 }
 
-.oneCol {display:none;}
-.twoCol {display:none;}
+.oneCol {
+  display: none;
+}
+
+.twoCol {
+  display: none;
+}
 
 
 @media screen and (max-width: 780px) {
-  .oneCol {display:block;}
+  .oneCol {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 781px) {
-  .twoCol {display:block;}
+  .twoCol {
+    display: block;
+  }
 }
 
-.clearBack {background-color:transparent;}
+.clearBack {
+  background-color: transparent;
+}
 
 .rt-modal-box-body {
   padding: 20px 0 20px 0;
@@ -109,8 +119,8 @@ ul.rt-modal-ul {
 }
 
 .no-padding {
-    padding: 0;
-  }
+  padding: 0;
+}
 
 .rt-box-footer {
   overflow: hidden;
@@ -118,12 +128,14 @@ ul.rt-modal-ul {
 
 .rt-box-header {
   padding: 10px;
-  font-size:16px;
+  font-size: 16px;
   border-bottom: 1px solid $body-bg;
   overflow: hidden;
+
   .tabs {
     float: left;
   }
+
   .nav {
     margin: 0;
   }
@@ -131,38 +143,45 @@ ul.rt-modal-ul {
 
 .rt-modal-header {
   padding: 30px 0px;
-  font-size:16px;
+  font-size: 16px;
   overflow: hidden;
+
   .tabs {
     float: left;
   }
+
   .nav {
     margin: 0;
   }
 }
 
-.public {color:$rt-blue;}
-.private {color:$gray-1;}
+.public {
+  color: $rt-blue;
+}
+
+.private {
+  color: $gray-1;
+}
 
 .collectorStatus,
-.endpointStatus  {
+.endpointStatus {
   margin-bottom: 50px;
 }
 
 .collectorCurrentStatus {
-  display:block;
+  display: block;
   padding: 20px;
 }
 
 .currentStatus {
-  position:relative;
-  display:block;
+  position: relative;
+  display: block;
   padding: 10px 15px;
   border-bottom: 1px solid $body-bg;
 
   .dashboard-icon {
-  color:$text-color;
-  margin-left:20px;
+    color: $text-color;
+    margin-left: 20px;
   }
 }
 
@@ -180,7 +199,7 @@ ul.rt-modal-ul {
 .collectorCurrentStatus .rt-event-success,
 .collectorCurrentStatus .rt-event-warning,
 .collectorCurrentStatus .rt-event-error {
-  display:inline-block;
+  display: inline-block;
   padding: 10px;
   border-radius: 50px;
   text-shadow: none;
@@ -198,43 +217,48 @@ ul.rt-modal-ul {
 }
 
 .statusEvents {
-  display:block;
-  margin-left:70px;
+  display: block;
+  margin-left: 70px;
 }
 
 .collectorCurrentStatus .statusEvents {
-  display:block;
-  margin-left:0;
-  margin-top:20px;
+  display: block;
+  margin-left: 0;
+  margin-top: 20px;
 }
 
 .event {
-  display:inline-block;
-  margin-bottom:0px;
-  margin-right:20px
-  }
+  display: inline-block;
+  margin-bottom: 0px;
+  margin-right: 20px
+}
 
-.event:last-child {margin-right:0;}
+.event:last-child {
+  margin-right: 0;
+}
 
 .event .rt-event-success,
 .event .rt-event-warning,
 .event .rt-event-error {
-  margin:0;
+  margin: 0;
 }
 
-.eventType {margin-left:5px;}
+.eventType {
+  margin-left: 5px;
+}
 
-.monitorState {}
+.monitorState {
+}
 
 .status, .check {
-  float:left;
-  margin-left:55px;
+  float: left;
+  margin-left: 55px;
 }
 
 .check {
-  width:25%;
-  min-width:130px;
-  margin-bottom:13px;
+  width: 25%;
+  min-width: 130px;
+  margin-bottom: 13px;
 }
 
 .frequency {
@@ -242,42 +266,46 @@ ul.rt-modal-ul {
 }
 
 .statusType {
-  float:left;
+  float: left;
   margin-right: 15px;
-  margin-bottom:8px;
+  margin-bottom: 8px;
   font-size: 1rem;
 }
 
-.checkType {display:block;}
+.checkType {
+  display: block;
+}
 
 .health {
   width: 40px;
   height: 40px;
 }
 
-.refresh {padding-top:15px;}
+.refresh {
+  padding-top: 15px;
+}
 
-.mainLink i, .mainLink i:visited{
+.mainLink i, .mainLink i:visited {
   color: $link-color;
   -webkit-text-fill-color: transparent;
   background: -webkit-linear-gradient(top left, $link-color 0%, #13b2d4 100%) repeat;
   background: -o-linear-gradient(top left, $link-color 0%, $rt-blue 100%) repeat;
   -webkit-background-clip: text;
-  text-decoration:none;
+  text-decoration: none;
   transition: 0.15s;
 }
 
 .mainLink i:hover, .mainLink i:active {
   color: $link-hover-color;
   -webkit-text-fill-color: $link-hover-color;
-  text-decoration:none;
+  text-decoration: none;
   transition: 0.15s;
 }
 
 .tag-icon {
   font-size: 14px;
   vertical-align: text-bottom;
-  margin-left:5px;
+  margin-left: 5px;
 }
 
 /***********************************
@@ -285,37 +313,55 @@ raintank TYPE
 ***********************************/
 
 .checkType, .eventType {
-  font-size:16px;
-  font-weight:600;
-  color:$text-color;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-color;
 }
 
 .status {
-  font-size:1rem;
-  font-weight:600;
-  .online, .warn, .critical, .nodata, .none {font-weight:900;}
+  font-size: 1rem;
+  font-weight: 600;
+
+  .online, .warn, .critical, .nodata, .none {
+    font-weight: 900;
+  }
 }
 
-.checkStatus {font-size: 1rem;}
+.checkStatus {
+  font-size: 1rem;
+}
 
-.checkTime {color:$text-color-weak; font-size: 1rem;}
+.checkTime {
+  color: $text-color-weak;
+  font-size: 1rem;
+}
 
 .no-endpoints {
-    font-size:800%;
-    color:$link-color;
-    opacity: 0.15;
-    display: block;
-    margin-bottom: 50px;
-  }
+  font-size: 800%;
+  color: $link-color;
+  opacity: 0.15;
+  display: block;
+  margin-bottom: 50px;
+}
 
-.jumbo {font-size: 150%; font-weight: 600;}
+.jumbo {
+  font-size: 150%;
+  font-weight: 600;
+}
 
-.frequency {color:$text-color; font-size: 1rem;}
-.statusMsg, .freqMsg {font-size:14px; font-weight:400;}
+.frequency {
+  color: $text-color;
+  font-size: 1rem;
+}
+
+.statusMsg, .freqMsg {
+  font-size: 14px;
+  font-weight: 400;
+}
 
 .supplemental-copy {
-    color:$text-color;
-  }
+  color: $text-color;
+}
 
 .online {
   color: $online;
@@ -338,9 +384,11 @@ raintank TYPE
 .disabled, .none {
   color: $text-color-weak;
   font-weight: 400;
+
   &:hover {
-     color: $link-hover-color;
+    color: $link-hover-color;
   }
+
   a {
     color: $text-color-weak;
     font-weight: 400;
@@ -360,13 +408,17 @@ raintank TYPE
 }
 
 
-
 /***********************************
 raintank POSITIONING
 ***********************************/
 
-.msg {display:inline;}
-.msg span {font-weight:600;}
+.msg {
+  display: inline;
+}
+
+.msg span {
+  font-weight: 600;
+}
 
 .nudgeDown {
   position: relative;
@@ -374,12 +426,12 @@ raintank POSITIONING
 }
 
 .icon {
-  vertical-align:middle;
+  vertical-align: middle;
 }
 
 .collector_icon {
   vertical-align: 0;
-  padding-left:3px;
+  padding-left: 3px;
 }
 
 .rt-event {
@@ -396,8 +448,8 @@ raintank POSITIONING
 
 .statusDetail .rt-event-success,
 .statusDetail .rt-event-warning,
-.statusDetail .rt-event-error{
-  display:inline-block;
+.statusDetail .rt-event-error {
+  display: inline-block;
   padding: 15px 10px;
   border-radius: 50px;
   text-shadow: none;
@@ -433,12 +485,12 @@ raintank POSITIONING
 .dashboard-icon {
   transition: all 0.1s ease 0s;
   vertical-align: sub;
-  font-size:20px;
-  color:$text-color;
+  font-size: 20px;
+  color: $text-color;
 }
 
 .dashboard-icon:hover {
-    color: darken($text-color, 10%); // This is a hack. I want to control the svg color on hover eventually. (MST) DONE (TRW)
+  color: darken($text-color, 10%); // This is a hack. I want to control the svg color on hover eventually. (MST) DONE (TRW)
 }
 
 .filter-icon {
@@ -465,58 +517,74 @@ raintank POSITIONING
 }
 
 .rt-list-status-up {
-    @extend .rt-list-status;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $online;
+  @extend .rt-list-status;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $online;
+
   &:link, &:visited {
     @extend .rt-list-status;
     font-size: 20px;
     font-weight: 600;
     color: $online;
-    &:hover {color: lighten($online, 10%);}
+
+    &:hover {
+      color: lighten($online, 10%);
+    }
   }
 }
 
 .rt-list-status-warning {
-    @extend .rt-list-status;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $warn;
+  @extend .rt-list-status;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $warn;
+
   &:link, &:visited {
     @extend .rt-list-status;
     font-size: 20px;
     font-weight: 600;
     color: $warn;
-    &:hover {color: lighten($warn, 10%);}
+
+    &:hover {
+      color: lighten($warn, 10%);
+    }
   }
 }
 
 .rt-list-status-down {
-    @extend .rt-list-status;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $critical;
+  @extend .rt-list-status;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $critical;
+
   &:link, &:visited {
     @extend .rt-list-status;
     font-size: 20px;
     font-weight: 600;
     color: $critical;
-    &:hover {color: lighten($critical, 10%);}
+
+    &:hover {
+      color: lighten($critical, 10%);
+    }
   }
 }
 
 .rt-list-status-disabled {
-    @extend .rt-list-status;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $text-color;
+  @extend .rt-list-status;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-color;
+
   &:link, &:visited {
     @extend .rt-list-status;
     font-size: 20px;
     font-weight: 600;
     color: $text-color;
-    &:hover {color: lighten($text-color, 10%);}
+
+    &:hover {
+      color: lighten($text-color, 10%);
+    }
   }
 }
 
@@ -526,6 +594,7 @@ raintank POSITIONING
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
+
   &:hover {
     color: lighten($text-color, 10%);
   }
@@ -551,13 +620,16 @@ raintank POSITIONING
 }
 
 .rt-list-item-title {
-    font-size: 15px;
-    a:link {
-      color: $link-color;
-    }
-    a:hover {
-     color: $link-hover-color;
-    }
+  font-size: 15px;
+
+  a:link {
+    color: $link-color;
+  }
+
+  a:hover {
+    color: $link-hover-color;
+  }
+
   margin: 10px;
 }
 
@@ -565,9 +637,11 @@ raintank POSITIONING
   overflow: visible;
   padding: 10px 5px;
   background-color: $body-bg;
+
   .tabs {
     float: left;
   }
+
   .nav {
     margin: 0;
   }
@@ -576,14 +650,14 @@ raintank POSITIONING
 
 // Form Additions
 
-.ng-hide-add         {
-  -webkit-animation:1.5s ease;
-  animation:1.5s ease;
+.ng-hide-add {
+  -webkit-animation: 1.5s ease;
+  animation: 1.5s ease;
 }
 
-.ng-hide-remove      {
-  -webkit-animation:1.5s ease;
-  animation:1.5s ease;
+.ng-hide-remove {
+  -webkit-animation: 1.5s ease;
+  animation: 1.5s ease;
 }
 
 .rt-form-extra-margin {
@@ -614,6 +688,7 @@ raintank POSITIONING
   font-weight: 700;
   font-size: .85em;
 }
+
 .rt-list-collector-status-offline {
   color: $text-color;
   font-weight: 700;
@@ -632,33 +707,35 @@ raintank POSITIONING
   margin-bottom: 15px;
 }
 
-.rt-advanced-options{
+.rt-advanced-options {
   margin: 10px 0 0 0;
-  display:block;
+  display: block;
   cursor: pointer;
   color: $rt-blue;
 }
-.rt-advanced-options:hover{
- color: $text-color;
+
+.rt-advanced-options:hover {
+  color: $text-color;
 }
 
-.rt-advanced-options + input{
-  display:none;
+.rt-advanced-options + input {
+  display: none;
 
 }
-.rt-advanced-options + input + *{
-  display:none;
+
+.rt-advanced-options + input + * {
+  display: none;
 }
 
-.rt-advanced-options+ input:checked + *{
-  display:block;
+.rt-advanced-options + input:checked + * {
+  display: block;
 }
 
 // raintank form elements
 
 .rt-radio-custom {
-    opacity: 0;
-    position: absolute;
+  opacity: 0;
+  position: absolute;
 }
 
 .rt-radio-layout {
@@ -666,17 +743,17 @@ raintank POSITIONING
 }
 
 .rt-radio-custom, .rt-radio-jumbo-label, .rt-radio-body-label {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 5px;
-    cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .rt-radio-jumbo-label {
-    position: relative;
-    color: $text-color;
-    font-size: 40px;
-    font-weight: 600;
+  position: relative;
+  color: $text-color;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 .rt-radio-jumbo-sub-label {
@@ -687,27 +764,27 @@ raintank POSITIONING
 }
 
 .rt-radio-custom + *:before {
-    content: '';
-    background: transparent;
-    border: 2px solid $text-color-weak;
-    display: inline-block;
-    vertical-align: middle;
-    width: 10px;
-    height: 10px;
-    padding: 2px;
-    margin-right: 10px;
-    text-align: center;
-    transition: all 50ms linear;
+  content: '';
+  background: transparent;
+  border: 2px solid $text-color-weak;
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  margin-right: 10px;
+  text-align: center;
+  transition: all 50ms linear;
 }
 
 
 .rt-radio-custom + *:before {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .rt-radio-custom:checked + *:before {
-    background: $rt-blue;
-    box-shadow: inset 0px 0px 0px 3px $body-bg;
+  background: $rt-blue;
+  box-shadow: inset 0px 0px 0px 3px $body-bg;
 }
 
 // Hiding class for screen readers
@@ -719,17 +796,17 @@ raintank POSITIONING
 }
 
 .gf-form--right-margin {
- margin-right: $spacer-x;
+  margin-right: $spacer-x;
 }
 
 .rt-exclamation-probe--container {
   background: $card-background;
-  padding:15px;
-  max-width:555px;
+  padding: 15px;
+  max-width: 555px;
 }
 
 .rt-exclamation-probe {
-  font-size:25px;
-  vertical-align:sub;
-  margin-right:5px;
+  font-size: 25px;
+  vertical-align: sub;
+  margin-right: 5px;
 }

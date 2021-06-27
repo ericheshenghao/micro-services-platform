@@ -15,11 +15,12 @@ import reactor.core.publisher.Mono;
 
 /**
  * 分布式链路追踪ID向下游传递
+ *
  * @author : heshenghao
  * @date : 17:38 2020/11/22
  */
 @Component
-public class TraceFilter implements GlobalFilter , Ordered {
+public class TraceFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private TraceProperties traceProperties;
@@ -28,11 +29,11 @@ public class TraceFilter implements GlobalFilter , Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 初始化追踪id
-        if(traceProperties.getEnable()){
+        if (traceProperties.getEnable()) {
             // 生成UUID
             String traceId = IdUtil.fastSimpleUUID();
             //通过 MDC进行传递
-            MDC.put(CommonConstant.LOG_TRACE_ID,traceId);
+            MDC.put(CommonConstant.LOG_TRACE_ID, traceId);
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(CommonConstant.TRACE_ID_HEADER, traceId))
                     .build();

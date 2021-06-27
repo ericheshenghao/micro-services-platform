@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  * 索引管理
- *
  */
 @Slf4j
 @RestController

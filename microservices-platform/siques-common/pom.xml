@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
-<!--        通用数据库-->
+        <!--        通用数据库-->
         <module>siques-db-spring-boot-starter</module>
         <module>common-core</module>
         <module>siques-log-spring-boot-starter</module>

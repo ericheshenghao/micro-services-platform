@@ -38,6 +38,7 @@ import java.util.*;
 
 /**
  * 鉴权服务器Token相关配置
+ *
  * @author : heshenghao
  * @date : 19:54 2020/11/13
  */
@@ -67,7 +68,7 @@ public class AuthorizationTokenConfig {
      * 用户查询服务
      */
     @Autowired
-    private SysUserService  userDetailService;
+    private SysUserService userDetailService;
 
     @Autowired
     private List<TokenEnhancer> enhancers;
@@ -86,7 +87,6 @@ public class AuthorizationTokenConfig {
     private TokenGranter tokenGranter;
 
 
-
     private boolean reuseRefreshToken = true;
 
     @Autowired
@@ -99,10 +99,9 @@ public class AuthorizationTokenConfig {
 
 
     /**
-     *  约定一个请求头，携带加密的后端服务的客户端Id与客户端密钥,前后端分离的前端与后端依然还是要看成一个整体
-     *     如果未查询到该请求头，可以旁定未非法访问，直接拒绝
+     * 约定一个请求头，携带加密的后端服务的客户端Id与客户端密钥,前后端分离的前端与后端依然还是要看成一个整体
+     * 如果未查询到该请求头，可以旁定未非法访问，直接拒绝
      */
-
 
 
     public TokenEnhancer tokenEnhancer() {
@@ -115,7 +114,7 @@ public class AuthorizationTokenConfig {
             try {
                 // 设置tenant提供给前端，前端发起请求时携带该id访问服务，
                 // 服务通过 tenantFilter过滤并解密该ID来对资源进行隔离
-                additionalInfo.put("x_tenant_id", AESUtil.aesCbcPkcs5PaddingEncrypt(authentication.getOAuth2Request().getClientId(),CommonConstant.AESKEY,CommonConstant.AESIV));
+                additionalInfo.put("x_tenant_id", AESUtil.aesCbcPkcs5PaddingEncrypt(authentication.getOAuth2Request().getClientId(), CommonConstant.AESKEY, CommonConstant.AESIV));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -130,16 +129,18 @@ public class AuthorizationTokenConfig {
 
     /**
      * 校验授权模式
+     *
      * @return
      */
     @Bean
-    public TokenGranter tokenGranter(){
-        if(tokenGranter == null){
-            tokenGranter= new TokenGranter() {
+    public TokenGranter tokenGranter() {
+        if (tokenGranter == null) {
+            tokenGranter = new TokenGranter() {
                 private CompositeTokenGranter delegate;
+
                 @Override
                 public OAuth2AccessToken grant(String grantType, TokenRequest tokenRequest) {
-                    if(delegate==null){
+                    if (delegate == null) {
                         delegate = new CompositeTokenGranter(getAllTokenGranters());
                     }
                     return delegate.grant(grantType, tokenRequest);
@@ -150,9 +151,10 @@ public class AuthorizationTokenConfig {
     }
 
     @Bean
-    public OAuth2RequestFactory requestFactory(){
+    public OAuth2RequestFactory requestFactory() {
         return new DefaultOAuth2RequestFactory(clientDetailsService);
     }
+
     /**
      * 所有授权模式：默认的5种模式 + 自定义的模式
      */
@@ -180,6 +182,7 @@ public class AuthorizationTokenConfig {
 
     /**
      * 创建默认的token生成服务
+     *
      * @return
      */
     private DefaultTokenServices createDefaultTokenServices() {
@@ -222,7 +225,6 @@ public class AuthorizationTokenConfig {
         }
         return tokenGranters;
     }
-
 
 
 }

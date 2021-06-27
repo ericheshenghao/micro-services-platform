@@ -55,7 +55,7 @@ canal.conf:
     rabbitmq.password: heshenghao
     rabbitmq.resource.ownerId:
   canalAdapters:
-    - instance: canal-test # canal instance Name or mq topic name
+    - instance: siques-admin-user # canal instance Name or mq topic name
       groups:
         - groupId: g1
           outerAdapters:
@@ -66,7 +66,7 @@ canal.conf:
                 mode: rest # or rest
                 security.auth: elastic:heshenghao #  only used for rest mode
                 cluster.name: docker-cluster
-    - instance: route2 # canal instance Name or mq topic name
+    - instance: siques-doc # canal instance Name or mq topic name
       groups:
         - groupId: g1
           outerAdapters:

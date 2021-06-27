@@ -15,9 +15,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
-
- * @package:   cn.central.controller
- * @description: 
+ * @package: cn.central.controller
+ * @description:
  * @author: Shenghao.He
  * @date: Created in 2020-11-18 22:12:02
  * @copyright: Copyright (c) 2020
@@ -35,10 +34,11 @@ public class SysLoggerController {
 
 
     /**
-   * 分页查询
-   * @param page
-   * @return
-   */
+     * 分页查询
+     *
+     * @param page
+     * @return
+     */
     @PostMapping("findPage")
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PreAuthorize("hasAuthority('sys:logger:view')")
@@ -50,6 +50,7 @@ public class SysLoggerController {
 
     /**
      * 通过id查询
+     *
      * @param id id
      * @return JsonData
      */
@@ -59,26 +60,28 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:view')")
-    public Result getSysLogger(@PathVariable("id") Integer id){
-      return  Result.succeed(sysLoggerService.getById(id));
+    public Result getSysLogger(@PathVariable("id") Integer id) {
+        return Result.succeed(sysLoggerService.getById(id));
     }
 
     /**
      * 新增
-     * @param sysLogger 
+     *
+     * @param sysLogger
      * @return JsonData
      */
     @PostMapping
     @ApiOperation(value = "新增", notes = "新增")
     @PreAuthorize("@el.check('sys:logger:add')")
-    public Result saveSysLogger(@RequestBody SysLogger sysLogger){
-      return  Result.succeed(sysLoggerService.save(sysLogger));
+    public Result saveSysLogger(@RequestBody SysLogger sysLogger) {
+        return Result.succeed(sysLoggerService.save(sysLogger));
     }
 
     /**
      * 更新
-     * @param id id
-     * @param sysLogger 
+     *
+     * @param id        id
+     * @param sysLogger
      * @return JsonData
      */
     @PutMapping("/{id}")
@@ -87,12 +90,13 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:edit')")
-    public Result updateSysLogger(@PathVariable Integer id, @RequestBody SysLogger sysLogger){
-      return  Result.succeed(sysLoggerService.updateById(sysLogger));
+    public Result updateSysLogger(@PathVariable Integer id, @RequestBody SysLogger sysLogger) {
+        return Result.succeed(sysLoggerService.updateById(sysLogger));
     }
 
     /**
      * 通过id删除
+     *
      * @param id id
      * @return JsonData
      */
@@ -102,8 +106,8 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:delete')")
-    public Result deleteSysLogger(@PathVariable Integer id){
-      return  Result.succeed(sysLoggerService.removeById(id));
+    public Result deleteSysLogger(@PathVariable Integer id) {
+        return Result.succeed(sysLoggerService.removeById(id));
     }
 
 }

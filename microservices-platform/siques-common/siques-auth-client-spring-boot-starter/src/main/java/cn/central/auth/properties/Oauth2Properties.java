@@ -17,7 +17,7 @@ public class Oauth2Properties {
     // TODO 字段的自动配置
     StoreType type;
 
-    enum StoreType{
+    public enum StoreType {
         /**
          * 客户端使用redis 作为token的转换方式
          */

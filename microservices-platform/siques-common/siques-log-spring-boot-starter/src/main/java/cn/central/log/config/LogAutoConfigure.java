@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 日志自动配置
  * 开启TraceProperties 与  AuditLogProperties 配置检测
+ *
  * @author he
  * @date 2019/8/13
  */
@@ -23,5 +24,6 @@ public class LogAutoConfigure {
     @Configuration
     @ConditionalOnClass(HikariConfig.class)
     @EnableConfigurationProperties(LogDbProperties.class)
-    public static class LogDbAutoConfigure {}
+    public static class LogDbAutoConfigure {
+    }
 }

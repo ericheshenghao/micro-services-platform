@@ -17,7 +17,7 @@
   -moz-transition: height 0.2s;
   -webkit-transition: height 0.2s;
 
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 25px;
@@ -27,32 +27,33 @@
   }
 }
 
-.rt-collapse-blurb-box{
+.rt-collapse-blurb-box {
   text-align: center;
   max-width: 500px;
 }
 
-.rt-collapse{
+.rt-collapse {
   margin: 10px 0;
-  display:block;
+  display: block;
   cursor: pointer;
   color: $rt-blue;
 }
 
-.rt-collapse-secondary{
+.rt-collapse-secondary {
   color: $text-color-strong;
   font-style: italic;
 }
 
 .rt-collapse:hover {
- color: $text-color;
+  color: $text-color;
 }
 
-.rt-collapse + input{
+.rt-collapse + input {
   // display:none;
   opacity: 0;
 }
-.rt-collapse + input + *{
+
+.rt-collapse + input + * {
   // display:none;
   opacity: 0;
 
@@ -60,7 +61,8 @@
   -moz-transition: opacity 100ms ease-in-out;
   -webkit-transition: opacity 100ms ease-in-out;
 }
-.rt-collapse+ input:checked + *{
+
+.rt-collapse + input:checked + * {
   // display:block;
   opacity: 1;
 }

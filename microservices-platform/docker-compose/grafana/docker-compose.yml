@@ -28,7 +28,7 @@ services:
     restart: always
       #    environment:
       # GF_SECURITY_ADMIN_PASSWORD: admin
-      # GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,raintank-worldping-app,grafana-piechart-panel
+    # GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,raintank-worldping-app,grafana-piechart-panel
     # GF_INSTALL_PLUGINS: grafana-piechart-panel
   node-exporter:
     image: prom/node-exporter

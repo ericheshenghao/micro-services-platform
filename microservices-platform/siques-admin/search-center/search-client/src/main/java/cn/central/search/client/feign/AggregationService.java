@@ -16,8 +16,9 @@ import java.util.Map;
 public interface AggregationService {
     /**
      * 查询文档列表
+     *
      * @param indexName 索引名
-     * @param routing es的路由
+     * @param routing   es的路由
      */
     @GetMapping(value = "/agg/requestStat/{indexName}/{routing}")
     Map<String, Object> requestStatAgg(@PathVariable("indexName") String indexName, @PathVariable("routing") String routing);

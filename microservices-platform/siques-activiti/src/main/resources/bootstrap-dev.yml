@@ -1,0 +1,20 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: activiti
+  cloud:
+    nacos:
+      discovery:
+        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        server-addr: http://nacos.siques.cn:8848
+        username: nacos
+        password: heshenghao
+        group: DEV_GROUP
+      config:
+        server-addr: http://nacos.siques.cn:8848
+        file-extension: yaml
+        username: nacos
+        password: heshenghao
+        namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
+        group: DEV_GROUP

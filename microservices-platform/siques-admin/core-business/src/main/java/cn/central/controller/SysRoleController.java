@@ -31,57 +31,58 @@ public class SysRoleController {
     private SysRoleMenuService sysRoleMenuService;
 
 
-    @ApiOperation(httpMethod="GET", value="查询所有角色")
+    @ApiOperation(httpMethod = "GET", value = "查询所有角色")
     @GetMapping()
     @PreAuthorize("@el.check('sys:role:view')")
-    public Result findAll(){
+    public Result findAll() {
         return Result.succeed(sysRoleService.list());
     }
 
 
-    @ApiOperation(httpMethod="POST", value="保存角色信息")
+    @ApiOperation(httpMethod = "POST", value = "保存角色信息")
     @PreAuthorize("@el.check('sys:role:edit')")
     @PostMapping()
-    public Result save(@RequestBody SysRole sysRole){
+    public Result save(@RequestBody SysRole sysRole) {
 
         return Result.succeed(sysRoleService.saveOrUpdate(sysRole));
 
     }
 
-    @ApiOperation(httpMethod="DELETE", value="删除角色，附带删除角色菜单关系")
+    @ApiOperation(httpMethod = "DELETE", value = "删除角色，附带删除角色菜单关系")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('sys:role:delete')")
     @Transactional
-    public Result delete(@PathVariable("id") Long id){
+    public Result delete(@PathVariable("id") Long id) {
         // 删除角色菜单关联关系
-        sysRoleMenuService.remove(new QueryWrapper<SysRoleMenu>().eq("role_id",id));
+        sysRoleMenuService.remove(new QueryWrapper<SysRoleMenu>().eq("role_id", id));
         // 删除角色
         return Result.succeed(sysRoleService.removeById(id));
     }
 
 
-    @ApiOperation(httpMethod="GET", value="根据id查询角色菜单")
-    @GetMapping(value="/findRoleMenus/{id}")
+    @ApiOperation(httpMethod = "GET", value = "根据id查询角色菜单")
+    @GetMapping(value = "/findRoleMenus/{id}")
     @PreAuthorize("@el.check('sys:role:view')")
-    public Result  findRoleMenus(@PathVariable("id") Long id){
-        SysRole sysMenus= sysRoleService.findRoleMenus(id);
+    public Result findRoleMenus(@PathVariable("id") String id) {
+        SysRole sysMenus = sysRoleService.findRoleMenus(id);
         return Result.succeed(sysMenus);
     }
 
     /**
      * 修改用户菜单关系
+     *
      * @param
      * @return
      */
-    @ApiOperation(httpMethod="POST", value="修改角色菜单")
+    @ApiOperation(httpMethod = "POST", value = "修改角色菜单")
     @PreAuthorize("@el.check('sys:role:edit')")
-    @PostMapping(value="/saveRoleMenus/{id}")
-    public Result saveRoleMenus(@RequestBody() Set<String> menuSet, @PathVariable("id") Long roleId) {
+    @PostMapping(value = "/saveRoleMenus/{id}")
+    public Result saveRoleMenus(@RequestBody() Set<String> menuSet, @PathVariable("id") String roleId) {
 
         SysRole role = sysRoleService.getById(roleId);
 
-       // 修改角色的权限
-        return  Result.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(),roleId,menuSet));
+        // 修改角色的权限
+        return Result.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(), roleId, menuSet));
     }
 
 }

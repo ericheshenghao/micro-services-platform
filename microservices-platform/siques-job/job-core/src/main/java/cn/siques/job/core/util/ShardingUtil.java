@@ -34,11 +34,11 @@ public class ShardingUtil {
         }
     }
 
-    public static void setShardingVo(ShardingVO shardingVo){
+    public static void setShardingVo(ShardingVO shardingVo) {
         contextHolder.set(shardingVo);
     }
 
-    public static ShardingVO getShardingVo(){
+    public static ShardingVO getShardingVo() {
         return contextHolder.get();
     }
 

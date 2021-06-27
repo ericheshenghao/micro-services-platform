@@ -53,7 +53,7 @@ public class SysClientDetailsServiceImpl extends ServiceImpl<SysClientDetailsDao
     @Override
     public SysClientDetails findByClientId(String clientId) {
         return SysClientDetailsDao.findFirstByClientId(clientId)
-            .orElseThrow(() -> new ClientRegistrationException("Loading client exception."));
+                .orElseThrow(() -> new ClientRegistrationException("Loading client exception."));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SysClientDetailsServiceImpl extends ServiceImpl<SysClientDetailsDao
     @Override
     public void updateClientDetails(SysClientDetails clientDetails) throws NoSuchClientException {
         SysClientDetails exist = SysClientDetailsDao.findFirstByClientId(clientDetails.getClientId())
-            .orElseThrow(() -> new NoSuchClientException("No such client!"));
+                .orElseThrow(() -> new NoSuchClientException("No such client!"));
         clientDetails.setClientSecret(exist.getClientSecret());
         SysClientDetailsDao.insert(clientDetails);
     }
@@ -76,7 +76,7 @@ public class SysClientDetailsServiceImpl extends ServiceImpl<SysClientDetailsDao
     @Override
     public void updateClientSecret(String clientId, String clientSecret) throws NoSuchClientException {
         SysClientDetails exist = SysClientDetailsDao.findFirstByClientId(clientId)
-            .orElseThrow(() -> new NoSuchClientException("No such client!"));
+                .orElseThrow(() -> new NoSuchClientException("No such client!"));
         exist.setClientSecret(passwordEncoder.encode(clientSecret));
         SysClientDetailsDao.insert(exist);
     }

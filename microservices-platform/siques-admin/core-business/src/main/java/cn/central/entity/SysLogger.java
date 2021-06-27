@@ -1,5 +1,6 @@
 package cn.central.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -10,11 +11,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
- * @package:  cn.siques.mangosound.entity
- * @description: 
+ * @package: cn.siques.mangosound.entity
+ * @description:
  * @author: Shenghao.He
  * @date: Created in 2020-11-18 22:12:02
  * @copyright: Copyright (c) 2020
@@ -23,21 +24,20 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @TableName("sys_logger")
-@ApiModel(description = "")
+@ApiModel(description = "日志记录实体")
 @EqualsAndHashCode(callSuper = true)
 public class SysLogger extends Model<SysLogger> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     *
      */
-    @TableId
-    @ApiModelProperty(value = "")
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty(value = "编号")
+    private Long id;
     /**
      * 应用名
      */
-    @ApiModelProperty(value = "应用名")
     private String applicationName;
     /**
      * 类名

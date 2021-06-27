@@ -8,7 +8,7 @@
   align-content: center;
 }
 
-.inline-header{
+.inline-header {
   display: inline;
 }
 
@@ -36,6 +36,7 @@
 
 .wp-config-box--hit-area {
   cursor: pointer;
+
   &:hover {
   }
 }
@@ -115,14 +116,16 @@
 }
 
 @keyframes TextAppear {
-    0% {
-        display: none;
-        opacity: 0;
-    }
-    100% {
-        display: block;
-        opacity: 1;
-    };
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+
+;
 }
 
 .wp-cursor--wait {
@@ -136,15 +139,15 @@
 
 // worldSpin Animation
 .rt-spin-dot {
-    background-image: url("/public/plugins/raintank-worldping-app/img/worldping_dot.svg");
-    opacity: 1;
-    width: 21px;
-    height: 21px;
-    margin: 0 auto;
-    position: absolute;
-    top: 47px;
-    left: 47px;
-    transform: translateX(75px);
+  background-image: url("/public/plugins/raintank-worldping-app/img/worldping_dot.svg");
+  opacity: 1;
+  width: 21px;
+  height: 21px;
+  margin: 0 auto;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  transform: translateX(75px);
 }
 
 .rt-spin-dot--10s {
@@ -164,39 +167,45 @@
 }
 
 .rt-world {
-    background-image: url("/public/plugins/raintank-worldping-app/img/worldping_map.svg");
-    background-repeat: repeat;
-    background-position: 0 -60px;
-    opacity: 1;
-    width: 120px;
-    height: 120px;
-    margin: $spacer*3 0;
-    position: relative;
-    border-radius: 50%;
-    border: 2px solid #666766;
+  background-image: url("/public/plugins/raintank-worldping-app/img/worldping_map.svg");
+  background-repeat: repeat;
+  background-position: 0 -60px;
+  opacity: 1;
+  width: 120px;
+  height: 120px;
+  margin: $spacer*3 0;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #666766;
 
-    transition: transform 200ms linear;
-    transform-style: preserve-3d;
-    animation: moveWorld 15s linear infinite;
+  transition: transform 200ms linear;
+  transform-style: preserve-3d;
+  animation: moveWorld 15s linear infinite;
 }
 
 @keyframes moveWorld {
-    0% {background-position: 0 -60px;}
-    100% {background-position: 300px -60px;}
+  0% {
+    background-position: 0 -60px;
+  }
+  100% {
+    background-position: 300px -60px;
+  }
 }
 
 @keyframes spinDot {
-    0% {
-        opacity: .5;
-        transform: rotate(-60deg) translateX(75px);
-    }
+  0% {
+    opacity: .5;
+    transform: rotate(-60deg) translateX(75px);
+  }
 
-    50% {
-        opacity: 1;
-    }
+  50% {
+    opacity: 1;
+  }
 
-    100% {
-        opacity: .5;
-        transform: rotate(300deg) translateX(75px);
-    };
+  100% {
+    opacity: .5;
+    transform: rotate(300deg) translateX(75px);
+  }
+
+;
 }

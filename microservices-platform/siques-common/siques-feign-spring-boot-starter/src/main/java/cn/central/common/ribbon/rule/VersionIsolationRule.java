@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * 根据实例版本号隔离规则
- *
+ * <p>
  * 实例获取规则顺序如下(不满足则走下一个规则)：
  * 1. 相同版本号的实例
  * 2. 无版本号的实例
@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  */
 public class VersionIsolationRule extends RoundRobinRule {
     private final static String KEY_DEFAULT = "default";
+
     /**
      * 优先根据版本号取实例
      */

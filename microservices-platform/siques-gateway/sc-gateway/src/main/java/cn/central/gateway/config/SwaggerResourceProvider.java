@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Component
 @Primary
-public class SwaggerResourceProvider  implements SwaggerResourcesProvider {
+public class SwaggerResourceProvider implements SwaggerResourcesProvider {
     public static final String API_URI = "/v2/api-docs";
     private final RouteLocator routeLocator;
     private final GatewayProperties gatewayProperties;
@@ -38,22 +38,22 @@ public class SwaggerResourceProvider  implements SwaggerResourcesProvider {
         gatewayProperties.getRoutes().stream().filter(routeDefinition -> routes.contains(routeDefinition.getId()))
                 .forEach(routeDefinition -> routeDefinition.getPredicates().stream()
                         .filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName())
-                                && predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX+"0").split("/").length<5)
+                                && predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").split("/").length < 5)
                         .forEach(predicateDefinition ->
                                 resources.add(swaggerResource(routeDefinition.getId(),
-                                predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
-                                        .replace("/**", API_URI),predicateDefinition))));
+                                        predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
+                                                .replace("/**", API_URI), predicateDefinition))));
         return resources;
     }
 
     private SwaggerResource swaggerResource(String name, String location, PredicateDefinition predicateDefinition) {
 
 
-            SwaggerResource swaggerResource = new SwaggerResource();
-            swaggerResource.setName(name);
-            swaggerResource.setLocation(location);
-            swaggerResource.setSwaggerVersion("2.0");
-            return swaggerResource;
+        SwaggerResource swaggerResource = new SwaggerResource();
+        swaggerResource.setName(name);
+        swaggerResource.setLocation(location);
+        swaggerResource.setSwaggerVersion("2.0");
+        return swaggerResource;
     }
 
 }

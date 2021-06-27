@@ -31,7 +31,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
         super.start();
     }
 
-    private void initJobHandlerRepository(ApplicationContext applicationContext){
+    private void initJobHandlerRepository(ApplicationContext applicationContext) {
         if (applicationContext == null) {
             return;
         }
@@ -39,9 +39,9 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
         // init job handler action
         Map<String, Object> serviceBeanMap = applicationContext.getBeansWithAnnotation(JobHandler.class);
 
-        if (serviceBeanMap!=null && serviceBeanMap.size()>0) {
+        if (serviceBeanMap != null && serviceBeanMap.size() > 0) {
             for (Object serviceBean : serviceBeanMap.values()) {
-                if (serviceBean instanceof IJobHandler){
+                if (serviceBean instanceof IJobHandler) {
                     String name = serviceBean.getClass().getAnnotation(JobHandler.class).value();
                     IJobHandler handler = (IJobHandler) serviceBean;
                     if (loadJobHandler(name) != null) {
@@ -55,10 +55,12 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
     // ---------------------- applicationContext ----------------------
     private static ApplicationContext applicationContext;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         XxlJobSpringExecutor.applicationContext = applicationContext;
     }
+
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }

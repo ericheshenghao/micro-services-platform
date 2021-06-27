@@ -13,7 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSearchClient
 @SpringBootApplication
 public class LogApp {
-	public static void main(String[] args) {
-		SpringApplication.run(LogApp.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LogApp.class, args);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * RestTemplate 配置
+ *
  * @author Administrator
  * @date 2017/11/17
  */

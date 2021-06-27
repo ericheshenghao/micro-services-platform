@@ -60,6 +60,7 @@ public class SearchBuilder {
 
     /**
      * 生成SearchBuilder实例
+     *
      * @param elasticsearchTemplate
      * @param indexName
      */
@@ -73,6 +74,7 @@ public class SearchBuilder {
 
     /**
      * 生成SearchBuilder实例
+     *
      * @param elasticsearchTemplate
      */
     public static SearchBuilder builder(ElasticsearchRestTemplate elasticsearchTemplate) {
@@ -85,6 +87,7 @@ public class SearchBuilder {
 
     /**
      * 设置索引名
+     *
      * @param indices 索引名数组
      */
     public SearchBuilder setIndices(String... indices) {
@@ -96,6 +99,7 @@ public class SearchBuilder {
 
     /**
      * 生成queryStringQuery查询
+     *
      * @param queryStr 查询关键字
      */
     public SearchBuilder setStringQuery(String queryStr) {
@@ -111,7 +115,8 @@ public class SearchBuilder {
 
     /**
      * 设置分页
-     * @param page 当前页数
+     *
+     * @param page  当前页数
      * @param limit 每页显示数
      */
     public SearchBuilder setPage(Integer page, Integer limit) {
@@ -121,8 +126,9 @@ public class SearchBuilder {
 
     /**
      * 设置分页
-     * @param page 当前页数
-     * @param limit 每页显示数
+     *
+     * @param page           当前页数
+     * @param limit          每页显示数
      * @param trackTotalHits 分页总数是否显示所有条数，默认只显示10000
      */
     public SearchBuilder setPage(Integer page, Integer limit, boolean trackTotalHits) {
@@ -139,6 +145,7 @@ public class SearchBuilder {
 
     /**
      * 增加排序
+     *
      * @param field 排序字段
      * @param order 顺序方向
      */
@@ -149,9 +156,17 @@ public class SearchBuilder {
         return this;
     }
 
+    public SearchBuilder test() {
+        searchBuilder.postFilter();
+
+        searchRequest.searchType();
+        return this;
+    }
+
     /**
      * 设置高亮
-     * @param preTags 高亮处理前缀
+     *
+     * @param preTags  高亮处理前缀
      * @param postTags 高亮处理后缀
      */
     public SearchBuilder setHighlight(String field, String preTags, String postTags) {
@@ -160,6 +175,7 @@ public class SearchBuilder {
             highlightBuilder.field(field)
                     .preTags(preTags)
                     .postTags(postTags);
+
             searchBuilder.highlighter(highlightBuilder);
         }
         return this;
@@ -167,6 +183,7 @@ public class SearchBuilder {
 
     /**
      * 设置是否需要高亮处理
+     *
      * @param isHighlighter 是否需要高亮处理
      */
     public SearchBuilder setIsHighlight(Boolean isHighlighter) {
@@ -179,6 +196,7 @@ public class SearchBuilder {
 
     /**
      * 设置查询路由
+     *
      * @param routing 路由数组
      */
     public SearchBuilder setRouting(String... routing) {
@@ -211,7 +229,8 @@ public class SearchBuilder {
 
     /**
      * 返回分页结果 PageResult<JSONObject>
-     * @param pageNum 当前页数
+     *
+     * @param pageNum  当前页数
      * @param pageSize 每页显示
      */
     public PageResult<JsonNode> getPage(Integer pageNum, Integer pageSize) throws IOException {
@@ -235,7 +254,7 @@ public class SearchBuilder {
         if (searchHits != null) {
             searchHits.forEach(item -> {
                 JsonNode jsonNode = JsonUtils.parse(item.getSourceAsString());
-                ObjectNode objectNode = (ObjectNode)jsonNode;
+                ObjectNode objectNode = (ObjectNode) jsonNode;
                 objectNode.put("id", item.getId());
 
                 Map<String, HighlightField> highlightFields = item.getHighlightFields();
@@ -250,7 +269,8 @@ public class SearchBuilder {
 
     /**
      * 组装高亮字符
-     * @param result 目标对象
+     *
+     * @param result          目标对象
      * @param highlightFields 高亮配置
      */
     private <T> void populateHighLightedFields(T result, Map<String, HighlightField> highlightFields) {
@@ -259,7 +279,7 @@ public class SearchBuilder {
                 String name = field.getName();
                 if (!name.endsWith(".keyword")) {
                     if (result instanceof ObjectNode) {
-                        ((ObjectNode)result).put(field.getName(), concat(field.fragments()));
+                        ((ObjectNode) result).put(field.getName(), concat(field.fragments()));
                     } else {
                         PropertyUtils.setProperty(result, field.getName(), concat(field.fragments()));
                     }
@@ -270,6 +290,7 @@ public class SearchBuilder {
             }
         }
     }
+
     /**
      * 拼凑数组为字符串
      */

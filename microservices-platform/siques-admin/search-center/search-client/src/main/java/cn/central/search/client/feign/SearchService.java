@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 /**
  *
  */
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface SearchService {
     /**
      * 查询文档列表
+     *
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      */

@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>cn.siques</groupId>
@@ -10,8 +10,8 @@
 
     <description>spring cloud gateway网关</description>
 
-  <artifactId>sc-gateway</artifactId>
-  <version>4.2.0</version>
+    <artifactId>sc-gateway</artifactId>
+    <version>4.2.0</version>
 
     <properties>
         <docker.repostory>registry.cn-hangzhou.aliyuncs.com</docker.repostory>
@@ -34,7 +34,7 @@
             <artifactId>siques-config</artifactId>
         </dependency>
 
-<!--###################################################################-->
+        <!--###################################################################-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -50,28 +50,28 @@
             <artifactId>UserAgentUtils</artifactId>
         </dependency>
 
-      <dependency>
-          <groupId>com.alibaba.csp</groupId>
-          <artifactId>sentinel-datasource-nacos</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
 
-      <dependency>
-          <groupId>org.springframework.cloud</groupId>
-          <artifactId>spring-cloud-starter-openfeign</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
-      <dependency>
-          <groupId>com.alibaba.cloud</groupId>
-          <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
 
-      <dependency>
-          <groupId>com.alibaba.csp</groupId>
-          <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+        </dependency>
 
 
-  </dependencies>
+    </dependencies>
 
     <build>
         <plugins>
@@ -90,65 +90,65 @@
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>com.spotify</groupId>-->
-<!--                <artifactId>docker-maven-plugin</artifactId>-->
-<!--                <version>1.0.0</version>-->
-<!--                <configuration>-->
+            <!--            <plugin>-->
+            <!--                <groupId>com.spotify</groupId>-->
+            <!--                <artifactId>docker-maven-plugin</artifactId>-->
+            <!--                <version>1.0.0</version>-->
+            <!--                <configuration>-->
 
-<!--                    <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
-<!--                    &lt;!&ndash;                    <dockerDirectory>${basedir}/docker</dockerDirectory> &lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;&ndash;&gt;-->
-<!--                    &lt;!&ndash; 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 &ndash;&gt;-->
-<!--                    <baseImage>java</baseImage>-->
-<!--                    <workdir>/ROOT</workdir>-->
-<!--                    <cmd>["java", "-version"]</cmd>-->
-<!--                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar","&#45;&#45;spring.profiles.active=prod"]</entryPoint>-->
+            <!--                    <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
+            <!--                    &lt;!&ndash;                    <dockerDirectory>${basedir}/docker</dockerDirectory> &lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;&ndash;&gt;-->
+            <!--                    &lt;!&ndash; 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 &ndash;&gt;-->
+            <!--                    <baseImage>java</baseImage>-->
+            <!--                    <workdir>/ROOT</workdir>-->
+            <!--                    <cmd>["java", "-version"]</cmd>-->
+            <!--                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar","&#45;&#45;spring.profiles.active=prod"]</entryPoint>-->
 
-<!--                    <resources>-->
-<!--                        <resource>-->
-<!--                            <targetPath>/ROOT</targetPath>-->
-<!--                            <directory>${project.build.directory}</directory>-->
-<!--                            <include>${project.build.finalName}.jar</include>-->
-<!--                        </resource>-->
-<!--                    </resources>-->
-<!--                    <serverId>docker-aliyun</serverId>-->
+            <!--                    <resources>-->
+            <!--                        <resource>-->
+            <!--                            <targetPath>/ROOT</targetPath>-->
+            <!--                            <directory>${project.build.directory}</directory>-->
+            <!--                            <include>${project.build.finalName}.jar</include>-->
+            <!--                        </resource>-->
+            <!--                    </resources>-->
+            <!--                    <serverId>docker-aliyun</serverId>-->
 
-<!--                    <registryUrl>${docker.repostory}</registryUrl>-->
-<!--                    <pushImage>true</pushImage>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>build-image</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>build</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash;                   <execution>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       <id>tag-image</id>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       <phase>package</phase>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       <goals>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           <goal>tag</goal>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       </goals>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       <configuration>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           <image>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}</image>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           <newName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</newName>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       </configuration>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                   </execution>&ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>push-image</id>-->
-<!--                        <phase>deploy</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>push</goal>-->
-<!--                        </goals>-->
+            <!--                    <registryUrl>${docker.repostory}</registryUrl>-->
+            <!--                    <pushImage>true</pushImage>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>build-image</id>-->
+            <!--                        <phase>package</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>build</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                    &lt;!&ndash;                   <execution>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       <id>tag-image</id>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       <phase>package</phase>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       <goals>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                           <goal>tag</goal>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       </goals>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       <configuration>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                           <image>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}</image>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                           <newName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</newName>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                       </configuration>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                   </execution>&ndash;&gt;-->
+            <!--                    <execution>-->
+            <!--                        <id>push-image</id>-->
+            <!--                        <phase>deploy</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>push</goal>-->
+            <!--                        </goals>-->
 
-<!--                        <configuration>-->
+            <!--                        <configuration>-->
 
-<!--                            <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--                            <imageName>registry.cn-hangzhou.aliyuncs.com/eric-heshenghao/${project.artifactId}:${project.version}</imageName>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
         </plugins>
     </build>

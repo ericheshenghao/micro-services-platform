@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Sentinel 限流后自定义异常
+ *
  * @author he
  * @Date 2020-03-17
  */
@@ -33,25 +34,25 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
         this.viewResolvers = viewResolvers;
         this.messageWriters = serverCodecConfigurer.getWriters();
     }
+
     /**
      * TODO 限系统流，待测试
+     *
      * @param response
      * @param exchange
      * @return
      */
-    private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange,String msg) {
+    private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange, String msg) {
         ServerHttpResponse resp = exchange.getResponse();
         resp.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         String json = "{\n" +
                 "    \"code\": 0, \n" +
                 "    \"data\": null, \n" +
-                "    \"msg\": \" "+ msg +"\"\n" +
+                "    \"msg\": \" " + msg + "\"\n" +
                 "}";
         DataBuffer buffer = resp.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
         return resp.writeWith(Mono.just(buffer));
     }
-
-
 
 
     @Override
@@ -60,20 +61,23 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
             return Mono.error(ex);
         }
         if (!BlockException.isBlockException(ex)) {
-            return  handleBlockedRequest(exchange,ex).flatMap(response -> writeResponse(response,exchange,"服务暂不可用"));
+            return handleBlockedRequest(exchange, ex).flatMap(response -> writeResponse(response, exchange, "服务暂不可用"));
         }
 
         return handleBlockedRequest(exchange, ex)
-                .flatMap(response -> writeResponse(response, exchange,"系统限流"));
+                .flatMap(response -> writeResponse(response, exchange, "系统限流"));
     }
+
     private Mono<ServerResponse> handleBlockedRequest(ServerWebExchange exchange, Throwable throwable) {
         return GatewayCallbackManager.getBlockHandler().handleRequest(exchange, throwable);
     }
+
     private final Supplier<ServerResponse.Context> contextSupplier = () -> new ServerResponse.Context() {
         @Override
         public List<HttpMessageWriter<?>> messageWriters() {
             return JsonSentinelGatewayBlockExceptionHandler.this.messageWriters;
         }
+
         @Override
         public List<ViewResolver> viewResolvers() {
             return JsonSentinelGatewayBlockExceptionHandler.this.viewResolvers;

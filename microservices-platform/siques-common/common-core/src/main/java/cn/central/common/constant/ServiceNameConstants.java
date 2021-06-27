@@ -1,8 +1,8 @@
 package cn.central.common.constant;
 
 /**
+ * * 服务名称常量
  *
- *  * 服务名称常量
  * @author : heshenghao
  * @date : 10:44 2020/11/19
  */

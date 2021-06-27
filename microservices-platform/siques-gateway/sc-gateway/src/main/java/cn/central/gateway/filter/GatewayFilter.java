@@ -11,14 +11,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class GatewayFilter implements GlobalFilter, Ordered {
     /**
-     *  负载均衡测试
+     * 负载均衡测试
      */
     @Value("${server.port}")
     String port;
-    
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
 
 
 //       String authorization = String.valueOf(exchange.getRequest().getHeaders().get("authorization"));

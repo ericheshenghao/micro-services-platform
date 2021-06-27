@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author zlt
+ * @author siques
  * @date 2019/5/1
  */
 @EnableDiscoveryClient

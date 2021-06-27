@@ -16,7 +16,7 @@
         <module>siques-demo</module>
         <module>siques-transaction</module>
         <module>siques-job</module>
-
+        <module>siques-activiti</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -68,9 +68,11 @@
         <docker.image.prefix>hub.zlt.com:8080/microservices-platform</docker.image.prefix>
         <docker.java.security.egd>-Djava.security.egd=file:/dev/./urandom</docker.java.security.egd>
         <docker.java.opts>-Xms128m -Xmx128m</docker.java.opts>
+        <activiti.version>7.0.0.SR1</activiti.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -99,7 +101,11 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
 
             <!-- 自定义 starter -->
             <dependency>
@@ -391,29 +397,28 @@
         </pluginManagement>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>aliyun-repos</id>-->
-<!--            <url>https://maven.aliyun.com/repository/public</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <distributionManagement>-->
-<!--        <repository>-->
-<!--            <id>releases</id>-->
-<!--            <name>releases Repository</name>-->
-<!--            <url>http://192.168.28.138:8081/repository/maven-releases/</url>-->
-<!--        </repository>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>aliyun-repos</id>-->
+    <!--            <url>https://maven.aliyun.com/repository/public</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
+    <!--    <distributionManagement>-->
+    <!--        <repository>-->
+    <!--            <id>releases</id>-->
+    <!--            <name>releases Repository</name>-->
+    <!--            <url>http://192.168.28.138:8081/repository/maven-releases/</url>-->
+    <!--        </repository>-->
 
-<!--        <snapshotRepository>-->
-<!--            <id>snapshots</id>-->
-<!--            <url>http://192.168.28.138:8081/repository/maven-snapshots/</url>-->
-<!--            <uniqueVersion>true</uniqueVersion>-->
-<!--        </snapshotRepository>-->
-<!--    </distributionManagement>-->
-
+    <!--        <snapshotRepository>-->
+    <!--            <id>snapshots</id>-->
+    <!--            <url>http://192.168.28.138:8081/repository/maven-snapshots/</url>-->
+    <!--            <uniqueVersion>true</uniqueVersion>-->
+    <!--        </snapshotRepository>-->
+    <!--    </distributionManagement>-->
 
 
     <licenses>

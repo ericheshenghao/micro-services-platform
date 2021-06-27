@@ -23,12 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 @Deprecated
-public class OauthLogoutHandler  implements LogoutHandler {
+public class OauthLogoutHandler implements LogoutHandler {
     @Resource
     TokenStore tokenStore;
 
     /**
      * security 提供的退出登录方式
+     *
      * @param request
      * @param response
      * @param authentication
@@ -40,7 +41,7 @@ public class OauthLogoutHandler  implements LogoutHandler {
         if (StrUtil.isEmpty(token)) {
             token = AuthUtils.extractToken(request);
         }
-        if(StrUtil.isNotEmpty(token)){
+        if (StrUtil.isNotEmpty(token)) {
             OAuth2AccessToken existingAccessToken = tokenStore.readAccessToken(token);
             OAuth2RefreshToken refreshToken;
             if (existingAccessToken != null) {

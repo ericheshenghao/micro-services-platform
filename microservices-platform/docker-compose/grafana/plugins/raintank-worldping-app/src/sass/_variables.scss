@@ -14,30 +14,30 @@ $spacer: 1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 $spacers: (
-  0: (
-    x: 0,
-    y: 0,
-  ),
-  1: (
-    x: $spacer-x,
-    y: $spacer-y,
-  ),
-  2: (
-    x: (
-      $spacer-x * 1.5,
-    ),
-    y: (
-      $spacer-y * 1.5,
-    ),
-  ),
-  3: (
-    x: (
-      $spacer-x * 3,
-    ),
-    y: (
-      $spacer-y * 3,
-    ),
-  ),
+        0: (
+                x: 0,
+                y: 0,
+        ),
+        1: (
+                x: $spacer-x,
+                y: $spacer-y,
+        ),
+        2: (
+                x: (
+                        $spacer-x * 1.5,
+                ),
+                y: (
+                        $spacer-y * 1.5,
+                ),
+        ),
+        3: (
+                x: (
+                        $spacer-x * 3,
+                ),
+                y: (
+                        $spacer-y * 3,
+                ),
+        ),
 ) !default;
 $border-width: 1px !default;
 
@@ -47,11 +47,11 @@ $border-width: 1px !default;
 // adapting to different screen sizes, for use in media queries.
 
 $grid-breakpoints: (
-  xs: 0,
-  sm: 544px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
+        xs: 0,
+        sm: 544px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
 ) !default;
 
 // Grid containers
@@ -59,10 +59,10 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 576px,
-  md: 720px,
-  lg: 940px,
-  xl: 1080px,
+        sm: 576px,
+        md: 720px,
+        lg: 940px,
+        xl: 1080px,
 ) !default;
 
 // Grid columns
@@ -224,31 +224,31 @@ $panel-padding: 0px $panel-horizontal-padding + 0px $panel-vertical-padding + 0p
 $tabs-padding: 10px 15px 9px;
 
 $external-services: (
-  github: (
-    bgColor: #464646,
-    borderColor: #393939,
-    icon: '',
-  ),
-  gitlab: (
-    bgColor: #fc6d26,
-    borderColor: #e24329,
-    icon: '',
-  ),
-  google: (
-    bgColor: #e84d3c,
-    borderColor: #b83e31,
-    icon: '',
-  ),
-  grafanacom: (
-    bgColor: #262628,
-    borderColor: #393939,
-    icon: '',
-  ),
-  oauth: (
-    bgColor: #262628,
-    borderColor: #393939,
-    icon: '',
-  ),
+        github: (
+                bgColor: #464646,
+                borderColor: #393939,
+                icon: '',
+        ),
+        gitlab: (
+                bgColor: #fc6d26,
+                borderColor: #e24329,
+                icon: '',
+        ),
+        google: (
+                bgColor: #e84d3c,
+                borderColor: #b83e31,
+                icon: '',
+        ),
+        grafanacom: (
+                bgColor: #262628,
+                borderColor: #393939,
+                icon: '',
+        ),
+        oauth: (
+                bgColor: #262628,
+                borderColor: #393939,
+                icon: '',
+        ),
 ) !default;
 
 :export {

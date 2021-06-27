@@ -11,7 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *  账号密码验证码模式 继承自 ResourceOwnerPasswordTokenGranter
+ * 账号密码验证码模式 继承自 ResourceOwnerPasswordTokenGranter
+ *
  * @author : heshenghao
  * @date : 20:27 2020/12/4
  */
@@ -44,10 +45,10 @@ public class PwdImgCodeGranter extends ResourceOwnerPasswordTokenGranter {
         String validCode = parameters.get("validCode");
         String username = parameters.get("username");
 
-        validateCodeService.validate(username,deviceId, validCode);
+        validateCodeService.validate(username, deviceId, validCode);
 
         // 父类方法校验用户名密码等参数
-        return  super.getOAuth2Authentication(client, tokenRequest);
+        return super.getOAuth2Authentication(client, tokenRequest);
     }
 
 

@@ -5,7 +5,6 @@ import lombok.Setter;
 
 /**
  * 聚合Item
- *
  */
 @Setter
 @Getter

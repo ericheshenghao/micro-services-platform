@@ -6,6 +6,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * 日志链路追踪配置
+ *
  * @author he
  */
 @Data

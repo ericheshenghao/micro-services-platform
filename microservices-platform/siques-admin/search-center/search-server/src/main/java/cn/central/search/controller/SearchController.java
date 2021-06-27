@@ -28,6 +28,7 @@ public class SearchController {
 
     /**
      * 查询文档列表
+     *
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      */

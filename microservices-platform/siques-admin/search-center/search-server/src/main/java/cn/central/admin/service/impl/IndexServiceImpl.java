@@ -79,16 +79,18 @@ public class IndexServiceImpl implements IIndexService {
         if (StrUtil.isNotEmpty(queryStr)) {
             indices = queryStr;
         }
+
         Response response = elasticsearchRestTemplate.getClient().getLowLevelClient()
                 .performRequest(new Request(
                         "GET",
-                        "/_cat/indices?h=health,status,index,docsCount,docsDeleted,storeSize&s=cds:desc&format=json&index="+StrUtil.nullToEmpty(indices)
+                        "/_cat/indices?h=health,status,index,docsCount,docsDeleted,storeSize&s=cds:desc&format=json&index=" + StrUtil.nullToEmpty(indices)
                 ));
 
         List<Map<String, String>> listOfIndicesFromEs = null;
         if (response != null) {
             String rawBody = EntityUtils.toString(response.getEntity());
-            TypeReference<List<Map<String, String>>> typeRef = new TypeReference<List<Map<String, String>>>() {};
+            TypeReference<List<Map<String, String>>> typeRef = new TypeReference<List<Map<String, String>>>() {
+            };
             listOfIndicesFromEs = mapper.readValue(rawBody, typeRef);
         }
         return Result.succeed(listOfIndicesFromEs);

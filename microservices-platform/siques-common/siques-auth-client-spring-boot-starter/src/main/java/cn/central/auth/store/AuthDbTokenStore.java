@@ -20,7 +20,7 @@ public class AuthDbTokenStore {
     private DataSource dataSource;
 
     @Bean
-    public TokenStore tokenStore(){
+    public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
     }
 }

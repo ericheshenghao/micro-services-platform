@@ -29,6 +29,7 @@ public class AuthUtils {
 
     /**
      * 获取requet(head/param)中的token
+     *
      * @param request
      * @return
      */
@@ -45,6 +46,7 @@ public class AuthUtils {
 
     /**
      * 解析head中的token
+     *
      * @param request
      * @return
      */

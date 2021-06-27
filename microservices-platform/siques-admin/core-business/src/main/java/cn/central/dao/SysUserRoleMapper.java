@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
 
-    @Delete({"delete from sys_user_role where user_id=#{id,jdbcType=BIGINT}"})
-    int deleteByUserId(Long id);
+    @Delete({"delete from sys_user_role where user_id=#{id,jdbcType=VARCHAR}"})
+    int deleteByUserId(String id);
 }

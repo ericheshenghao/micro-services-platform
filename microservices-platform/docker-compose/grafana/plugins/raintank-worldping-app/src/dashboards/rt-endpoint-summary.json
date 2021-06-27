@@ -12,7 +12,7 @@
   "hideControls": true,
   "sharedCrosshair": false,
   "rows": [
-   {
+    {
       "collapse": false,
       "editable": true,
       "height": "25px",
@@ -964,7 +964,7 @@
   },
   "templating": {
     "list": [
-     {
+      {
         "allFormat": "glob",
         "datasource": "raintank",
         "includeAll": false,

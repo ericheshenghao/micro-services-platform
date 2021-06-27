@@ -22,6 +22,7 @@ import java.io.IOException;
 
 /**
  * 异常的处理器
+ *
  * @author he
  */
 public class DefaultSecurityHandler {
@@ -37,7 +38,6 @@ public class DefaultSecurityHandler {
         return (request, response, authException) ->
                 ResponseUtil.responseFailed(objectMapper, response, authException.getMessage(), HttpStatus.UNAUTHORIZED.value());
     }
-
 
 
     @Bean
@@ -62,7 +62,7 @@ public class DefaultSecurityHandler {
                 try {
                     ResponseUtil.responseFailed(objectMapper, response, authException.getMessage(), HttpStatus.UNAUTHORIZED.value());
                 } catch (IOException e) {
-                     logger.debug(e.getMessage());
+                    logger.debug(e.getMessage());
                 }
             }
         };

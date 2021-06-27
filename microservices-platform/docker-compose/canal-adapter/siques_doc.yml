@@ -1,0 +1,11 @@
+dataSourceKey: DS2
+destination: siques-doc
+groupId: g1
+esMapping:
+  _index: nest_doc
+  _id: id
+  upsert: true
+  sql: "select id, title, body,type, created, updated
+        from doc"
+  etlCondition: "where updated >= '{0}'"
+  commitBatch: 3000

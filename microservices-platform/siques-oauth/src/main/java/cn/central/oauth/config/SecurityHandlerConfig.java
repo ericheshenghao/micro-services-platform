@@ -19,6 +19,7 @@ import java.io.IOException;
 
 /**
  * 统一响应返回格式
+ *
  * @author he
  */
 @Slf4j
@@ -27,6 +28,7 @@ public class SecurityHandlerConfig {
 
     /**
      * 包装所有错误类型返回
+     *
      * @return
      */
     @Bean

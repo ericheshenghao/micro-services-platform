@@ -11,14 +11,16 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * @author : heshenghao
  * @date : 15:59 2021/5/16
  */
-public class JacksonUtil  {
+public class JacksonUtil {
     private static Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
+
     public static ObjectMapper getInstance() {
         return objectMapper;
     }

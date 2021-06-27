@@ -1,14 +1,12 @@
 package cn.central.common.aspect;
 
 import cn.central.common.annotation.CheckRequestBody;
-import cn.central.common.model.Result;
 import cn.central.common.utils.ResponseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
@@ -37,11 +35,11 @@ public class CheckRequestBodyAspect {
         List<Object> responses = Arrays.stream(args).filter(o -> o instanceof HttpServletResponse).collect(Collectors.toList());
         for (Object obj : collect) {
             BindingResult result = (BindingResult) obj;
-            if(result.hasErrors()) {
+            if (result.hasErrors()) {
                 List<ObjectError> allErrors = result.getAllErrors();
                 String reduce = allErrors.stream().map(o -> o.getDefaultMessage()).collect(Collectors.joining());
                 HttpServletResponse res = (HttpServletResponse) responses.get(0);
-                ResponseUtil.responseFailed(objectMapper,res,reduce,0);
+                ResponseUtil.responseFailed(objectMapper, res, reduce, 0);
                 return null;
             }
         }

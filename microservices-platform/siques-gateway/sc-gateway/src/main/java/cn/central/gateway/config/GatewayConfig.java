@@ -17,7 +17,7 @@ import java.util.List;
  * @author he
  */
 @Configuration
-public class GatewayConfig{
+public class GatewayConfig {
 
     private final List<ViewResolver> views;
     private final ServerCodecConfigurer configurer;
@@ -30,6 +30,7 @@ public class GatewayConfig{
 
     /**
      * 配置SentinelGatewayBlockExceptionHandler，限流后异常处理
+     *
      * @return
      */
     @Bean
@@ -42,6 +43,7 @@ public class GatewayConfig{
 
     /**
      * Sentinel 过滤器
+     *
      * @return
      */
     @Bean
@@ -49,8 +51,6 @@ public class GatewayConfig{
     public GlobalFilter sentinelGatewayFilter() {
         return new SentinelGatewayFilter();
     }
-
-
 
 
 }

@@ -1,0 +1,13 @@
+dataSourceKey: defaultDS
+destination: siques-admin-user
+groupId: g1
+esMapping:
+  _index: sys_user
+  _id: id
+  upsert: true
+  sql: "select id, user_code userCode,nick_name nickName,email, user_name userName
+          , create_time createTime, last_update_time lastUpdateTime
+          , case when status = 0 then '否' when status = 1 then '正常' end  status
+        from sys_user"
+  etlCondition: "where last_update_time >= '{0}'"
+  commitBatch: 3000

@@ -17,7 +17,8 @@ import java.security.KeyPair;
 /**
  * 认证服务器使用Redis存取令牌，客户端同样使用redis读取令牌
  * 注意: 需要配置redis参数
- *matchIfMissing 如果不存在或未配置，则返回true，依然进行注入
+ * matchIfMissing 如果不存在或未配置，则返回true，依然进行注入
+ *
  * @date 2018/7/25 9:36
  */
 @Slf4j
@@ -27,14 +28,14 @@ public class AuthRedisTokenStore {
 
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
-        return  new RedisTokenStore(connectionFactory);
+        return new RedisTokenStore(connectionFactory);
     }
 
     //
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
 
-        final  JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         DefaultAccessTokenConverter accessTokenConverter = (DefaultAccessTokenConverter) converter.getAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(new CustomUserAuthenticationConverter());
 
@@ -47,9 +48,9 @@ public class AuthRedisTokenStore {
      * 密匙 keyPair
      * 用于生成jwt / jwk
      */
-    public KeyPair keyPair(){
+    public KeyPair keyPair() {
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
-                new ClassPathResource("oauth2.jks"),"123456".toCharArray()
+                new ClassPathResource("oauth2.jks"), "123456".toCharArray()
         );
         return keyStoreKeyFactory.getKeyPair("oauth2");
     }

@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author he
  * @date 2019/10/26
-
  */
 public class FeignHttpInterceptorConfig {
     protected List<String> requestHeaders = new ArrayList<>();
@@ -47,7 +46,7 @@ public class FeignHttpInterceptorConfig {
                 if (headerNames != null) {
                     String headerName;
                     String headerValue;
-                    while(headerNames.hasMoreElements()) {
+                    while (headerNames.hasMoreElements()) {
                         headerName = headerNames.nextElement();
                         if (requestHeaders.contains(headerName)) {
                             headerValue = request.getHeader(headerName);
@@ -70,6 +69,7 @@ public class FeignHttpInterceptorConfig {
 
     /**
      * 解析head中的token
+     *
      * @param request
      */
     private String extractHeaderToken(HttpServletRequest request) {

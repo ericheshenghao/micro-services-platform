@@ -23,6 +23,6 @@ public class AggregationController {
     @ApiOperation(value = "访问统计")
     @GetMapping(value = "/requestStat")
     public Map<String, Object> requestStatAgg() {
-        return queryService.requestStatAgg("point-log-*","request-statistics");
+        return queryService.requestStatAgg("point-log-*", "request-statistics");
     }
 }
