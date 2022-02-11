@@ -1,11 +1,11 @@
-dataSourceKey: DS2
+dataSourceKey: defaultDS
 destination: siques-doc
 groupId: g1
 esMapping:
-  _index: nest_doc
+  _index: siques_doc
   _id: id
   upsert: true
-  sql: "select id, title, body,type, created, updated
-        from doc"
-  etlCondition: "where updated >= '{0}'"
+  sql: "select id, title, body,type, created, updated, is_published as isPublished
+        from doc where is_published = 1 and status = 1 and type = 'doc' "
+  etlCondition: " and updated >= '{0}'"
   commitBatch: 3000

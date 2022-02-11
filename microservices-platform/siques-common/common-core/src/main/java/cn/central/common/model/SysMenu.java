@@ -30,8 +30,8 @@ public class SysMenu extends SuperEntity<SysMenu> {
 
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long parentId;
+
+    private String parentId;
 
 
     @ApiModelProperty(value = "父菜单集合")

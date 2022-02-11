@@ -22,6 +22,7 @@ import java.util.Map;
  * @date : 2021/6/25 18:14
  */
 @RestController
+@RequestMapping("/instance")
 public class ProcController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class ProcController {
      * @return
      * 我发起的，待审批
      */
-    @PostMapping("/instance")
+    @PostMapping()
     @CheckRequestBody
     public Result instanceList(@Valid  @RequestBody PageRequest<ProcInstance> req){
        Result result = auditService.getInstanceList(req.getParams(),req.getPageNum(),req.getPageSize());
@@ -46,7 +47,7 @@ public class ProcController {
      * @param id
      * @return
      */
-    @GetMapping("/instance/{id}")
+    @GetMapping("/{id}")
     public Result definitionList(@PathVariable String id){
        ProcInstance instanceDetail = auditService.findInstanceDetail(id);
         return Result.succeed(instanceDetail);
@@ -67,7 +68,7 @@ public class ProcController {
      * @param instance
      * @return
      */
-    @PostMapping("/instance/commit")
+    @PostMapping("/commit")
     public Result commit(@RequestBody ProcTaskInstance instance){
         String tenant = TenantContextHolder.getTenant();
         auditService.commit(instance,tenant);

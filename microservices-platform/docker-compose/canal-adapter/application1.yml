@@ -1,0 +1,40 @@
+server:
+  port: 8089
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+canal.conf:
+  mode: tcp #tcp kafka rocketMQ rabbitMQ
+  flatMessage: true
+  zookeeperHosts:
+  syncBatchSize: 1000
+  retries: 0
+  timeout:
+  accessKey:
+  secretKey:
+  srcDataSources:
+    defaultDS:
+      url: jdbc:mysql://139.198.34.81:3306/siques-doc?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: l1itdhjaoiqw32kwqe
+  consumerProperties:
+    # canal tcp consumer
+    canal.tcp.server.host: 139.198.34.81:11111
+    canal.tcp.zookeeper.hosts:
+    canal.tcp.batch.size: 500
+    canal.tcp.username:
+    canal.tcp.password:
+  canalAdapters:
+    - instance: siques-doc # canal instance Name or mq topic name
+      groups:
+        - groupId: g1
+          outerAdapters:
+            - name: logger
+            - name: es7
+              hosts: http://139.198.189.114:9200
+              properties:
+                mode: rest   # or rest
+                security.auth: elastic:heshenghao #  only used for rest mode
+                cluster.name: docker-cluster

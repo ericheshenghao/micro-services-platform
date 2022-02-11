@@ -12,7 +12,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
 
-import com.github.pagehelper.PageHelper;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class SysCodeGenServiceImpl implements SysCodeGenService {
     @Override
     public PageResult findPage(PageRequest page) {
         HikariDataSource dataSource = dbUtil.buildDb();
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+//        PageHelper.startPage(page.getPageNum(), page.getPageSize());
 
         Db db = new Db(dataSource);
         String paramSql = StrUtil.EMPTY;

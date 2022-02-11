@@ -35,9 +35,9 @@ spring:
     name: druidSource
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://106.54.247.224:3306/siques?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://mysql.siques.cn/siques-admin?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: l1itdhjaoiqw32kwqe$5asasd*a21
+    password: l1itdhjaoiqw32kwqe
     druid:
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -95,7 +95,7 @@ spring:
       password: l1itdhjaoiqw32kwqe$5asasd*a21
   #      资源服务器获取 redis 中 加密后的token，使用配置文件中配置的公钥进行解密获取 claim 进行校验，scope的作用？
   redis:
-    host: 139.198.176.14
+    host: redis.siques.cn
     port: 6379
     database: 1
     expiration: 1800

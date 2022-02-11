@@ -25,7 +25,6 @@ security:
       user-info-uri: http://localhost:8984/oauth/user
       scope: READ_WRITE
 spring:
-
   application:
     name: activiti
   activiti:

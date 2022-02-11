@@ -5,7 +5,6 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: non_null
-
 canal.conf:
   mode: rocketMQ #tcp kafka rocketMQ rabbitMQ
   flatMessage: true

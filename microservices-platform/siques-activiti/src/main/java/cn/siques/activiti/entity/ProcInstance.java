@@ -35,7 +35,7 @@ public class ProcInstance extends Model<ProcInstance> {
 //    private String departmentName;
     private Date timeOfEntry;
 
-    private String procCurrNodeUserId;
+    private String procCurrNodeUserCode;
     private String procCurrNodeUserName;
     private Date procApplyTime;
     private Date procEndTime;

@@ -86,8 +86,8 @@ public class AuditService {
             in.eq("process_key", instance.getProcessKey());
         }
 
-        if(ObjectUtils.isNotEmpty(instance.getProcCurrNodeUserId())){
-            in.like("proc_curr_node_user_id", instance.getProcCurrNodeUserId());
+        if(ObjectUtils.isNotEmpty(instance.getProcCurrNodeUserCode())){
+            in.like("proc_curr_node_user_code", instance.getProcCurrNodeUserCode());
         }
 
         if(ObjectUtils.isNotEmpty(instance.getProcessState())){
@@ -116,15 +116,23 @@ public class AuditService {
      * @param map
      */
     public void start(Map map) {
+
         //1.构造业务数据
         String userCode = (String) map.get("userCode");
+        ProcInstance is = procInstanceDao.selectOne(new QueryWrapper<ProcInstance>().eq("user_code", userCode));
+        // 有数据，且正在审核中，禁止重复申请
+        if(is != null && "1".equals(is.getProcessState())){
+            return;
+        }
+
         String processName = (String) map.get("processName");
         String processKey = (String) map.get("processKey");
-        SysUser sysUser = userInfoService.selectByUserCode(userCode);
+        SysUser sysUser = userInfoService.getUserInfoByToken();
         ProcInstance instance = new ProcInstance();
         BeanUtils.copyProperties(sysUser,instance);
 
         instance.setUserCode(userCode);
+        instance.setUsername(sysUser.getNickName());
         instance.setProcessId(new DefaultIdentifierGenerator().nextUUID("1"));
         instance.setProcApplyTime(new Date());
         instance.setProcessKey(processKey);
@@ -167,7 +175,7 @@ public class AuditService {
                 userCodes += currUser.getUserCode()+" ";
             }
             instance.setProcCurrNodeUserName(username);
-            instance.setProcCurrNodeUserId(userCodes);
+            instance.setProcCurrNodeUserCode(userCodes);
         }
         // 插入下一个节点的审批人
 
@@ -178,7 +186,7 @@ public class AuditService {
         pti.setHandleTime(new Date());
         pti.setHandleType("2");
         pti.setHandleUserCode(userCode);
-        pti.setShouldUserName(sysUser.getUserName());
+        pti.setShouldUserName(sysUser.getNickName());
         pti.setTaskKey(task.getTaskDefinitionKey());
         pti.setTaskName(task.getName());
         pti.setHandleOpinion("发起申请");
@@ -211,7 +219,7 @@ public class AuditService {
         String processId = taskInstance.getProcessId();
         ProcInstance instance = procInstanceDao.selectOne(new QueryWrapper<ProcInstance>().eq("process_id", processId));
         instance.setProcessState(taskInstance.getHandleType());
-        SysUser sysUser = userInfoService.selectByUserCode(taskInstance.getHandleUserCode());
+        SysUser sysUser = userInfoService.getUserInfoByToken();
         // 根据不同的操作，如果审核通过
         // 查询流程实例 根据自己的业务id查询流程实例
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
@@ -233,7 +241,7 @@ public class AuditService {
                     userCodes += currUser.getUserCode()+" ";
                 }
                 instance.setProcCurrNodeUserName(username);
-                instance.setProcCurrNodeUserId(userCodes);
+                instance.setProcCurrNodeUserCode(userCodes);
                 instance.setProcessState("1");
             }else{
                 instance.setProcessState("2");

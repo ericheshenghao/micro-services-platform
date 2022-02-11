@@ -28,7 +28,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         List<SysMenu> menus = findUserMenuByUserCode(userCode);
 
         for (SysMenu menu : menus) {
-            if (menu.getParentId() == null || menu.getParentId() == 0) {
+            if (menu.getParentId() == null || menu.getParentId().equals("0")) {
                 menu.setLevel(0);
                 if (!exists(sysMenus, menu)) {
                     sysMenus.add(menu);

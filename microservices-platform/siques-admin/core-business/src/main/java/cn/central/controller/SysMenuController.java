@@ -45,9 +45,9 @@ public class SysMenuController {
         if (parentArray.size() > 0 && !"".equals(parentArray.get(0))) {
             System.out.println(parentArray.get(0));
 
-            record.setParentId(Long.valueOf(parentArray.get(parentArray.size() - 1)));
+            record.setParentId(parentArray.get(parentArray.size() - 1));
         } else {
-            record.setParentId(0L);
+            record.setParentId("0");
         }
 
         StringBuilder builder = new StringBuilder();

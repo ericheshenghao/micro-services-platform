@@ -23,11 +23,10 @@ public interface UserInfoService {
      * feign rpc访问远程/user/{username}接口
      * 查询用户实体对象SysUser
      *
-     * @param userCode
      * @return
      */
-    @GetMapping(value = "/pri/user/{userCode}")
-    SysUser selectByUserCode(@PathVariable("userCode") String userCode);
+    @GetMapping(value = "/pri/user")
+    SysUser getUserInfoByToken();
 
 
     /**
@@ -49,19 +48,5 @@ public interface UserInfoService {
     @GetMapping(value = "/users-anon/login", params = "username")
     LoginAppUser findByUsername(@RequestParam("username") String username);
 
-    /**
-     * 通过手机号查询用户、角色信息
-     *
-     * @param mobile 手机号
-     */
-    @GetMapping(value = "/users-anon/mobile", params = "mobile")
-    LoginAppUser findByMobile(@RequestParam("mobile") String mobile);
 
-    /**
-     * 根据OpenId查询用户信息
-     *
-     * @param openId openId
-     */
-    @GetMapping(value = "/users-anon/openId", params = "openId")
-    LoginAppUser findByOpenId(@RequestParam("openId") String openId);
 }

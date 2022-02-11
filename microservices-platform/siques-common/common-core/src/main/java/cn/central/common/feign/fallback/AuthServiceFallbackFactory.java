@@ -25,8 +25,8 @@ public class AuthServiceFallbackFactory implements FallbackFactory<UserInfoServi
 
 
             @Override
-            public SysUser selectByUserCode(String userCode) {
-                log.error("通过用户code查询用户异常:{}", userCode, throwable);
+            public SysUser getUserInfoByToken() {
+                log.error("通过用户token查询用户异常:{}", throwable);
                 return new SysUser();
             }
 
@@ -42,17 +42,6 @@ public class AuthServiceFallbackFactory implements FallbackFactory<UserInfoServi
                 return new LoginAppUser();
             }
 
-            @Override
-            public LoginAppUser findByMobile(String mobile) {
-                log.error("通过手机号查询用户异常:{}", mobile, throwable);
-                return new LoginAppUser();
-            }
-
-            @Override
-            public LoginAppUser findByOpenId(String openId) {
-                log.error("通过openId查询用户异常:{}", openId, throwable);
-                return new LoginAppUser();
-            }
         };
     }
 }

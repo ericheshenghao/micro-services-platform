@@ -7,6 +7,7 @@ import cn.central.common.constant.AdminConstants;
 import cn.central.common.model.Result;
 import cn.central.common.model.SysUser;
 import cn.central.common.page.PageRequest;
+import cn.central.common.utils.SecurityUtils;
 import cn.central.log.annotation.AuditLog;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
@@ -50,26 +51,26 @@ public class SysUserController {
     private IQueryService queryService;
 
     /**
-     * 登录用户可查
+     * 携带token用户可查
      *
-     * @param sysUser
      * @return
      */
     @GetMapping("info")
-    public Result<SysUser> getUserInfo(@LoginUser(isFull = true) SysUser sysUser) {
+    public Result<SysUser> getUserInfo() {
+        String userCode = SecurityUtils.getUserCode();
+        SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code", userCode));
         sysUser.setPermissions(sysUserService.findPermission(sysUser.getUserCode()));
         return Result.succeed(sysUser);
     }
 
     /**
-     * 通过用户编码查询用户
-     *
-     * @param userCode
+     * feign查询携带token用户
      * @return
      */
-    @GetMapping("/{userCode}")
-    public SysUser getUserByUserCode(@PathVariable String userCode) {
-        return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code", userCode));
+    @GetMapping()
+    public SysUser getUserFromContext() {
+        String userCode = SecurityUtils.getUserCode();
+        return sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code",userCode));
     }
 
     /**
@@ -175,8 +176,8 @@ public class SysUserController {
     @ApiOperation(httpMethod = "GET", value = "根据用户code查询权限")
     @GetMapping("permissions/{userCode}")
     @Cacheable(value = "userPermission", key = "#userCode")
-    public Set<String> findPermissionsByUserCode(@PathVariable("userCode") String userCode) {
-        return sysUserService.findPermission(userCode);
+    public Set<String> findPermissionsByUserCode(@PathVariable("userCode") String userCode,@LoginUser SysUser user) {
+        return sysUserService.findPermission(user.getUserCode());
     }
 
 

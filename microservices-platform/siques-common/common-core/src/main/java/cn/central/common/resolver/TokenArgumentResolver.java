@@ -63,7 +63,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             String userCode = authentication.getName();
             // 发起远程调用查询
             if (isFull) {
-                result = userService.selectByUserCode(userCode);
+                result = userService.getUserInfoByToken();
             } else {
                 result.setUserCode(userCode);
             }

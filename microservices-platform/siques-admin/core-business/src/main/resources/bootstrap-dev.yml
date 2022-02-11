@@ -7,12 +7,12 @@ spring:
     nacos:
       discovery:
         namespace: 5642eb84-60d0-42f3-83d7-1fb41c965cf2
-        server-addr: http://nacos.siques.cn:8848
+        server-addr: http://nacos.siques.cn
         username: nacos
         password: heshenghao
         group: DEV_GROUP
       config:
-        server-addr: http://nacos.siques.cn:8848
+        server-addr: http://nacos.siques.cn
         file-extension: yaml
         username: nacos
         password: heshenghao

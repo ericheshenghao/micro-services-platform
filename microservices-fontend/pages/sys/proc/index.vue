@@ -3,7 +3,7 @@
     <a-button type="primary">全部</a-button>
     <a-button type="primary">我发起的</a-button>
     <a-button type="primary">待审批</a-button>
-        <TableCrud
+    <TableCrud
       :option="option"
       :loadDataFun="loadDataFun"
       :searchFun="searchFun"
@@ -17,24 +17,6 @@
         <span>
           {{ index + 1 }}
         </span>
-      </template>
-      <template v-slot:status="{ record }">
-        <a-switch
-          v-model="record.status"
-          checked-children="启用"
-          un-checked-children="禁用"
-          default-checked
-          @change="statusChange(record)"
-        />
-      </template>
-
-      <template v-slot:statusForm="{ record }">
-        <a-switch
-          v-model="record.status"
-          checked-children="启用"
-          un-checked-children="禁用"
-          default-checked
-        />
       </template>
 
       <template v-slot:roleIdsForm="{ record }">
@@ -61,18 +43,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import {
-  getUserList,
-  saveUser,
-  deleteById,
-  deleteBatch,
-  changeStatus,
-} from '@/api/user'
-import { getRoleList } from '@/api/role'
-import { generateUserCode } from '@/utils/util'
+import { changeStatus } from '@/api/user'
+import { getActivitiList } from '@/api/activiti'
+import { mapGetters, mapState } from 'vuex'
+@Component({
+  computed: mapGetters(['userInfo']),
+})
 @Component({})
 export default class SysProc extends Vue {
-  roleList = []
+  userInfo: any = {}
   option: any = {
     rowSelection: true,
     columns: [
@@ -85,71 +64,42 @@ export default class SysProc extends Vue {
         scopedSlots: { customRender: 'serial' },
       },
       {
-        title: '用户编码',
-        dataIndex: 'userCode',
+        title: '流程key',
+        dataIndex: 'processKey',
         addHide: true,
         editHide: true,
         search: true,
       },
       {
-        title: '登录账号',
-        dataIndex: 'userName',
+        title: '流程name',
+        dataIndex: 'processName',
         needTotal: true,
         // customRender: (text) => text + ' 次',
-        rules: [
-          {
-            required: true,
-            message: '请输入登录账号',
-            trigger: 'blur',
-          },
-        ],
-      },
-      {
-        title: '用户昵称',
-        dataIndex: 'nickName',
-        search: true,
-      },
-      {
-        title: '密码',
-        value: 123456,
-        dataIndex: 'password',
-        editHide: true,
-        ellipsis: true,
-        customRender: () => '****',
       },
 
       {
-        title: '用户手机',
-        ellipsis: true,
-        dataIndex: 'mobile',
-      },
-      {
-        title: '用户角色',
-        dataIndex: 'roleIds',
-        formSlots: true,
-        // scopedSlots: { customRender: 'roleId' },
-      },
-      {
-        title: '用户状态',
+        title: '流程状态',
         value: true,
-        dataIndex: 'status',
-        formSlots: true,
-        scopedSlots: { customRender: 'status' },
+        dataIndex: 'processState',
       },
       {
-        title: '创建时间',
-        dataIndex: 'createTime',
-        addHide: true,
-        editHide: true,
-        ellipsis: true,
+        title: '发起人编码',
+        dataIndex: 'userCode',
       },
       {
-        title: '更新时间',
-        dataIndex: 'lastUpdateTime',
-        addHide: true,
-        editHide: true,
-        ellipsis: true,
+        title: '发起人',
+        dataIndex: 'username',
       },
+      {
+        title: '审核人编码',
+        dataIndex: 'procCurrNodeUserCode',
+      },
+
+      {
+        title: '当前审核人',
+        dataIndex: 'procCurrNodeUserName',
+      },
+
       {
         title: '操作',
         fixed: 'right',
@@ -160,13 +110,11 @@ export default class SysProc extends Vue {
     ],
   }
 
-  async mounted() {
-    const res = await getRoleList()
-    this.roleList = res.data
-  }
+  async mounted() {}
 
   loadDataFun = (parameter: any) => {
-    return getUserList(parameter)
+    parameter.params = { userCode: this.userInfo.userCode }
+    return getActivitiList(parameter)
       .then((res: any) => {
         return {
           records: res.data.records,
@@ -181,7 +129,7 @@ export default class SysProc extends Vue {
   }
 
   searchFun = (pageInfo: any, parameter: any) => {
-    return getUserList({
+    return getActivitiList({
       pageSize: pageInfo.pageSize,
       params: parameter,
     })
@@ -199,36 +147,19 @@ export default class SysProc extends Vue {
       })
   }
 
-  statusChange(row: any) {
-    changeStatus(row).then(() => {
-      this.$message.success({
-        content: '修改用户状态',
-        duration: 2,
-      })
-    })
-  }
-
   async rowSave(row: any, done: any) {
-    // 生成随机用户编码
-    row.userCode = generateUserCode()
-    const res = await saveUser(row)
     done()
   }
 
   async rowUpdate(row: any, done: any) {
-    const res = await saveUser(row)
-
     done()
   }
 
   async rowDel(row: any, done: any) {
-    await deleteById(row.id)
     done()
   }
 
   async delBatch(row: any, done: any) {
-    const res = await deleteBatch(row)
-
     done()
   }
 
@@ -236,5 +167,4 @@ export default class SysProc extends Vue {
 }
 </script>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>

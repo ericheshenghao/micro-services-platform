@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients(basePackages = "cn.central")
-// 向下传递token
+// 向下传递token, 不注解403
 @EnableFeignInterceptor
 @MapperScan("cn.siques.activiti.dao")
 public class ActivitiApplication {
