@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Set;
 
 /**
+ * feign 远程接口
  * @author he
  */
 @FeignClient(name = ServiceNameConstants.AUTH_SERVICE, fallbackFactory = AuthServiceFallbackFactory.class, decode404 = true)
 public interface UserInfoService {
     /**
-     * pri 接口只允许内部调用
      * feign rpc访问远程/user/{username}接口
      * 查询用户实体对象SysUser
      *
      * @return
      */
-    @GetMapping(value = "/pri/user")
+    @GetMapping(value = "/user")
     SysUser getUserInfoByToken();
 
 
@@ -35,7 +35,7 @@ public interface UserInfoService {
      * @param userCode
      * @return
      */
-    @GetMapping(value = "/pri/user/permissions/{userCode}")
+    @GetMapping(value = "/user/permissions/{userCode}")
     Set<String> findPermissionsByUserCode(@PathVariable("userCode") String userCode);
 
 

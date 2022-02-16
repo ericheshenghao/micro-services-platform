@@ -20,12 +20,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class BannerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 
+
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
 
         if (!(applicationContext instanceof AnnotationConfigApplicationContext)) {
-            LogoBanner logoBanner = new LogoBanner(BannerInitializer.class, "/siques/logo.txt", "Welcome to siques", 1, 6, new Color[5], true);
-            CustomBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", CommonConstant.PROJECT_VERSION, 0, 1)
+            LogoBanner logoBanner = new LogoBanner(BannerInitializer.class, "/siques/logo.txt",
+                    "Welcome to siques", 1, 8, new Color[5], true);
+            CustomBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":",
+                            CommonConstant.PROJECT_VERSION, 0, 1)
                     , new Description("Github:", "https://github.com/ericheshenhao", 0, 1)
                     , new Description("Blog:", "https://www.siques.cn", 0, 1)
             );

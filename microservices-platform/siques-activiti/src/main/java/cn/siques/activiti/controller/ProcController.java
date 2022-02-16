@@ -2,7 +2,7 @@ package cn.siques.activiti.controller;
 
 import cn.central.common.annotation.CheckRequestBody;
 import cn.central.common.context.TenantContextHolder;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.page.PageRequest;
 import cn.siques.activiti.entity.ProcInstance;
 import cn.siques.activiti.entity.ProcTaskInstance;
@@ -37,9 +37,9 @@ public class ProcController {
      */
     @PostMapping()
     @CheckRequestBody
-    public Result instanceList(@Valid  @RequestBody PageRequest<ProcInstance> req){
-       Result result = auditService.getInstanceList(req.getParams(),req.getPageNum(),req.getPageSize());
-    return result;
+    public BasicResponse instanceList(@Valid  @RequestBody PageRequest<ProcInstance> req){
+       BasicResponse result = auditService.getInstanceList(req.getParams(),req.getPageNum(),req.getPageSize());
+        return result;
     }
 
     /**
@@ -48,18 +48,18 @@ public class ProcController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result definitionList(@PathVariable String id){
+    public BasicResponse definitionList(@PathVariable String id){
        ProcInstance instanceDetail = auditService.findInstanceDetail(id);
-        return Result.succeed(instanceDetail);
+        return BasicResponse.succeed(instanceDetail);
     }
 
     /**
      * 流程申请
      */
     @PostMapping("/start")
-    public Result start(@RequestBody Map map){
+    public BasicResponse start(@RequestBody Map map){
         auditService.start(map);
-        return Result.succeed("");
+        return BasicResponse.succeed("");
     }
 
 
@@ -69,10 +69,10 @@ public class ProcController {
      * @return
      */
     @PostMapping("/commit")
-    public Result commit(@RequestBody ProcTaskInstance instance){
+    public BasicResponse commit(@RequestBody ProcTaskInstance instance){
         String tenant = TenantContextHolder.getTenant();
         auditService.commit(instance,tenant);
-        return Result.succeed("");
+        return BasicResponse.succeed("");
     }
 
 

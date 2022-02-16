@@ -1,6 +1,6 @@
 package cn.central.search.service;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.search.model.LogicDelDto;
 import cn.central.search.model.SearchDto;
 
@@ -17,7 +17,7 @@ public interface IQueryService {
      * @param indexName 索引名
      * @param searchDto 搜索Dto
      */
-    Result strQuery(String indexName, SearchDto searchDto);
+    BasicResponse strQuery(String indexName, SearchDto searchDto);
 
     /**
      * 查询文档列表
@@ -26,7 +26,7 @@ public interface IQueryService {
      * @param searchDto   搜索Dto
      * @param logicDelDto 逻辑删除Dto
      */
-    Result strQuery(String indexName, SearchDto searchDto, LogicDelDto logicDelDto);
+    BasicResponse strQuery(String indexName, SearchDto searchDto, LogicDelDto logicDelDto);
 
     /**
      * 访问统计聚合查询

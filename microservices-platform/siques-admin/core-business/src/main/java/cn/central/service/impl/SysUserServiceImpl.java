@@ -3,7 +3,7 @@ package cn.central.service.impl;
 
 import cn.central.common.page.PageRequest;
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysMenu;
 import cn.central.common.model.SysUser;
 import cn.central.dao.SysMenuMapper;
@@ -71,7 +71,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
 
-    public Result findPage(PageRequest pageRequest, QueryWrapper<SysUser> queryWrapper) {
+    public BasicResponse findPage(PageRequest pageRequest, QueryWrapper<SysUser> queryWrapper) {
         IPage<SysUser> userPage = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         // 超级管理员不加入该集合
         List<SysUser> records = baseMapper
@@ -96,11 +96,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }
 
-        return Result.succeed(userPage);
+        return BasicResponse.succeed(userPage);
     }
 
     @Override
-    public Result findPage(PageRequest pageRequest) {
+    public BasicResponse findPage(PageRequest pageRequest) {
         SysUser user = (SysUser) pageRequest.getParams();
         Map<String, Object> stringObjectMap = user.toMap();
         if (stringObjectMap.size() != 0) {

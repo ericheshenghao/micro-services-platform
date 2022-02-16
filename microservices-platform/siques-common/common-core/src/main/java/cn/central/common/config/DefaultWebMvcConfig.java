@@ -29,9 +29,9 @@ public class DefaultWebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        //注入用户信息
+        //注入当前登陆人信息
         argumentResolvers.add(new TokenArgumentResolver(userService));
-        //注入应用信息
+        //注入客户端信息
         argumentResolvers.add(new ClientArgumentResolver());
     }
 

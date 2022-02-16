@@ -12,6 +12,7 @@ import springfox.documentation.swagger.web.*;
 import java.util.Optional;
 
 /**
+ * 网关收集swagger
  * @author he
  */
 @RestController

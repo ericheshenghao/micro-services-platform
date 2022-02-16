@@ -15,10 +15,10 @@ import java.util.Collection;
  * @author : heshenghao
  * @date : 23:42 2021/5/16
  */
-public class RenewableRedisTokenStore extends RedisTokenStore {
-
-    public RenewableRedisTokenStore(RedisConnectionFactory connectionFactory) {
-        super(connectionFactory);
-    }
-
-}
+//public class RenewableRedisTokenStore extends RedisTokenStore {
+//
+//    public RenewableRedisTokenStore(RedisConnectionFactory connectionFactory) {
+//        super(connectionFactory);
+//    }
+//
+//}

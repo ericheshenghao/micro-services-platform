@@ -24,8 +24,6 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired(required = false)
-//    private AuthenticationEntryPoint authenticationEntryPoint;
 
 
     @Resource
@@ -34,8 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Resource
-//    private LogoutHandler oauthLogoutHandler;
 
     /**
      * 注入授权管理器
@@ -48,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {

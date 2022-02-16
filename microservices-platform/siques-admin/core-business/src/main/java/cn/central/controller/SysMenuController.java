@@ -2,10 +2,9 @@ package cn.central.controller;
 
 
 import cn.central.common.annotation.LoginUser;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysMenu;
 import cn.central.common.model.SysUser;
-import cn.central.common.utils.SecurityUtils;
 
 
 import cn.central.dao.SysRoleMenuMapper;
@@ -25,7 +24,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/pri/menu")
+@RequestMapping("/menu")
 @Api(tags = {"菜单接口"})
 public class SysMenuController {
 
@@ -38,8 +37,8 @@ public class SysMenuController {
     @PostMapping()
     @ApiOperation(value = "保存菜单树，需要添加或编辑权限")
     @CacheEvict(value = "findMenuTree", allEntries = true)
-    @PreAuthorize("@el.check('sys:menu:add') AND @el.check('sys:menu:edit')")
-    public Result save(@RequestBody SysMenu record) {
+    @PreAuthorize("@el.check('sys:menu:add','sys:menu:edit')")
+    public BasicResponse save(@RequestBody SysMenu record) {
 
         List<String> parentArray = record.getParentArray();
         if (parentArray.size() > 0 && !"".equals(parentArray.get(0))) {
@@ -56,7 +55,7 @@ public class SysMenuController {
 
         record.setParentIds(builder.toString());
 
-        return Result.succeed(sysMenuService.saveOrUpdate(record));
+        return BasicResponse.succeed(sysMenuService.saveOrUpdate(record));
     }
 
     /**
@@ -68,8 +67,8 @@ public class SysMenuController {
     @GetMapping(value = "/findNavTree")
     @ApiOperation(value = "查询导航菜单")
     @Cacheable(cacheNames = {"findMenuTree"}, key = "#sysUser.userCode")
-    public Result findNavTree(@LoginUser SysUser sysUser) {
-        return Result.succeed(sysMenuService.findTree(sysUser.getUserCode(), 1));
+    public BasicResponse findNavTree(@LoginUser SysUser sysUser) {
+        return BasicResponse.succeed(sysMenuService.findTree(sysUser.getUserCode(), 1));
     }
 
 
@@ -78,18 +77,18 @@ public class SysMenuController {
     @CacheEvict(value = "findMenuTree", allEntries = true)
     @ApiOperation(value = "通过id删除菜单")
     @Transactional
-    public Result delete(@PathVariable("id") String id) {
+    public BasicResponse delete(@PathVariable("id") String id) {
         // 菜单删除还需要清除角色菜单关系
         sysRoleMenuMapper.delete(new QueryWrapper<SysRoleMenu>().eq("menu_id", id));
-        return Result.succeed(sysMenuService.removeIdAndChild(id));
+        return BasicResponse.succeed(sysMenuService.removeIdAndChild(id));
     }
 
 
     @PreAuthorize("@el.check('sys:menu:view')")
     @GetMapping(value = "/findMenuTree")
     @ApiOperation(value = "查询菜单树")
-    public Result findMenuTree() {
-        return Result.succeed(sysMenuService.findTree("", 0));
+    public BasicResponse findMenuTree() {
+        return BasicResponse.succeed(sysMenuService.findTree("", 0));
     }
 
 }

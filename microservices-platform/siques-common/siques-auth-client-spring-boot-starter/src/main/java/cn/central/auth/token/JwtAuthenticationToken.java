@@ -1,8 +1,7 @@
-package cn.central.common.utils;
+package cn.central.auth.token;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 
 import java.util.Collection;

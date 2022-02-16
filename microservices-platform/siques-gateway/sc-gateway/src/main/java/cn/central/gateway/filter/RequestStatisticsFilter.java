@@ -1,6 +1,6 @@
 package cn.central.gateway.filter;
 
-import cn.central.gateway.utils.ReactiveAddrUtil;
+import cn.central.common.utils.ReactiveAddrUtil;
 import cn.central.log.monitor.PointUtil;
 import cn.hutool.core.util.StrUtil;
 import eu.bitwalker.useragentutils.UserAgent;

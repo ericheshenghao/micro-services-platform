@@ -1,11 +1,10 @@
 package cn.central.oauth.controller;
 
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.model.SysUser;
 import cn.central.common.page.PageRequest;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 
 import cn.central.oauth.entity.SysClientDetails;
 import cn.central.oauth.service.SysClientDetailsService;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
@@ -58,9 +56,9 @@ public class SysClientDetailsController {
      */
     @PostMapping("findPage")
     @ApiOperation(value = "分页查询", notes = "分页查询")
-    public Result listSysRoleMenu(@RequestBody PageRequest page) {
+    public BasicResponse listSysRoleMenu(@RequestBody PageRequest page) {
         Page<SysClientDetails> detailsPage = new Page<>(page.getPageNum(), page.getPageSize());
-        return Result.succeed(sysClientDetailsService.page(detailsPage));
+        return BasicResponse.succeed(sysClientDetailsService.page(detailsPage));
     }
 
     /**
@@ -74,8 +72,8 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result getSysClientDetails(@PathVariable("id") Long id) {
-        return Result.succeed(sysClientDetailsService.getById(id));
+    public BasicResponse getSysClientDetails(@PathVariable("id") Long id) {
+        return BasicResponse.succeed(sysClientDetailsService.getById(id));
     }
 
 
@@ -85,9 +83,9 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result resetClientSecret(@PathVariable("id") Long id) {
+    public BasicResponse resetClientSecret(@PathVariable("id") Long id) {
 
-        return Result.succeed(sysClientDetailsService.update(new UpdateWrapper<SysClientDetails>()
+        return BasicResponse.succeed(sysClientDetailsService.update(new UpdateWrapper<SysClientDetails>()
                 .eq("id", id).set("client_secret", passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
 
@@ -99,8 +97,8 @@ public class SysClientDetailsController {
      */
     @PostMapping
     @ApiOperation(value = "新增", notes = "新增")
-    public Result saveSysClientDetails(@RequestBody SysClientDetails sysClientDetails) {
-        return Result.succeed(sysClientDetailsService.save(sysClientDetails));
+    public BasicResponse saveSysClientDetails(@RequestBody SysClientDetails sysClientDetails) {
+        return BasicResponse.succeed(sysClientDetailsService.save(sysClientDetails));
     }
 
     /**
@@ -115,8 +113,8 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result updateSysClientDetails(@PathVariable("id") Long id, @RequestBody SysClientDetails sysClientDetails) {
-        return Result.succeed(sysClientDetailsService.updateById(sysClientDetails));
+    public BasicResponse updateSysClientDetails(@PathVariable("id") Long id, @RequestBody SysClientDetails sysClientDetails) {
+        return BasicResponse.succeed(sysClientDetailsService.updateById(sysClientDetails));
     }
 
     /**
@@ -130,8 +128,8 @@ public class SysClientDetailsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
-    public Result deleteSysClientDetails(@PathVariable("id") Long id) {
-        return Result.succeed(sysClientDetailsService.removeById(id));
+    public BasicResponse deleteSysClientDetails(@PathVariable("id") Long id) {
+        return BasicResponse.succeed(sysClientDetailsService.removeById(id));
     }
 
 }

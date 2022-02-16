@@ -1,7 +1,7 @@
 package cn.siques.activiti.config;
 
 
-import cn.central.auth.config.client.DefaultResourceTokenConfig;
+import cn.central.auth.config.resource.DefaultResourceTokenConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**

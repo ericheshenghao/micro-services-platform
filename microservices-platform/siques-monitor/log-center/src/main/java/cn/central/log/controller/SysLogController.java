@@ -1,7 +1,7 @@
 package cn.central.log.controller;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.IQueryService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -28,7 +28,7 @@ public class SysLogController {
             @ApiImplicitParam(name = "queryStr", value = "搜索关键字", dataType = "String")
     })
     @GetMapping(value = "/sysLog")
-    public Result getPage(SearchDto searchDto) {
+    public BasicResponse getPage(SearchDto searchDto) {
         searchDto.setIsHighlighter(true);
         searchDto.setSortCol("timestamp");
         return queryService.strQuery("sys-log-*", searchDto);

@@ -12,7 +12,6 @@
         <module>siques-gateway</module>
         <module>siques-oauth</module>
         <module>siques-monitor</module>
-        <module>siques-config</module>
         <module>siques-demo</module>
         <module>siques-transaction</module>
         <module>siques-job</module>
@@ -38,7 +37,7 @@
         <sharding-sphere.version>3.1.0</sharding-sphere.version>
         <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
         <security-jwt.version>1.1.0.RELEASE</security-jwt.version>
-        <redisson-starter.version>3.11.5</redisson-starter.version>
+        <redisson-starter.version>3.16.8</redisson-starter.version>
         <easyCaptcha.version>1.6.2</easyCaptcha.version>
         <hutool.version>5.1.4</hutool.version>
         <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>

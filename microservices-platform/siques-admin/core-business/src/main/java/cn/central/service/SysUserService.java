@@ -3,7 +3,7 @@ package cn.central.service;
 
 import cn.central.common.page.PageRequest;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -38,7 +38,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param pageRequest
      * @return
      */
-    Result findPage(PageRequest pageRequest);
+    BasicResponse findPage(PageRequest pageRequest);
 
 
     /**

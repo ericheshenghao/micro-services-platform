@@ -1,6 +1,6 @@
 package cn.central.admin.service.impl;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.utils.JsonUtils;
 import cn.hutool.core.util.StrUtil;
 import cn.central.admin.model.IndexDto;
@@ -75,7 +75,7 @@ public class IndexServiceImpl implements IIndexService {
     }
 
     @Override
-    public Result list(String queryStr, String indices) throws IOException {
+    public BasicResponse list(String queryStr, String indices) throws IOException {
         if (StrUtil.isNotEmpty(queryStr)) {
             indices = queryStr;
         }
@@ -93,7 +93,7 @@ public class IndexServiceImpl implements IIndexService {
             };
             listOfIndicesFromEs = mapper.readValue(rawBody, typeRef);
         }
-        return Result.succeed(listOfIndicesFromEs);
+        return BasicResponse.succeed(listOfIndicesFromEs);
     }
 
     @Override

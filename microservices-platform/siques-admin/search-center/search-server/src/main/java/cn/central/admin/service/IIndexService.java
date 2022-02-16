@@ -1,7 +1,7 @@
 package cn.central.admin.service;
 
 import cn.central.admin.model.IndexDto;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public interface IIndexService {
      * @param queryStr 搜索字符串
      * @param indices  默认显示的索引名
      */
-    Result list(String queryStr, String indices) throws IOException;
+    BasicResponse list(String queryStr, String indices) throws IOException;
 
     /**
      * 显示索引明细

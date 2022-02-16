@@ -1,10 +1,12 @@
 package cn.central.gateway.config;
 
+import cn.central.common.model.BasicResponse;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.util.function.Supplier;
-import org.springframework.cloud.gateway.support.NotFoundException;
+import com.alibaba.fastjson.JSON;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.HttpMessageWriter;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -23,12 +25,12 @@ import java.util.List;
  * @author he
  * @Date 2020-03-17
  */
-public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHandler {
+public class SentinelGatewayBlockExceptionHandler implements WebExceptionHandler {
 
     private List<ViewResolver> viewResolvers;
     private List<HttpMessageWriter<?>> messageWriters;
 
-    public JsonSentinelGatewayBlockExceptionHandler(
+    public SentinelGatewayBlockExceptionHandler(
             List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
 
         this.viewResolvers = viewResolvers;
@@ -36,7 +38,6 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
     }
 
     /**
-     * TODO 限系统流，待测试
      *
      * @param response
      * @param exchange
@@ -45,12 +46,8 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
     private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange, String msg) {
         ServerHttpResponse resp = exchange.getResponse();
         resp.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String json = "{\n" +
-                "    \"code\": 0, \n" +
-                "    \"data\": null, \n" +
-                "    \"msg\": \" " + msg + "\"\n" +
-                "}";
-        DataBuffer buffer = resp.bufferFactory().wrap(json.getBytes(StandardCharsets.UTF_8));
+        BasicResponse<Object> res = BasicResponse.failed(msg, HttpStatus.SERVICE_UNAVAILABLE.value());
+        DataBuffer buffer = resp.bufferFactory().wrap( JSON.toJSONString(res).getBytes(StandardCharsets.UTF_8));
         return resp.writeWith(Mono.just(buffer));
     }
 
@@ -61,7 +58,8 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
             return Mono.error(ex);
         }
         if (!BlockException.isBlockException(ex)) {
-            return handleBlockedRequest(exchange, ex).flatMap(response -> writeResponse(response, exchange, "服务暂不可用"));
+            return handleBlockedRequest(exchange, ex)
+                    .flatMap(response -> writeResponse(response, exchange, "服务暂不可用"));
         }
 
         return handleBlockedRequest(exchange, ex)
@@ -75,12 +73,12 @@ public class JsonSentinelGatewayBlockExceptionHandler implements WebExceptionHan
     private final Supplier<ServerResponse.Context> contextSupplier = () -> new ServerResponse.Context() {
         @Override
         public List<HttpMessageWriter<?>> messageWriters() {
-            return JsonSentinelGatewayBlockExceptionHandler.this.messageWriters;
+            return SentinelGatewayBlockExceptionHandler.this.messageWriters;
         }
 
         @Override
         public List<ViewResolver> viewResolvers() {
-            return JsonSentinelGatewayBlockExceptionHandler.this.viewResolvers;
+            return SentinelGatewayBlockExceptionHandler.this.viewResolvers;
         }
     };
 }

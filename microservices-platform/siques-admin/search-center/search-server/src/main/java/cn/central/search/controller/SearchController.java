@@ -1,7 +1,7 @@
 package cn.central.search.controller;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.search.model.SearchDto;
 import cn.central.search.service.ISearchService;
 import io.swagger.annotations.Api;
@@ -33,10 +33,10 @@ public class SearchController {
      * @param searchDto 搜索Dto
      */
     @PostMapping("/{indexName}")
-    public Result strQuery(@PathVariable String indexName, @RequestBody(required = false) SearchDto searchDto) throws IOException {
+    public BasicResponse strQuery(@PathVariable String indexName, @RequestBody(required = false) SearchDto searchDto) throws IOException {
         if (searchDto == null) {
             searchDto = new SearchDto();
         }
-        return Result.succeed(searchService.strQuery(indexName, searchDto));
+        return BasicResponse.succeed(searchService.strQuery(indexName, searchDto));
     }
 }

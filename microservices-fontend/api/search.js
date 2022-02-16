@@ -2,7 +2,7 @@ import vue from 'vue'
 
 const searchApi = {
   searchIndices: '/search/admin/indices',
-  userIndices: '/core/pri/user/search',
+  userIndices: '/core/user/search',
 }
 
 export function searchIndices(parameter) {

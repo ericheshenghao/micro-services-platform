@@ -13,13 +13,13 @@ import java.util.List;
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 
-    @Select({"select m.* from sys_menu m, sys_user u, sys_user_role ur, sys_role_menu rm\n" +
-            "  \twhere u.user_code = #{userCode,jdbcType=VARCHAR} and u.id = ur.user_id \n" +
-            "  \tand ur.role_id = rm.role_id and rm.menu_id = m.id"})
+    @Select({"select m.* from sys_menu m, sys_user u, sys_user_role ur, sys_role_menu rm " +
+            " where u.user_code = #{userCode,jdbcType=VARCHAR} and u.id = ur.user_id " +
+            "  and ur.role_id = rm.role_id and rm.menu_id = m.id"})
     List<SysMenu> findUserMenuByUserCode(String userCode);
 
-    @Select({"select m.* from sys_menu m, sys_role_menu rm\n" +
-            "    where rm.role_id = #{roleId,jdbcType=VARCHAR}\n" +
+    @Select({"select m.* from sys_menu m, sys_role_menu rm " +
+            "    where rm.role_id = #{roleId,jdbcType=VARCHAR} " +
             "    and m.id = rm.menu_id"})
     List<SysMenu> findRoleMenus(String roleId);
 

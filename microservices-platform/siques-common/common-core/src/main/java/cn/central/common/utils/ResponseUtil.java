@@ -1,14 +1,13 @@
 package cn.central.common.utils;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.charset.Charset;
 
 /**
  * @author he
@@ -26,7 +25,7 @@ public class ResponseUtil {
      * @throws IOException
      */
     public static void responseWriter(ObjectMapper objectMapper, HttpServletResponse response, String msg, int httpStatus) throws IOException {
-        Result result = Result.of(null, httpStatus, msg);
+        BasicResponse result = BasicResponse.of(null, httpStatus, msg);
         responseWrite(objectMapper, response, result);
     }
 
@@ -38,7 +37,7 @@ public class ResponseUtil {
      * @param obj
      */
     public static void responseSucceed(ObjectMapper objectMapper, HttpServletResponse response, Object obj) throws IOException {
-        Result result = Result.succeed(obj);
+        BasicResponse result = BasicResponse.succeed(obj);
         responseWrite(objectMapper, response, result);
     }
 
@@ -51,11 +50,11 @@ public class ResponseUtil {
      * @throws IOException
      */
     public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg, Integer code) throws IOException {
-        Result result = Result.failed(msg, code);
+        BasicResponse result = BasicResponse.failed(msg, code);
         responseWrite(objectMapper, response, result);
     }
 
-    private static void responseWrite(ObjectMapper objectMapper, HttpServletResponse response, Result result) throws IOException {
+    private static void responseWrite(ObjectMapper objectMapper, HttpServletResponse response, BasicResponse result) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         try (

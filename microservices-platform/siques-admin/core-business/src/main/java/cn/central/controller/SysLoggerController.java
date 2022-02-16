@@ -1,7 +1,7 @@
 package cn.central.controller;
 
 import cn.central.common.page.PageRequest;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.entity.SysLogger;
 import cn.central.service.SysLoggerService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/pri/sysLogger")
+@RequestMapping("/sysLogger")
 @Api(tags = {"日志接口"})
 public class SysLoggerController {
 
@@ -42,9 +42,9 @@ public class SysLoggerController {
     @PostMapping("findPage")
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @PreAuthorize("hasAuthority('sys:logger:view')")
-    public Result<Page<SysLogger>> listSysRoleMenu(@RequestBody PageRequest page) {
+    public BasicResponse<Page<SysLogger>> listSysRoleMenu(@RequestBody PageRequest page) {
         Page<SysLogger> detailsPage = new Page<>(page.getPageNum(), page.getPageSize());
-        return Result.succeed(sysLoggerService.page(detailsPage));
+        return BasicResponse.succeed(sysLoggerService.page(detailsPage));
     }
 
 
@@ -60,8 +60,8 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:view')")
-    public Result getSysLogger(@PathVariable("id") Integer id) {
-        return Result.succeed(sysLoggerService.getById(id));
+    public BasicResponse getSysLogger(@PathVariable("id") Integer id) {
+        return BasicResponse.succeed(sysLoggerService.getById(id));
     }
 
     /**
@@ -73,8 +73,8 @@ public class SysLoggerController {
     @PostMapping
     @ApiOperation(value = "新增", notes = "新增")
     @PreAuthorize("@el.check('sys:logger:add')")
-    public Result saveSysLogger(@RequestBody SysLogger sysLogger) {
-        return Result.succeed(sysLoggerService.save(sysLogger));
+    public BasicResponse saveSysLogger(@RequestBody SysLogger sysLogger) {
+        return BasicResponse.succeed(sysLoggerService.save(sysLogger));
     }
 
     /**
@@ -90,8 +90,8 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:edit')")
-    public Result updateSysLogger(@PathVariable Integer id, @RequestBody SysLogger sysLogger) {
-        return Result.succeed(sysLoggerService.updateById(sysLogger));
+    public BasicResponse updateSysLogger(@PathVariable Integer id, @RequestBody SysLogger sysLogger) {
+        return BasicResponse.succeed(sysLoggerService.updateById(sysLogger));
     }
 
     /**
@@ -106,8 +106,8 @@ public class SysLoggerController {
             @ApiImplicitParam(name = "id", value = "主键id", required = true)
     })
     @PreAuthorize("@el.check('sys:logger:delete')")
-    public Result deleteSysLogger(@PathVariable Integer id) {
-        return Result.succeed(sysLoggerService.removeById(id));
+    public BasicResponse deleteSysLogger(@PathVariable Integer id) {
+        return BasicResponse.succeed(sysLoggerService.removeById(id));
     }
 
 }

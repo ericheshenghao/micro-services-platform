@@ -5,6 +5,10 @@ import cn.central.common.feign.UserInfoService;
 import cn.central.common.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.Set;
 
 /**
  * 自定义url级别el表达式鉴权
@@ -22,21 +26,21 @@ public class ElPermissionConfig {
     /**
      * 发起远程调用鉴权
      *
-     * @param permission
+     * @param p
      * @return
      */
-//    @AuditLog(operation = "")
-    public Boolean check(String... permission) {
+
+    public Boolean check(String... p) {
         String userCode = SecurityUtils.getUserCode();
         /**
          * 判断是否有权限，判断userCode是否为管理员，查询权限
          */
+        if(userCode.equals(AdminConstants.ADMIN)){
+            return true;
+        }
 
-        boolean hasPermit = userCode.equals(AdminConstants.ADMIN) || authService.findPermissionsByUserCode(userCode).contains(permission);
-        // 埋点日志
-//        PointUtil.info("用户:"+userCode, "el表达式鉴权", "permission={"+ Arrays.toString(permission) +"}"+
-//                "&status="+( hasPermit==true?"鉴权成功":"鉴权失败"));
+        Set<String> pt = authService.findPermissionsByUserCode(userCode);
 
-        return hasPermit;
+        return  CollectionUtils.containsAny(pt, Arrays.asList(p));
     }
 }

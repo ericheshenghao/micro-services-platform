@@ -1,11 +1,11 @@
 import vue from 'vue'
 
 const roleApi = {
-  roleList: '/core/pri/role',
-  saveRole: '/core/pri/role',
-  delRole: '/core/pri/role',
-  saveRoleMenus: '/core/pri/role/saveRoleMenus',
-  findRoleMenus: '/core/pri/role/findRoleMenus',
+  roleList: '/core/role',
+  saveRole: '/core/role',
+  delRole: '/core/role',
+  saveRoleMenus: '/core/role/saveRoleMenus',
+  findRoleMenus: '/core/role/findRoleMenus',
 }
 
 export function getRoleList() {

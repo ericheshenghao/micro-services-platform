@@ -1,13 +1,13 @@
 import vue from 'vue'
 
 const userApi = {
-  userList: '/core/pri/user/findPage',
-  userRole: '/core/pri/user/findUserRoles',
-  deleteBatch: '/core/pri/user/deleteBatch',
-  saveUser: '/core/pri/user',
-  deleteById: '/core/pri/user',
-  changeStatus: '/core/pri/user',
-  searchUser: '/core/pri/user/searchUser',
+  userList: '/core/user/findPage',
+  userRole: '/core/user/findUserRoles',
+  deleteBatch: '/core/user/deleteBatch',
+  saveUser: '/core/user',
+  deleteById: '/core/user',
+  changeStatus: '/core/user',
+  searchUser: '/core/user/searchUser',
 }
 
 export function searchUser(parameter) {

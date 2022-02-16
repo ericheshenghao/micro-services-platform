@@ -1,7 +1,6 @@
 package cn.central.auth.converter;
 
 
-import cn.central.common.model.LoginAppUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,8 +16,6 @@ import java.util.Map;
 
 /**
  * 优化自org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter
- * jwt返回的principal改为返回SysUser，增加扩展字段
- *
  * @author he
  * @date 2019/8/5
  */
@@ -69,6 +66,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
                 authorities = user.getAuthorities();
                 principal = user;
             }
+            // 这里可以替换为不同的实现
             return new UsernamePasswordAuthenticationToken(principal, "N/A", authorities);
         }
         return null;

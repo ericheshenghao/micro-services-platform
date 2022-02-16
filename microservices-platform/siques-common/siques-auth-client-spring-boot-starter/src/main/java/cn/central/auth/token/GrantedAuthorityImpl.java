@@ -1,4 +1,4 @@
-package cn.central.common.utils;
+package cn.central.auth.token;
 
 import org.springframework.security.core.GrantedAuthority;
 

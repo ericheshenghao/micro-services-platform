@@ -1,8 +1,7 @@
 package cn.central.sentinel.config;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
@@ -33,7 +32,7 @@ public class SentinelAutoConfigure {
         public BlockExceptionHandler webmvcBlockExceptionHandler() {
             return (request, response, e) -> {
                 response.setStatus(429);
-                Result result = Result.failed(e.getMessage());
+                BasicResponse result = BasicResponse.failed(e.getMessage());
                 response.getWriter().print(JSONUtil.toJsonStr(result));
             };
         }
@@ -51,7 +50,7 @@ public class SentinelAutoConfigure {
             return (exchange, t) ->
                     ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .body(BodyInserters.fromValue(Result.failed(t.getMessage())));
+                            .body(BodyInserters.fromValue(BasicResponse.failed(t.getMessage())));
         }
     }
 }

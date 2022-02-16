@@ -30,6 +30,9 @@ export default ({ app, store, route, redirect }) => {
       case 500:
         notification(res.msg)
         throw new Error(res.msg)
+      case 503:
+        notification('服务暂时不可用')
+        throw new Error(res.msg)
       case 401:
         notification('token失效，请重新登录')
         store.dispatch('modules/user/Logout').then(() => {

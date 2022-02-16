@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @MapperScan("cn.central.oauth.dao")
 @EnableSwagger2Doc
 @EnableFeignInterceptor
-@EnableFeignClients(basePackages = "cn.central.common")
+@EnableFeignClients(basePackages = "cn.central.common.feign")
 public class UaaApplication {
 
     public static void main(String[] args) {

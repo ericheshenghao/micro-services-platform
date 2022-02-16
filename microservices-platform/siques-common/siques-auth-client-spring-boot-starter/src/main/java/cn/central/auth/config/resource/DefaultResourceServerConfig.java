@@ -1,32 +1,27 @@
-package cn.central.auth.config;
+package cn.central.auth.config.resource;
 
 
-import cn.central.auth.config.client.DefaultResourceTokenConfig;
 import cn.central.auth.handler.DefaultSecurityHandler;
 import cn.central.auth.properties.SecurityProperties;
-import cn.central.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.annotation.Resource;
 
 /**
- * 资源服务器的配置，受保护服务与鉴权服务都被认定为资源
- * 都需要继承该类
- * 内存实现
+ * 默认资源服务器的配置，
+ * 受保护服务与鉴权服务都被认定为资源
  *
  * @author he
  */
@@ -84,6 +79,8 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
                 .accessDeniedHandler(oAuth2AccessDeniedHandler);
     }
 
+
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().
@@ -94,28 +91,15 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers(securityProperties.getIgnore().getUrls()).permitAll()
                 .anyRequest().authenticated();
 
-
-//        http.formLogin()
-//                .loginPage(SecurityConstants.LOGIN_PAGE)
-//                .loginProcessingUrl(SecurityConstants.OAUTH_LOGIN_PRO_URL)
-//                .successHandler(authenticationSuccessHandler);
-
         // 基于密码 等模式可以无session,不支持授权码模式
-        if (authenticationEntryPoint != null) {
-            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        } else {
-            // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-        }
+//        if (authenticationEntryPoint != null) {
+//            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        } else {
+//            // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
+//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+//        }
     }
 
 
-    /**
-     * 留给子类重写扩展功能
-     * @param http
-     */
-//    public HttpSecurity setHttp(HttpSecurity http) {
-//        return http;
-//    }
 }

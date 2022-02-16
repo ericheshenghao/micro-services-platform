@@ -16,38 +16,39 @@ import javax.annotation.Resource;
 import java.security.KeyPair;
 
 /**
+ * 内存中使用
  * 认证服务器使用 JWT RSA 非对称加密令牌
  *
  * @date 2018/7/24 16:21
  */
-@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "authJwt")
+@ConditionalOnProperty(prefix = "siques.oauth2.token.store", name = "type", havingValue = "jwt")
 public class AuthJwtTokenStore {
 
-    @Bean("keyProp")
-    public KeyProperties keyProperties() {
-        return new KeyProperties();
-    }
+//    @Bean("keyProp")
+//    public KeyProperties keyProperties() {
+//        return new KeyProperties();
+//    }
+//
+//    @Resource(name = "keyProp")
+//    private KeyProperties keyProperties;
 
-    @Resource(name = "keyProp")
-    private KeyProperties keyProperties;
+//    @Bean
+//    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+//        return new JwtTokenStore(jwtAccessTokenConverter);
+//    }
 
-    @Bean
-    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-        return new JwtTokenStore(jwtAccessTokenConverter);
-    }
-
-    @Bean
-    @Order(2)
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        KeyPair keyPair = new KeyStoreKeyFactory
-                (keyProperties.getKeyStore().getLocation(), keyProperties.getKeyStore().getSecret().toCharArray())
-                .getKeyPair(keyProperties.getKeyStore().getAlias());
-        converter.setKeyPair(keyPair);
-        DefaultAccessTokenConverter tokenConverter = (DefaultAccessTokenConverter) converter.getAccessTokenConverter();
-        tokenConverter.setUserTokenConverter(new CustomUserAuthenticationConverter());
-        return converter;
-    }
+//    @Bean
+//    @Order(2)
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+//        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        KeyPair keyPair = new KeyStoreKeyFactory
+//                (keyProperties.getKeyStore().getLocation(), keyProperties.getKeyStore().getSecret().toCharArray())
+//                .getKeyPair(keyProperties.getKeyStore().getAlias());
+//        converter.setKeyPair(keyPair);
+//        DefaultAccessTokenConverter tokenConverter = (DefaultAccessTokenConverter) converter.getAccessTokenConverter();
+//        tokenConverter.setUserTokenConverter(new CustomUserAuthenticationConverter());
+//        return converter;
+//    }
 
 
 }

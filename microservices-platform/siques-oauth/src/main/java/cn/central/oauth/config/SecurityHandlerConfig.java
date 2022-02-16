@@ -1,7 +1,7 @@
 package cn.central.oauth.config;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +35,8 @@ public class SecurityHandlerConfig {
     public WebResponseExceptionTranslator WebResponseExceptionTranslator() {
         return e -> {
 
-            ResponseEntity<Result> response = new ResponseEntity<>
-                    (Result.failed(null, e.getMessage()), HttpStatus.OK);
+            ResponseEntity<BasicResponse> response = new ResponseEntity<>
+                    (BasicResponse.failed( e.getMessage(),HttpStatus.BAD_REQUEST.value()), HttpStatus.OK);
 
             return response;
         };

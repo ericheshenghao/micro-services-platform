@@ -4,7 +4,7 @@ import cn.central.admin.model.IndexDto;
 import cn.central.admin.properties.IndexProperties;
 import cn.central.admin.service.IIndexService;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class IndexController {
     private IndexProperties indexProperties;
 
     @PostMapping("/index")
-    public Result createIndex(@RequestBody IndexDto indexDto) throws IOException {
+    public BasicResponse createIndex(@RequestBody IndexDto indexDto) throws IOException {
         if (indexDto.getNumberOfShards() == null) {
             indexDto.setNumberOfShards(1);
         }
@@ -37,7 +37,7 @@ public class IndexController {
             indexDto.setNumberOfReplicas(0);
         }
         indexService.create(indexDto);
-        return Result.succeed("操作成功");
+        return BasicResponse.succeed("操作成功");
     }
 
     /**
@@ -45,7 +45,7 @@ public class IndexController {
      */
     @PreAuthorize("@el.check('sys:indices:view')")
     @PostMapping("/indices")
-    public Result list(@RequestParam(required = false) String queryStr) throws IOException {
+    public BasicResponse list(@RequestParam(required = false) String queryStr) throws IOException {
         return indexService.list(queryStr, indexProperties.getShow());
     }
 
@@ -53,17 +53,17 @@ public class IndexController {
      * 索引明细
      */
     @GetMapping("/index")
-    public Result<Map<String, Object>> showIndex(String indexName) throws IOException {
+    public BasicResponse<Map<String, Object>> showIndex(String indexName) throws IOException {
         Map<String, Object> result = indexService.show(indexName);
-        return Result.succeed(result);
+        return BasicResponse.succeed(result);
     }
 
     /**
      * 删除索引
      */
     @DeleteMapping("/index")
-    public Result deleteIndex(String indexName) throws IOException {
+    public BasicResponse deleteIndex(String indexName) throws IOException {
         indexService.delete(indexName);
-        return Result.succeed("操作成功");
+        return BasicResponse.succeed("操作成功");
     }
 }

@@ -80,19 +80,6 @@ spring:
         enabled: true
         # IP白名单(没有配置或者为空，则允许所有访问)
         allow: ""
-  multiple-source:
-    - url: jdbc:mysql://106.54.247.224:3306/mango-sound?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: l1itdhjaoiqw32kwqe$5asasd*a21
-    - url: jdbc:mysql://127.0.0.1:3306/mango?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: l1itdhjaoiqw32kwqe$5asasd*a21
-    - url: jdbc:mysql://127.0.0.1:3306/nest?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: l1itdhjaoiqw32kwqe$5asasd*a21
-    - url: jdbc:mysql://106.54.247.224:3306/mango?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: l1itdhjaoiqw32kwqe$5asasd*a21
   #      资源服务器获取 redis 中 加密后的token，使用配置文件中配置的公钥进行解密获取 claim 进行校验，scope的作用？
   redis:
     host: redis.siques.cn
@@ -140,7 +127,7 @@ siques:
   oauth2:
     token:
       store:
-        type: redis
+        type: redisJwk
 #sq:
 #  security:
 #    ignore:

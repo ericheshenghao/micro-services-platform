@@ -46,7 +46,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             throw new ValidateCodeException("请携带deviceId参数");
         }
         String code = this.getCode(deviceId);
-        if (org.apache.commons.lang.StringUtils.isBlank(validCode)) {
+        if (StringUtils.isBlank(validCode)) {
             throw new ValidateCodeException("请填写验证码");
         }
 
@@ -54,7 +54,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             throw new ValidateCodeException("验证码不存在或已过期");
         }
 
-        if (!org.apache.commons.lang.StringUtils.equals(code, validCode.toLowerCase())) {
+        if (!StringUtils.equals(code, validCode.toLowerCase())) {
             throw new ValidateCodeException("验证码不正确");
         }
 

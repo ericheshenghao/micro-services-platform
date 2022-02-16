@@ -1,4 +1,4 @@
-package cn.central.gateway.utils;
+package cn.central.common.utils;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +9,6 @@ import java.net.UnknownHostException;
 import java.util.Map;
 
 /**
- * @author zlt
- * @date 2019/10/7
- * <p>
- * Blog: https://zlt2000.gitee.io
- * Github: https://github.com/zlt2000
  */
 @Slf4j
 public class ReactiveAddrUtil {

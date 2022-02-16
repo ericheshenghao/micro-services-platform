@@ -4,7 +4,7 @@ package cn.central.controller;
 import cn.central.common.annotation.CheckRequestBody;
 import cn.central.common.annotation.LoginUser;
 import cn.central.common.constant.AdminConstants;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysUser;
 import cn.central.common.page.PageRequest;
 import cn.central.common.utils.SecurityUtils;
@@ -36,7 +36,7 @@ import java.util.Set;
  * @author Shenghao.He
  */
 @RestController
-@RequestMapping("/pri/user")
+@RequestMapping("/user")
 @Api(tags = {"用户接口"})
 public class SysUserController {
 
@@ -52,15 +52,14 @@ public class SysUserController {
 
     /**
      * 携带token用户可查
-     *
      * @return
      */
     @GetMapping("info")
-    public Result<SysUser> getUserInfo() {
+    public BasicResponse<SysUser> getUserInfo() {
         String userCode = SecurityUtils.getUserCode();
         SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code", userCode));
         sysUser.setPermissions(sysUserService.findPermission(sysUser.getUserCode()));
-        return Result.succeed(sysUser);
+        return BasicResponse.succeed(sysUser);
     }
 
     /**
@@ -83,18 +82,18 @@ public class SysUserController {
     @PutMapping("/password/{id}")
     @ApiOperation(value = "重置密码", notes = "重置密码")
     @Transactional
-    public Result resetPassword(@PathVariable("id") String userId) {
+    public BasicResponse resetPassword(@PathVariable("id") String userId) {
 
         // 提供密码的情况
-        return Result.succeed(sysUserService.update(new UpdateWrapper<SysUser>()
+        return BasicResponse.succeed(sysUserService.update(new UpdateWrapper<SysUser>()
                 .eq("id", userId).set("password", passwordEncoder.encode(AdminConstants.PASSWORD))));
     }
 
     @PreAuthorize("@el.check('sys:user:edit')")
     @PutMapping("{id}")
     @ApiOperation(value = "锁定或解锁用户")
-    public Result changeStatus(@PathVariable("id") String userId, @RequestBody SysUser sysUser) {
-        return Result.succeed(sysUserService.update(new UpdateWrapper<SysUser>()
+    public BasicResponse changeStatus(@PathVariable("id") String userId, @RequestBody SysUser sysUser) {
+        return BasicResponse.succeed(sysUserService.update(new UpdateWrapper<SysUser>()
                 .eq("id", userId).set("status", sysUser.getStatus())));
     }
 
@@ -103,8 +102,8 @@ public class SysUserController {
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @Transactional
     @AuditLog(operation = "'删除用户:' + #id")
-    public Result delete(@PathVariable("id") String id) {
-        return Result.succeed(sysUserService.removeById(id));
+    public BasicResponse delete(@PathVariable("id") String id) {
+        return BasicResponse.succeed(sysUserService.removeById(id));
     }
 
 
@@ -112,15 +111,15 @@ public class SysUserController {
     @PostMapping("/deleteBatch")
     @ApiOperation(value = "批量删除用户", notes = "批量删除用户")
     @Transactional
-    public Result deleteBatch(@RequestBody Set<String> set) {
-        return Result.succeed(sysUserService.removeByIds(set));
+    public BasicResponse deleteBatch(@RequestBody Set<String> set) {
+        return BasicResponse.succeed(sysUserService.removeByIds(set));
     }
 
 
     @PreAuthorize("@el.check('sys:user:view')")
     @PostMapping("/findPage")
     @ApiOperation(value = "条件搜索或分页", notes = "条件搜索用户")
-    public Result findPage(@RequestBody PageRequest<SysUser> pageRequest) {
+    public BasicResponse findPage(@RequestBody PageRequest<SysUser> pageRequest) {
         return sysUserService.findPage(pageRequest);
     }
 
@@ -134,13 +133,13 @@ public class SysUserController {
      * @param response
      * @return
      */
-    @PreAuthorize("@el.check('sys:user:add') AND @el.check('sys:user:edit')")
+    @PreAuthorize("@el.check('sys:user:add','sys:user:edit')")
     @PostMapping()
     @Transactional
     @ApiOperation(value = "新增或更新用户", notes = "新增或更新用户")
     @CheckRequestBody()
     @AuditLog(operation = "'新增或更新用户:' + #record.userCode")
-    public Result saveOrUpdate(@Valid @RequestBody SysUser record, BindingResult bindingResult, HttpServletResponse response) {
+    public BasicResponse saveOrUpdate(@Valid @RequestBody SysUser record, BindingResult bindingResult, HttpServletResponse response) {
 
         // 查询是否已有该用户
         SysUser user = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_code", record.getUserCode()));
@@ -150,17 +149,17 @@ public class SysUserController {
         }
         // 如果没有，直接新增
         if (user == null) {
-            return Result.succeed(sysUserService.save(record));
+            return BasicResponse.succeed(sysUserService.save(record));
         }
         // 到这里说明数据库有该用户 判断是否为admin用户
         if (AdminConstants.ADMIN.equalsIgnoreCase(user.getUserCode())) {
-            return Result.failed("不允许修改超级管理员");
+            return BasicResponse.failed("不允许修改超级管理员");
         }
         // 角色分配
         sysUserService.saveUserRoles(record);
 
         // 更新其他字段
-        return Result.succeed(sysUserService.update(record, new QueryWrapper<SysUser>().eq("user_code", record.getUserCode())));
+        return BasicResponse.succeed(sysUserService.update(record, new QueryWrapper<SysUser>().eq("user_code", record.getUserCode())));
     }
 
 
@@ -190,7 +189,7 @@ public class SysUserController {
             @ApiImplicitParam(name = "queryStr", value = "搜索关键字", dataType = "String")
     })
     @PostMapping("/search")
-    public Result search(@RequestBody SearchDto searchDto) {
+    public BasicResponse search(@RequestBody SearchDto searchDto) {
         searchDto.setIsHighlighter(true);
         searchDto.setSortCol("createTime");
         return queryService.strQuery("sys_user", searchDto, SEARCH_LOGIC_DEL_DTO);

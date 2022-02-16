@@ -1,7 +1,7 @@
 package cn.siques.activiti.service;
 
 import cn.central.common.feign.UserInfoService;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysUser;
 import cn.siques.activiti.dao.ProcInstanceDao;
 import cn.siques.activiti.dao.ProcTaskInstanceDao;
@@ -17,24 +17,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.db.DbIdGenerator;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.IdGenerator;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -78,7 +72,7 @@ public class AuditService {
      * @param pageSize
      * @return
      */
-    public Result getInstanceList(ProcInstance instance, int pageNum, int pageSize) {
+    public BasicResponse getInstanceList(ProcInstance instance, int pageNum, int pageSize) {
         IPage<ProcInstance> userPage = new Page<>(pageNum, pageSize);
 
         QueryWrapper<ProcInstance> in = new QueryWrapper<>();
@@ -98,7 +92,7 @@ public class AuditService {
             in.eq("user_code", instance.getUserCode());
         }
 
-        return Result.succeed( procInstanceDao.selectPage(userPage,in ));
+        return BasicResponse.succeed( procInstanceDao.selectPage(userPage,in ));
     }
 
     /**

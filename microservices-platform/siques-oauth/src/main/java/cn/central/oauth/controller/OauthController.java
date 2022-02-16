@@ -1,13 +1,9 @@
 package cn.central.oauth.controller;
 
 import cn.central.auth.util.AuthUtils;
-import cn.central.common.annotation.LoginUser;
-import cn.central.common.model.Result;
-import cn.central.common.model.SysUser;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.utils.SecurityUtils;
-import cn.central.oauth.controller.dto.LoginDto;
 import cn.central.oauth.service.SysClientDetailsService;
-import cn.central.oauth.service.SysUserService;
 import cn.central.oauth.service.ValidateCodeService;
 import cn.hutool.core.util.StrUtil;
 import com.wf.captcha.GifCaptcha;
@@ -15,13 +11,10 @@ import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -31,7 +24,6 @@ import org.springframework.security.oauth2.common.exceptions.UnsupportedResponse
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.endpoint.AbstractEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.DefaultRedirectResolver;
 import org.springframework.security.oauth2.provider.endpoint.RedirectResolver;
@@ -41,16 +33,11 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.security.Principal;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,7 +46,7 @@ import java.util.Set;
  * @date : 17:43 2020/11/13
  */
 @RestController
-@RequestMapping("/validate")
+@RequestMapping("/oauth")
 @Api(tags = {"验证码接口"})
 @Slf4j
 public class OauthController {
@@ -74,8 +61,6 @@ public class OauthController {
     @Resource
     AuthorizationCodeServices authorizationCodeServices;
 
-    @Resource
-    AuthorizationEndpoint authorizationEndpoint;
 
     @Autowired
     private ValidateCodeService validateCodeService;
@@ -139,15 +124,15 @@ public class OauthController {
 
 
     /**
-     * 重写方法实行前后端分离的单点登录
+     * 重写方法实现前后端分离的单点登录
      *
      * @param parameters
      * @param sessionStatus
      * @return
      */
     @GetMapping(value = "/authorize")
-    public Result authorize(@RequestParam Map<String, String> parameters,
-                            SessionStatus sessionStatus) {
+    public BasicResponse authorize(@RequestParam Map<String, String> parameters,
+                                   SessionStatus sessionStatus) {
         Authentication authentication = SecurityUtils.getAuthentication();
 
         // Pull out the authorization request first, using the OAuth2RequestFactory. All further logic should
@@ -195,7 +180,7 @@ public class OauthController {
 
             // Validation is all done, so we can check for auto approval...
 
-            return Result.succeed(generateCode(authorizationRequest,
+            return BasicResponse.succeed(generateCode(authorizationRequest,
                     authentication), "code返回成功");
 //
 //

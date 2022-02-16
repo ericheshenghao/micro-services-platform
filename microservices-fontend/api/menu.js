@@ -1,10 +1,10 @@
 import vue from 'vue'
 
 const menuApi = {
-  navTree: '/core/pri/menu/findNavTree',
-  MenuTree: '/core/pri/menu/findMenuTree',
-  saveOrUpdataMenu: '/core/pri/menu',
-  delMenu: '/core/pri/menu',
+  navTree: '/core/menu/findNavTree',
+  MenuTree: '/core/menu/findMenuTree',
+  saveOrUpdataMenu: '/core/menu',
+  delMenu: '/core/menu',
 }
 
 export function findNavTree() {

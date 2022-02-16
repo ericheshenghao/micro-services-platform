@@ -5,11 +5,11 @@ import config from '@/plugins/config/defaultSettings'
 
 const authApi = {
   loginUri: 'uaa/oauth/token',
-  authorizationUri: 'uaa/validate/authorize',
-  logoutUri: 'uaa/validate/removeToken',
-  captchaUri: 'uaa/validate/captcha/',
+  authorizationUri: 'uaa/oauth/authorize',
+  logoutUri: 'uaa/oauth/removeToken',
+  captchaUri: 'uaa/oauth/captcha/',
   // get my info
-  userInfo: '/core/pri/user/info',
+  userInfo: '/core/user/info',
   // token
   checkTokenUri: 'uaa/oauth/check_token',
 }

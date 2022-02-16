@@ -1,7 +1,7 @@
 package cn.central.controller;
 
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.common.model.SysRole;
 import cn.central.entity.SysRoleMenu;
 import cn.central.service.SysRoleMenuService;
@@ -21,7 +21,7 @@ import java.util.Set;
  */
 @RestController
 @Api(tags = {"角色管理接口"})
-@RequestMapping("/pri/role")
+@RequestMapping("/role")
 public class SysRoleController {
 
     @Resource
@@ -34,17 +34,17 @@ public class SysRoleController {
     @ApiOperation(httpMethod = "GET", value = "查询所有角色")
     @GetMapping()
     @PreAuthorize("@el.check('sys:role:view')")
-    public Result findAll() {
-        return Result.succeed(sysRoleService.list());
+    public BasicResponse findAll() {
+        return BasicResponse.succeed(sysRoleService.list());
     }
 
 
     @ApiOperation(httpMethod = "POST", value = "保存角色信息")
     @PreAuthorize("@el.check('sys:role:edit')")
     @PostMapping()
-    public Result save(@RequestBody SysRole sysRole) {
+    public BasicResponse save(@RequestBody SysRole sysRole) {
 
-        return Result.succeed(sysRoleService.saveOrUpdate(sysRole));
+        return BasicResponse.succeed(sysRoleService.saveOrUpdate(sysRole));
 
     }
 
@@ -52,20 +52,20 @@ public class SysRoleController {
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('sys:role:delete')")
     @Transactional
-    public Result delete(@PathVariable("id") Long id) {
+    public BasicResponse delete(@PathVariable("id") Long id) {
         // 删除角色菜单关联关系
         sysRoleMenuService.remove(new QueryWrapper<SysRoleMenu>().eq("role_id", id));
         // 删除角色
-        return Result.succeed(sysRoleService.removeById(id));
+        return BasicResponse.succeed(sysRoleService.removeById(id));
     }
 
 
     @ApiOperation(httpMethod = "GET", value = "根据id查询角色菜单")
     @GetMapping(value = "/findRoleMenus/{id}")
     @PreAuthorize("@el.check('sys:role:view')")
-    public Result findRoleMenus(@PathVariable("id") String id) {
+    public BasicResponse findRoleMenus(@PathVariable("id") String id) {
         SysRole sysMenus = sysRoleService.findRoleMenus(id);
-        return Result.succeed(sysMenus);
+        return BasicResponse.succeed(sysMenus);
     }
 
     /**
@@ -77,12 +77,12 @@ public class SysRoleController {
     @ApiOperation(httpMethod = "POST", value = "修改角色菜单")
     @PreAuthorize("@el.check('sys:role:edit')")
     @PostMapping(value = "/saveRoleMenus/{id}")
-    public Result saveRoleMenus(@RequestBody() Set<String> menuSet, @PathVariable("id") String roleId) {
+    public BasicResponse saveRoleMenus(@RequestBody() Set<String> menuSet, @PathVariable("id") String roleId) {
 
         SysRole role = sysRoleService.getById(roleId);
 
         // 修改角色的权限
-        return Result.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(), roleId, menuSet));
+        return BasicResponse.succeed(sysRoleService.saveRoleMenus(role.getRoleCode(), roleId, menuSet));
     }
 
 }

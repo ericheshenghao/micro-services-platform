@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 网关配置
  * @author he
  */
 @Configuration
@@ -35,9 +36,8 @@ public class GatewayConfig {
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public JsonSentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
-        //return new SentinelGatewayBlockExceptionHandler(views, configurer);
-        return new JsonSentinelGatewayBlockExceptionHandler(views, configurer);
+    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
+        return new SentinelGatewayBlockExceptionHandler(views, configurer);
     }
 
 

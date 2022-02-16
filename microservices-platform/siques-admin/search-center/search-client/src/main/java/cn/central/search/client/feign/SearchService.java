@@ -1,7 +1,7 @@
 package cn.central.search.client.feign;
 
 import cn.central.common.constant.ServiceNameConstants;
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.search.client.feign.fallback.SearchServiceFallbackFactory;
 import cn.central.search.model.SearchDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -22,5 +22,5 @@ public interface SearchService {
      * @param searchDto 搜索Dto
      */
     @PostMapping(value = "/search/{indexName}")
-    Result strQuery(@PathVariable("indexName") String indexName, @RequestBody SearchDto searchDto);
+    BasicResponse strQuery(@PathVariable("indexName") String indexName, @RequestBody SearchDto searchDto);
 }

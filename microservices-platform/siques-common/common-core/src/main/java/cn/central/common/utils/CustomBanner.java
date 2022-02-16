@@ -19,7 +19,6 @@ public class CustomBanner {
             return;
         }
 
-        System.out.println("");
         String bannerShownAnsiMode = System.getProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "false");
         if (Boolean.valueOf(bannerShownAnsiMode)) {
             System.out.println(logoBanner.getBanner());

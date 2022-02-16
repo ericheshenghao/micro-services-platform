@@ -1,6 +1,6 @@
 package cn.central.search.service.impl;
 
-import cn.central.common.model.Result;
+import cn.central.common.model.BasicResponse;
 import cn.central.search.client.feign.AggregationService;
 import cn.central.search.client.feign.SearchService;
 import cn.central.search.model.LogicDelDto;
@@ -26,12 +26,12 @@ public class QueryServiceImpl implements IQueryService {
     private AggregationService aggregationService;
 
     @Override
-    public Result strQuery(String indexName, SearchDto searchDto) {
+    public BasicResponse strQuery(String indexName, SearchDto searchDto) {
         return strQuery(indexName, searchDto, null);
     }
 
     @Override
-    public Result strQuery(String indexName, SearchDto searchDto, LogicDelDto logicDelDto) {
+    public BasicResponse strQuery(String indexName, SearchDto searchDto, LogicDelDto logicDelDto) {
         setLogicDelQueryStr(searchDto, logicDelDto);
         return searchService.strQuery(indexName, searchDto);
     }
